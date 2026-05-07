@@ -126,9 +126,13 @@ Selitän asiat omin sanoin, mahdollisimman selkeästi.
 
 ## Microsoft ja Entra ID
 
-**Microsoft Entra ID** - Microsoftin pilvipohjainen identiteetti- ja pääsynhallintapalvelu. Entinen Azure AD.
+**Microsoft Entra ID** - Microsoftin pilvipohjainen identiteetti- ja pääsynhallintapalvelu. Ennen tätä kutsuttiin nimellä Azure Active Directory eli Azure AD / AAD.
 
-**Azure AD** - Microsoft Entra ID:n vanha nimi. Moni käyttää vielä tätä nimeä.
+**Azure AD / AAD** - Microsoft Entra ID:n vanha nimi. Tätä nimeä käytetään edelleen paljon puhekielessä ja vanhemmassa dokumentaatiossa.
+
+**AD** - Active Directory. Usein tällä tarkoitetaan perinteistä paikallista Windows-toimialueympäristöä eli Active Directory Domain Servicesia.
+
+**AD DS** - Active Directory Domain Services. Perinteinen Windows Server -pohjainen hakemistopalvelu, jossa hallitaan esimerkiksi domaineja, käyttäjiä, ryhmiä, koneita, OU-rakenteita ja Group Policy -asetuksia.
 
 **Tenant** - Microsoft-pilviympäristön oma vuokralainen. Organisaation oma Microsoft 365 / Entra ID -ympäristö.
 
