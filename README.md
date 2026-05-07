@@ -31,12 +31,12 @@ This repository may include notes about:
 
 | Folder | Purpose |
 | :--- | :--- |
-| `iam-thinking/` | Blog-style reflections and practical IAM thinking |
-| `entra-id/` | Microsoft Entra ID notes and possible lab work |
-| `sc-300/` | Study notes for the SC-300 certification |
-| `tools/` | Notes about IAM-related tools and platforms |
-| `governance-compliance/` | Notes about ISO/IEC 27001, GDPR, NIS2, Finnish cybersecurity regulation and risk thinking |
-| `archive/` | Older drafts and ideas I may return to later |
+| [`iam-thinking/`](./iam-thinking/) | Blog-style reflections and practical IAM thinking |
+| [`entra-id/`](./entra-id/) | Microsoft Entra ID notes and possible lab work |
+| [`sc-300/`](./sc-300/) | Study notes for the SC-300 certification |
+| [`tools/`](./tools/) | Notes about IAM-related tools and platforms |
+| [`governance-compliance/`](./governance-compliance/) | Notes about ISO/IEC 27001, GDPR, NIS2, Finnish cybersecurity regulation and risk thinking |
+
 
 ---
 
@@ -47,4 +47,3 @@ My current direction is toward IAM Analyst work.
 Long term, I want to grow toward identity architecture.
 
 For now, this repository is where I document the learning process one topic at a time.
-
