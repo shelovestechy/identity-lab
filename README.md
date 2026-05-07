@@ -8,6 +8,14 @@ Some content may become more technical over time, especially if I build my own M
 
 ---
 
+## Language Note
+
+The aim is to keep this repository mostly in English, but some notes may be written in Finnish.
+
+Some thoughts are easier to capture in my native language first. I can translate or rewrite them later if needed.
+
+---
+
 ## Topics
 
 This repository may include notes about:
