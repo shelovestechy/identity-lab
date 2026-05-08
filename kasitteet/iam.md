@@ -110,13 +110,13 @@ Service account on järjestelmän tai automaation oma tili. Ei ihmisen arkikäyt
 Ankkalinna Oy:ssä useampi työntekijä käyttää samaa tunnusta `varasto.admin`. Joku tekee muutoksen varastojärjestelmään, mutta jälkeenpäin ei tiedetä kuka sen oikeasti teki.
 
 **Elikkäs:**  
-Shared account on yhteiskäyttötunnus. Kätevä ehkä hetken, mutta auditoinnin kannalta aikamoinen roskisbrändi.
+Shared account on yhteiskäyttötunnus. Kätevä ehkä hetken, mutta auditoinnin kannalta aikamoinen sekasotku... (Käyttäjien mielestä kiva - kaikkien muiden mielestä vähemmän kiva)
 
 ---
 
 ## Identity Lifecycle
 
-**Identity Lifecycle** - Identiteetin elinkaari. Mitä käyttäjätilille tapahtuu alusta loppuun: luonti, muutokset ja poisto.
+**Identity Lifecycle** - Identiteetin elinkaari. Mitä käyttäjätilille tapahtuu alusta loppuun: luonti, muutokset ja poisto. (( Joiner, Mover ja Leaver ))
 
 **Esimerkkitilanne:**  
 Aku Ankka aloittaa Ankkalinna Oy:ssä, vaihtaa myöhemmin toiseen tiimiin ja lopulta lähtee yrityksestä. Hänen käyttäjätilinsä ja oikeutensa muuttuvat jokaisessa vaiheessa.
@@ -203,10 +203,12 @@ Deprovisioning = otetaan digitaaliset avaimet pois.
 **Access Request** - Käyttöoikeuspyyntö. Käyttäjä pyytää pääsyä johonkin järjestelmään tai resurssiin.
 
 **Esimerkkitilanne:**  
-Aku Ankka tarvitsee pääsyn raportointijärjestelmään. Hän tekee ServiceNow’hun pyynnön, jossa kertoo mitä pääsyä tarvitsee ja miksi.
+Aku Ankka tarvitsee pääsyn raportointijärjestelmään. Hän ilmoittaa tarpeesta esihenkilölleen tai tekee pyynnön yrityksen/service deskin tikettijärjestelmään, esimerkiksi ServiceNow’hun.
+
+Pelkkä käyttäjän oma pyyntö ei saisi automaattisesti riittää. Oikeuden pitäisi mennä hyväksynnän kautta, esimerkiksi esihenkilölle tai järjestelmän omistajalle.
 
 **Elikkäs:**  
-Access request = “Saanko avaimen tähän oveen?”
+Access request = “Saanko avaimen tähän oveen?” ( = käyttäjä tarvitsee pääsyn, mutta joku vastuuhenkilö varmistaa että pyyntö on perusteltu.)
 
 ---
 
