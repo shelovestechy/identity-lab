@@ -321,3 +321,171 @@ Jos yksi henkilö voi sekä luoda käyttäjän, antaa itselleen admin-oikeudet e
 
 **Elikkäs:**  
 SoD = varmistetaan, ettei yhdellä ihmisellä ole liikaa valtaa koko ketjussa.
+
+---
+
+## Entitlement
+
+**Entitlement** - Käyttöoikeus, pääsy tai etuus johonkin järjestelmään, rooliin, ryhmään tai resurssiin. Entitlement voi tarkoittaa esimerkiksi pääsyä sovellukseen, ryhmään, kansioon tai tiettyyn toimintoon järjestelmän sisällä.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:ssä Aku Ankka tarvitsee pääsyn raportointijärjestelmään. Hänelle annetaan entitlement, joka oikeuttaa katsomaan tuotannon viikkoraportteja.
+
+**Elikkäs:**  
+Entitlement on yksittäinen oikeus tai pääsy johonkin. Se on digitaalinen “saat käyttää tätä” -lupa.
+
+---
+
+## Resource
+
+**Resource** - Resurssi, johon käyttäjä tarvitsee pääsyn. Resurssi voi olla esimerkiksi sovellus, tiedosto, kansio, tietokanta, palvelin, järjestelmä tai raportti.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:n HR-kansio SharePointissa on resurssi. Kaikki eivät saa nähdä sitä, koska siellä voi olla henkilötietoja.
+
+**Elikkäs:**  
+Resource on se “kohde”, johon käyttäjä haluaa päästä. Esimerkiksi sovellus, kansio tai järjestelmä.
+
+---
+
+## Owner
+
+**Owner** - Omistaja. Henkilö tai taho, joka vastaa järjestelmästä, tiedosta, resurssista tai käyttöoikeudesta.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:ssä raportointijärjestelmällä on omistaja. Hän päättää, kuka saa järjestelmään pääsyn ja millä tasolla.
+
+**Elikkäs:**  
+Owner on se, jonka pitäisi tietää kuka saa käyttää jotain ja miksi.
+
+---
+
+## System Owner
+
+**System Owner** - Järjestelmän omistaja. Vastaa siitä, kuka saa käyttää järjestelmää, millä oikeuksilla ja millä perusteella.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:n talousjärjestelmän system owner on Roope Ankka. Jos Aku pyytää pääsyä talousjärjestelmään, Roopen tai muun määritellyn vastuuhenkilön pitää hyväksyä, kuuluuko pääsy Akulle.
+
+**Elikkäs:**  
+System owner omistaa järjestelmän käyttöoikeuslogiikan. IT voi toteuttaa, mutta omistajan pitäisi tietää kuka saa tulla sisään.
+
+---
+
+## Data Owner
+
+**Data Owner** - Tiedon omistaja. Vastaa siitä, kuka saa nähdä, käsitellä tai muokata tiettyä tietoa.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:n palkkatiedot ovat arkaluontoista dataa. Vaikka järjestelmän tekninen ylläpito olisi IT:llä, palkkatietojen data owner voi olla HR- tai talousosasto.
+
+**Elikkäs:**  
+Data owner vastaa tiedosta. Ei vain siitä missä järjestelmässä tieto on, vaan kuka saa käsitellä sitä.
+
+---
+
+## Approval Workflow
+
+**Approval Workflow** - Hyväksyntäprosessi. Määrittää kuka hyväksyy käyttöoikeuspyynnön ennen kuin oikeus annetaan.
+
+**Esimerkkitilanne:**  
+Aku Ankka pyytää pääsyä raportointijärjestelmään. Pyyntö menee ensin Akun esihenkilölle ja sen jälkeen järjestelmän omistajalle hyväksyttäväksi. Vasta hyväksyntöjen jälkeen IT lisää oikeuden.
+
+**Elikkäs:**  
+Approval workflow on käyttöoikeuspyynnön reitti: kuka tarkistaa, kuka hyväksyy ja mitä tapahtuu ennen kuin oikeus annetaan.
+
+---
+
+## Audit Trail
+
+**Audit Trail** - Lokijälki tai tapahtumahistoria siitä, kuka teki mitä, milloin ja missä järjestelmässä.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:ssä tarkistetaan myöhemmin, miksi Hannu Hanhi sai pääsyn HR-kansioon. Audit trailista nähdään, kuka pyysi oikeutta, kuka hyväksyi sen, milloin oikeus annettiin ja kuka toteutti muutoksen.
+
+**Elikkäs:**  
+Audit trail on jälki tekemisestä. Ilman sitä myöhemmin joudutaan arvaamaan, ja se on IAMissa huono peli.
+
+---
+
+## Orphaned Account
+
+**Orphaned Account** - Orpo tili. Käyttäjätili, jolla ei ole enää selvää omistajaa, aktiivista käyttäjää tai voimassa olevaa tarvetta.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:ssä vanha projektityöntekijä on lähtenyt jo vuosi sitten, mutta hänen käyttäjätilinsä on edelleen olemassa. Kukaan ei tiedä, tarvitseeko tiliä enää mihinkään.
+
+**Elikkäs:**  
+Orphaned account on käyttäjätili, joka on jäänyt yksin kummittelemaan järjestelmään.
+
+---
+
+## Dormant Account
+
+**Dormant Account** - Käyttämätön tili. Tili, jota ei ole käytetty pitkään aikaan, mutta joka voi silti olla aktiivinen.
+
+**Esimerkkitilanne:**  
+Hannu Hanhen vanhaa tunnusta ei ole käytetty kuuteen kuukauteen, mutta tili on edelleen aktiivinen. Jos tunnus kaapataan, joku voisi käyttää sitä huomaamatta.
+
+**Elikkäs:**  
+Dormant account on nukkuva tili. Se näyttää hiljaiselta, mutta voi silti olla riski.
+
+---
+
+## Orphaned Access
+
+**Orphaned Access** - Käyttöoikeus, jolla ei ole enää selkeää perustetta, omistajaa tai aktiivista tarvetta.
+
+**Esimerkkitilanne:**  
+Iines Ankka oli joskus mukana palkkaraportointiprojektissa ja sai pääsyn raporttikansioon. Projekti päättyi, mutta pääsy jäi voimaan. Kukaan ei enää tiedä, miksi Iineksellä on oikeus kansioon.
+
+**Elikkäs:**  
+Orphaned access on oikeus, joka on jäänyt roikkumaan ilman järkevää syytä.
+
+---
+
+## Birthright Access
+
+**Birthright Access** - Perusoikeudet, jotka käyttäjä saa automaattisesti aloittaessaan tietyssä roolissa, tiimissä tai organisaatiossa.
+
+**Esimerkkitilanne:**  
+Kun uusi työntekijä aloittaa Ankkalinna Oy:ssä, hän saa automaattisesti sähköpostin, Teamsin, intranetin ja pääsyn yleisiin ohjeisiin. Nämä ovat birthright access -tyyppisiä perusoikeuksia.
+
+**Elikkäs:**  
+Birthright access on aloituspaketti. Käyttäjä saa tietyt perusoikeudet automaattisesti, koska hän kuuluu organisaatioon tai tiettyyn rooliin.
+
+---
+
+## Manual Access
+
+**Manual Access** - Käsin annettu käyttöoikeus. Oikeus ei tule automaation, roolin tai säännön kautta, vaan joku lisää sen manuaalisesti.
+
+**Esimerkkitilanne:**  
+Service Desk lisää Akun käsin tiettyyn AD-ryhmään, koska hänelle on tullut hyväksytty tiketti. Oikeus ei tule automaattisesti HR-tiedon tai roolin perusteella.
+
+**Elikkäs:**  
+Manual access on käsityötä. Toimii joskus, mutta jos sitä on paljon, ympäristöstä voi tulla sekava.
+
+---
+
+## Automated Access
+
+**Automated Access** - Automaation kautta annettu käyttöoikeus. Oikeus voi perustua esimerkiksi käyttäjän osastoon, rooliin, työnimikkeeseen tai HR-järjestelmän tietoihin.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy:ssä kaikki HR-osastolle merkityt työntekijät lisätään automaattisesti HR-perusryhmään. Kun käyttäjän osasto vaihtuu pois HR:stä, automaatio poistaa oikeuden.
+
+**Elikkäs:**  
+Automated access tarkoittaa, että oikeudet tulevat sääntöjen perusteella eikä jokaisen käyttäjän kohdalla tarvitse tehdä kaikkea käsin.
+
+---
+
+## Access Model
+
+**Access Model** - Malli, jolla oikeuksia annetaan, hallitaan ja poistetaan. Esimerkiksi roolipohjainen, attribuuttipohjainen tai näiden yhdistelmä.
+
+**Esimerkkitilanne:**  
+Ankkalinna Oy voi päättää, että tuotannon työntekijät saavat oikeudet roolin perusteella, mutta tiettyihin raportteihin pääsy perustuu myös osastoon ja sijaintiin.
+
+**Elikkäs:**  
+Access model on suunnitelma siitä, millä logiikalla oikeuksia jaetaan. Ilman mallia oikeuksia annetaan helposti “mututuntumalla”.
