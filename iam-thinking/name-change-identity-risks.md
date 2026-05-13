@@ -1,438 +1,347 @@
-# Nimenmuutos ja identiteettiriskit Microsoft-ympäristössä
+# Name Change and Identity Continuity
 
-Nimenmuutos kuulostaa pieneltä asialta, mutta IT-ympäristössä se voi olla yllättävän monimutkainen.
+A name change sounds like a small request.
 
-Kyse ei ole aina vain siitä, että käyttäjän nimi vaihdetaan yhteen kenttään. Nimi voi liittyä kirjautumiseen, sähköpostiosoitteeseen, näkyvään nimeen, AD-attribuutteihin, Microsoft Entra ID:hen, Exchangeen, HR-järjestelmään, synkronointiin ja käyttäjän tunnistamiseen eri järjestelmissä.
+In a user’s real life, it may be simple: their name changed and they want the systems to reflect that.
 
-Jos nimenmuutos tehdään väärästä paikasta tai väärillä attribuuteilla, pieni muutos voi aiheuttaa ison sotkun.
+But in a Microsoft environment, a name change can reveal how well the organization actually understands identity.
 
----
+Because the real question is not only:
 
-## Pikakatsaus
+> What should the new name be?
 
-Nimenmuutoksessa pitää miettiä ainakin:
+The real question is:
 
-- mistä käyttäjän tiedot tulevat
-- onko käyttäjä cloud-only vai AD-synkronoitu
-- muuttuuko näkyvä nimi
-- muuttuuko kirjautumistunnus eli UPN
-- muuttuuko sähköpostiosoite
-- jätetäänkö vanha sähköposti aliakseksi
-- vaikuttaako muutos integraatioihin tai sovelluksiin
-- miten muutos testataan jälkeenpäin
+> What makes this person the same identity across systems after the change?
 
-**Elikkäs:**  
-Nimenmuutos ei ole vain “vaihda sukunimi”. Se on pieni identiteettimuutos, joka voi vaikuttaa moneen järjestelmään yhtä aikaa.
+That is the part I find interesting.
 
----
+A person can change their name.  
+An email address can change.  
+A display name can change.  
+A login name can change.
 
-## Esimerkkitilanne
+But the identity should not split.
 
-Iines Ankan nimi vaihtuu muotoon Iines Hanhi.
+The user should not accidentally become a “new person” in one system while still being the old person in another.
 
-Ankkalinna Oy:ssä Iineksen nimi pitäisi päivittää niin, että:
+That is where a simple name change becomes an identity risk.
 
-- käyttäjän näkyvä nimi muuttuu oikein
-- sähköpostiosoite päivittyy tarvittaessa
-- vanha sähköpostiosoite jää aliakseksi
-- kirjautuminen toimii edelleen
-- käyttäjän tiedot synkronoituvat oikein
-- käyttäjälle ei synny uutta tunnusta vahingossa
-- eri järjestelmissä näkyy sama henkilö eikä kaksi eri identiteettiä
+## A name is human, but identity is technical
 
-Jos muutos tehdään hallitusti, käyttäjälle tämä voi näkyä vain uutena nimenä ja mahdollisesti uutena sähköpostiosoitteena.
+For the user, the request may be very understandable:
 
-Jos muutos tehdään väärin, Service Desk voi saada pian tikettejä tyyliin:
+“My name has changed. Please update it.”
 
-- käyttäjä ei pääse kirjautumaan
-- sähköposti ei tule perille
-- Outlookissa näkyy vanha nimi
-- Teamsissa näkyy eri nimi
-- vanhalle osoitteelle lähetetyt viestit katoavat
-- käyttäjän tiedot eivät päivity järjestelmissä
-- käyttäjälle näyttää syntyneen toinen tili
+That sounds simple.
 
-**Elikkäs:**  
-Nimenmuutos ei ole vain kosmeettinen muutos. Se voi vaikuttaa koko käyttäjän digitaaliseen identiteettiin.
+And from the human side, it is simple. A person has a new name and wants to be seen correctly in systems.
 
----
+But the technical side is not always one clean field called “name”.
 
-## Ensin pitää selvittää source of authority
+The same person may exist across HR data, Active Directory, Microsoft Entra ID, Exchange, Teams, Outlook, line-of-business applications, reports, audit logs and integrations.
 
-Ennen kuin nimenmuutosta tehdään, pitää selvittää mistä käyttäjän tiedot oikeasti tulevat.
+Some systems care about the display name.  
+Some care about the email address.  
+Some care about the login name.  
+Some may depend on an identifier that should never have been treated as permanent in the first place.
 
-Tätä voidaan ajatella käsitteellä **source of authority**.
+That is why I do not see name changes as only cosmetic changes.
 
-Se tarkoittaa järjestelmää, joka on käyttäjätiedon virallinen lähde.
+They are small identity changes.
 
-Käyttäjätiedon lähde voi olla esimerkiksi:
+And small identity changes can expose weak identity design.
 
-- HR-järjestelmä
-- paikallinen Active Directory
-- Microsoft Entra ID
-- jokin IAM- tai IGA-järjestelmä
+## The danger is not the name change itself
 
-Jos käyttäjän tiedot tulevat HR-järjestelmästä, nimenmuutos pitäisi usein aloittaa sieltä.
+The dangerous part is not that the user’s name changes.
 
-Jos käyttäjä on synkronoitu paikallisesta AD:stä Microsoft Entra ID:hen, muutosta ei yleensä kannata tehdä suoraan Entraan, koska paikallinen AD voi yliajaa muutoksen seuraavassa synkronoinnissa.
+The dangerous part is when systems disagree about whether the changed user is still the same identity.
 
-Jos käyttäjä on **cloud-only**, eli olemassa vain Microsoft Entra ID:ssä / Microsoft 365:ssä, muutos voidaan yleensä tehdä pilven hallintatyökaluissa.
+If the change is done badly, the user may still be the same person in real life, but the systems may start behaving like there are two identities.
 
-**Elikkäs:**  
-Ennen kuin muutat mitään, selvitä kuka “omistaa” käyttäjän tiedot. Muuten voit korjata väärää järjestelmää ja ihmetellä miksi muutos katoaa tai rikkoo jotain muuta.
+One system has the new name.  
+Another still has the old name.  
+One application recognizes the user.  
+Another does not.  
+Email works in one direction but not another.  
+Reports show old values.  
+A new account is created by mistake.  
+The old account stays active because nobody is sure what can be removed.
 
----
+That is not just a display problem.
 
-## Cloud-only käyttäjä
+That is identity continuity breaking.
 
-Cloud-only käyttäjä tarkoittaa käyttäjää, jota ei synkronoida paikallisesta AD:stä.
+A good name change should preserve the chain between the person, the account, the mailbox, the permissions, the audit history and the connected applications.
 
-Tällainen käyttäjä elää suoraan Microsoft Entra ID:ssä / Microsoft 365:ssä.
+The visible values may change.
 
-Cloud-only käyttäjän kohdalla nimenmuutosta voidaan yleensä hallita esimerkiksi:
+The identity should remain continuous.
 
-- Microsoft 365 admin centerissä
-- Microsoft Entra admin centerissä
-- Exchange admin centerissä
-- PowerShellillä, jos organisaation käytännöt sen sallivat
+## Source of authority decides where the change should start
 
-Muutettavia asioita voivat olla esimerkiksi:
+One of the first things I would want to understand is where the user’s identity data actually comes from.
 
-- näkyvä nimi
-- etunimi
-- sukunimi
-- käyttäjätunnus
-- ensisijainen sähköpostiosoite
-- sähköpostialias
-- käyttäjän yhteystiedot
+In some customer environments, the source is HR.
 
-Tässäkin pitää olla tarkkana. Vaikka käyttäjä olisi cloud-only, ei silti kannata muuttaa kaikkea sokkona.
+In others, the user is managed in local Active Directory and synced to Microsoft Entra ID.
 
-**Elikkäs:**  
-Cloud-only käyttäjän muutokset tehdään yleensä pilvessä, mutta silloinkin pitää ymmärtää mitä kenttää muuttaa ja mihin se vaikuttaa.
+Sometimes the user is cloud-only and managed directly in Microsoft 365 or Entra.
 
----
+This matters because changing the right-looking field in the wrong place may not solve anything.
 
-## Synkronoitu käyttäjä
+It may even create more confusion.
 
-Synkronoitu käyttäjä tarkoittaa käyttäjää, jonka tiedot tulevat paikallisesta Active Directorysta Microsoft Entra ID:hen.
+If the user is synced from local AD and someone changes the name only in Entra, the change may be overwritten later.
 
-Tällaisessa ympäristössä käytössä voi olla esimerkiksi Microsoft Entra Connect tai muu synkronointiratkaisu.
+From the user’s or support team’s point of view, that can look strange.
 
-Tällöin käyttäjätietojen virallinen lähde voi olla paikallinen AD tai HR-järjestelmä, ei Entra ID.
+The name was fixed, then suddenly it was old again.
 
-Jos käyttäjän nimi muutetaan suoraan Entran puolella, muutos ei välttämättä pysy. Se voi palautua takaisin vanhaksi seuraavassa synkronoinnissa.
+But the system is not being mysterious. It is just following the configured source.
 
-Synkronoidun käyttäjän kohdalla nimenmuutos pitää yleensä tehdä siellä, mistä attribuutit oikeasti tulevat.
+That is why source of authority matters.
 
-Se voi tarkoittaa esimerkiksi:
+Before changing the field, it is better to understand who owns the truth.
 
-- HR-järjestelmää
-- paikallista Active Directorya
-- Exchange-hallintaa
-- identiteetinhallinnan järjestelmää
+Otherwise people end up correcting symptoms in one system while the real source keeps pushing old data back.
 
-**Elikkäs:**  
-Jos käyttäjä on AD-synkronoitu, Entra ei välttämättä ole oikea paikka muuttaa nimeä. Muutos pitää tehdä lähteessä, muuten synkronointi voi jyrätä sen yli.
+## UPN and email are risky when systems treat them as permanent IDs
 
----
+One common trap is assuming that login name and email address are always the same thing.
 
-## Mitä attribuutteja nimenmuutos voi koskea?
+They often look the same.
 
-Nimenmuutoksessa pitää erottaa eri asiat toisistaan.
+That does not mean they are technically the same.
 
-Käyttäjällä voi olla:
+A user may log in with one value and send email from another. Sometimes this is intentional. Sometimes it is historical. Sometimes it comes from migrations, old naming conventions or decisions nobody wants to touch anymore.
 
-- näkyvä nimi
-- etunimi
-- sukunimi
-- kirjautumistunnus
-- sähköpostiosoite
-- sähköpostialiakset
-- vanha AD-käyttäjänimi
-- Exchange-attribuutit
-- HR-järjestelmän henkilötiedot
+Changing an email address may mostly affect communication.
 
-Nämä eivät ole kaikki sama asia.
+Changing a UPN can affect login, applications, SSO, scripts, integrations, reporting and user matching.
 
-| Attribuutti / termi | Mitä se tarkoittaa |
-| :--- | :--- |
-| **displayName** | Käyttäjän näkyvä nimi esimerkiksi osoitekirjassa, Teamsissa ja Microsoft 365 -palveluissa |
-| **givenName** | Käyttäjän etunimi |
-| **surname / sn** | Käyttäjän sukunimi |
-| **userPrincipalName / UPN** | Käyttäjän kirjautumistunnus, usein sähköpostiosoitteen näköinen |
-| **mail** | Käyttäjän sähköpostiosoite-attribuutti |
-| **proxyAddresses** | Lista käyttäjän sähköpostiosoitteista ja aliaksista |
-| **primary SMTP address** | Käyttäjän ensisijainen sähköpostiosoite |
-| **secondary smtp address** | Käyttäjän lisäosoite tai alias |
-| **mailNickname** | Exchange-/Microsoft 365 -alias, usein sähköpostiosoitteen alkuosa |
-| **sAMAccountName** | Perinteisen AD:n vanhempi kirjautumisnimi |
-| **object ID / OID** | Microsoft Entra ID:n muuttumaton käyttäjän tunniste |
-| **source of authority** | Järjestelmä, josta käyttäjätieto virallisesti tulee |
+That is a very different level of change.
 
-**Elikkäs:**  
-Nimi ei ole vain yksi kenttä. Käyttäjällä voi olla erikseen näkyvä nimi, kirjautumistunnus, sähköpostiosoite, aliakset ja AD:n vanhat tunnistetiedot.
+This is where older environments and integrations can become interesting in the worst possible way.
 
----
+A display name is for humans.
 
-## UPN ei ole aina sama asia kuin sähköposti
+A stable identifier is for systems.
 
-Yksi tärkeä asia on ymmärtää ero **UPN:n** ja sähköpostiosoitteen välillä.
+Problems start when systems are built to depend on values that were never meant to be permanent.
 
-**UPN** eli `userPrincipalName` on käyttäjän kirjautumistunnus Microsoft-ympäristössä.
+If an application or integration treats UPN or email address as the permanent identity of the user, a name change can expose that weakness.
 
-Se näyttää usein sähköpostiosoitteelta, esimerkiksi `iines.hanhi@ankkalinna.fi`.
+The user did not become a new person.
 
-Mutta UPN ei ole automaattisesti sama asia kuin käyttäjän ensisijainen sähköpostiosoite.
+But the system may fail to recognize them as the same person because it was relying on a value that changed.
 
-Käyttäjällä voi teoriassa olla esimerkiksi:
+That is not really a name change problem.
 
-- **UPN / kirjautumistunnus:** `iines.ankka@ankkalinna.fi`
-- **Primary SMTP / ensisijainen sähköpostiosoite:** `iines.hanhi@ankkalinna.fi`
+That is an identity design problem showing itself through a name change.
 
-Tämä voi olla hämmentävää käyttäjälle, jos kirjautuminen tapahtuu yhdellä osoitteella ja sähköpostia lähetetään toisella.
+## Aliases protect communication continuity
 
-UPN:n muuttamista pitää kuitenkin harkita tarkasti.
+Email is often the most visible part of a name change.
 
-UPN voi olla käytössä esimerkiksi:
+If Iines Ankka becomes Iines Hanhi, it may make sense that her new primary email address becomes: iines.hanhi@ankkalinnaidentitylab.fi
 
-- kirjautumisessa
-- SSO-ratkaisuissa
-- sovellusten käyttäjätunnisteena
-- integraatioissa
-- API-yhteyksissä
-- PowerShell-skripteissä
-- provisioinnissa
-- raportoinnissa
-- auditoinnissa
-- vanhoissa sovelluksissa, jotka olettavat UPN:n pysyvän samana
+But the old address may still matter:  iines.ankka@ankkalinnaidentitylab.fi
 
-Teknisesti parempi tunniste käyttäjälle olisi muuttumaton tunniste, kuten Microsoft Entra ID:n **object ID**, koska UPN ja sähköpostiosoite voivat muuttua.
 
-Kaikki sovellukset ja integraatiot eivät kuitenkaan välttämättä ole rakennettu näin siististi. Siksi UPN:n muutos voi aiheuttaa ongelmia, jos jokin järjestelmä käyttää UPN:ää käyttäjän pysyvänä tunnisteena.
+People may still send email to the old address.
 
-**Elikkäs:**  
-UPN on kirjautumistunnus, sähköpostiosoite on postia varten. Ne voivat näyttää samalta, mutta ne eivät ole teknisesti sama asia. UPN:ää ei kannata muuttaa sokkona, koska se voi olla kiinni kirjautumisessa, integraatioissa ja sovellusten käyttäjätunnisteissa.
+External contacts may have it saved.
 
----
+Old documents, forms, systems or customer records may still contain it.
 
-## Sähköpostin huomiointi
+If the old address is removed without thinking, messages can stop reaching the user.
 
-Sähköposti on usein nimenmuutoksen näkyvin osa käyttäjälle.
+That creates unnecessary support tickets and a bad user experience.
 
-Jos Iines Ankan uusi nimi on Iines Hanhi, uusi sähköpostiosoite voisi olla `iines.hanhi@ankkalinna.fi`.
+Keeping the old address as an alias is often the practical way to protect communication continuity.
 
-Mutta vanha osoite kannattaa usein jättää aliakseksi: `iines.ankka@ankkalinna.fi`.
+The user can move forward with the new name, but old communication paths do not break overnight.
 
-Näin vanhalle nimelle lähetetyt sähköpostit tulevat edelleen perille.
+That small detail can make the difference between a smooth change and a messy one.
 
-Exchange- ja Microsoft 365 -ympäristöissä tämä liittyy usein käyttäjän sähköpostiosoitteisiin ja `proxyAddresses`-tyyppisiin tietoihin.
+## Bad changes create identity split
 
-Käyttäjällä voi olla esimerkiksi:
+The worst outcome is not that Teams shows the old name for a while.
 
-- **Primary SMTP / ensisijainen sähköposti:** `SMTP:iines.hanhi@ankkalinna.fi`
-- **Secondary smtp / vanha alias:** `smtp:iines.ankka@ankkalinna.fi`
+That can be annoying, but it is usually not the real disaster.
 
-Huomaa ero:
+The bigger risk is identity split.
 
-- `SMTP:` = ensisijainen osoite
-- `smtp:` = lisäosoite / alias
+That means the same real person starts appearing as different identities in different systems.
 
-Tämä pieni kirjainero voi näyttää mitättömältä, mutta sähköpostipuolella sillä voi olla merkitystä.
+This can happen if someone creates a new account instead of updating the existing one.
 
-**Elikkäs:**  
-Nimenmuutoksessa sähköpostiosoite voidaan usein päivittää käyttäjän uuteen nimeen, mutta vanha osoite kannattaa säilyttää aliaksena. UPN:n muuttaminen on isompi päätös, koska se voi vaikuttaa kirjautumiseen ja integraatioihin.
+It can happen if old and new values are not connected properly.
 
----
+It can happen if applications use email or UPN as a matching key and do not handle the change well.
 
-## Mitä voi mennä pieleen?
+It can happen if sync sources are unclear and different systems keep different versions of the user.
 
-Jos nimenmuutos tehdään väärin, seurauksena voi olla esimerkiksi:
+Identity split creates practical problems.
 
-- käyttäjän kirjautumistunnus muuttuu väärin
-- käyttäjä ei pääse kirjautumaan
-- sähköposti ei kulje
-- vanhalle osoitteelle tulevat viestit eivät tule perille
-- käyttäjän nimi näkyy eri tavalla eri järjestelmissä
-- käyttäjän tiedot synkronoituvat väärin
-- Teamsissa tai Outlookissa näkyy vanha nimi pitkään
-- käyttäjälle syntyy vahingossa uusi tunnus
-- vanha tili jää roikkumaan
-- integraatio lakkaa tunnistamasta käyttäjää oikein
-- raportointi ja auditointi sekoittuvat
-- Service Desk joutuu korjaamaan sotkua jälkikäteen
+The user may lose access.  
+The mailbox may not behave correctly.  
+Permissions may not follow the right account.  
+Audit history may become harder to follow.  
+Reports may become less reliable.  
+Old accounts may remain active because nobody is fully sure what they belong to.
 
-Usein ongelma ei johdu yhdestä kentästä, vaan siitä että useampi järjestelmä käsittelee samaa henkilöä vähän eri tavalla.
+That is why a controlled name change should protect continuity.
 
-**Elikkäs:**  
-Nimenmuutos voi näyttää pieneltä, mutta jos järjestelmät eivät ole samaa mieltä siitä kuka käyttäjä on, siitä tulee nopeasti sotku.
+Same person.  
+Same account.  
+Same mailbox history.  
+Same permission logic.  
+Same audit chain.
 
----
+Only the values that should change are changed.
 
-## Mitä ei kannata tehdä sokkona?
+## Audit needs continuity, not just a correct display name
 
-Nimenmuutoksessa ei kannata vain avata käyttäjää ja vaihtaa satunnaisia kenttiä.
+From an audit point of view, the important question is not only whether the display name looks correct today.
 
-Huonoja ideoita ovat esimerkiksi:
+The bigger question is whether the organization can still understand the identity history.
 
-- muuttaa UPN ilman että tiedetään vaikutus kirjautumiseen
-- muuttaa UPN vain siksi, että nimi muuttui
-- poistaa vanha sähköpostiosoite ilman alias-suunnitelmaa
-- muuttaa Entran attribuutteja, vaikka käyttäjä on AD-synkronoitu
-- muuttaa `mail`, `proxyAddresses` tai `mailNickname` ymmärtämättä Exchange-vaikutusta
-- tehdä muutokset eri järjestelmiin eri aikaan ilman tarkistusta
-- unohtaa tiedottaa käyttäjälle uudesta kirjautumistavasta tai sähköpostiosoitteesta
-- jättää vanha nimi kokonaan pois, vaikka sitä tarvitaan sähköpostin aliaksena
-- luoda käyttäjälle uusi tunnus vain siksi, että nimi muuttui
+If Iines changes her name, can we still prove that the old and new values belong to the same person and same account?
 
-**Elikkäs:**  
-Älä arvaa. Selvitä ensin mistä tieto tulee, mitä kenttää pitää muuttaa ja mitä vaikutuksia sillä on.
+Can we explain what changed?
 
----
+Can we see when it changed?
 
-## Hyvä tapa ajatella nimenmuutosta
+Can we tell whether permissions stayed with the correct identity?
 
-Nimenmuutosta kannattaa käsitellä pienenä muutospyyntönä, ei vain pikakorjauksena.
+Can we avoid creating duplicate accounts or leaving old accounts active?
 
-Ennen muutosta pitäisi kysyä:
+If the answer is unclear, the issue is bigger than a cosmetic name problem.
 
-- Mikä nimi muuttuu?
-- Muuttuuko pelkkä näkyvä nimi?
-- Muuttuuko kirjautumistunnus?
-- Muuttuuko sähköpostiosoite?
-- Säilytetäänkö vanha sähköposti aliaksena?
-- Onko käyttäjä cloud-only vai AD-synkronoitu?
-- Tuleeko tieto HR-järjestelmästä?
-- Pitääkö muutos tehdä HR:ssä, AD:ssä, Entrassa vai Exchangessa?
-- Vaikuttaako muutos käyttäjän sovelluksiin?
-- Voiko UPN-muutos vaikuttaa integraatioihin tai API-yhteyksiin?
-- Pitääkö käyttäjää tiedottaa muutoksesta?
-- Kuka hyväksyy muutoksen?
-- Miten muutos dokumentoidaan?
+It becomes an evidence problem.
 
-**Elikkäs:**  
-Hyvä nimenmuutos ei ole vain tekninen klikkaus. Se on pieni hallittu muutos, jossa tiedetään mitä muutetaan, miksi muutetaan ja mihin se vaikuttaa.
+A name change should not break the ability to understand who had access, when they had it and under which identity.
 
----
+This matters especially in environments where auditability, data protection or regulated access are important.
 
-## Tarkistuslista ennen muutosta
+The account may have a new visible name.
 
-Ennen nimenmuutosta:
+But the history should still make sense.
 
-- tarkista käyttäjän source of authority
-- tarkista onko käyttäjä cloud-only vai AD-synkronoitu
-- tarkista nykyinen näkyvä nimi
-- tarkista nykyinen UPN
-- tarkista nykyinen ensisijainen sähköpostiosoite
-- tarkista nykyiset sähköpostialiakset
-- tarkista tuleeko nimi HR-järjestelmästä
-- tarkista pitääkö käyttäjän kirjautumistunnus vaihtaa vai kannattaako UPN pitää ennallaan
-- tarkista pitääkö sähköpostiosoite vaihtaa
-- sovi säilytetäänkö vanha osoite aliaksena
-- tarkista onko olemassa kaimoja
-- tarkista voiko muutos vaikuttaa sovelluksiin, integraatioihin tai API-yhteyksiin
-- tiedota käyttäjälle mitä muuttuu
-- dokumentoi pyyntö ja hyväksyntä
+## I have seen how small identity changes create support noise
 
----
+Working with different customer environments has made me notice how easily small identity changes can create unnecessary noise.
 
-## Tarkistuslista muutoksen jälkeen
+Sometimes the issue is not the actual change.
 
-Muutoksen jälkeen:
+The issue is unclear ownership.
 
-- tarkista että käyttäjä näkyy oikealla nimellä
-- tarkista että kirjautuminen toimii
-- tarkista että sähköposti kulkee uuteen osoitteeseen
-- tarkista että vanhalle osoitteelle lähetetty posti tulee perille
-- tarkista että vanha osoite näkyy aliaksena
-- tarkista että Teams, Outlook ja osoitekirja päivittyvät
-- tarkista ettei käyttäjälle syntynyt uutta tiliä vahingossa
-- tarkista ettei vanha tili jäänyt aktiiviseksi turhaan
-- tarkista että synkronointi on mennyt läpi
-- tarkista että tärkeät sovellukset ja integraatiot toimivat edelleen
-- dokumentoi mitä muutettiin ja miksi
+Or missing communication.
 
-**Elikkäs:**  
-Muutos ei ole valmis sillä hetkellä kun kenttä on vaihdettu. Muutos on valmis vasta kun on tarkistettu, että käyttäjä, sähköposti ja järjestelmät toimivat oikein.
+Or someone changing one value without knowing which system will overwrite it later.
 
----
+Or the user not being told what will actually change.
 
-## Kaimat ja nimeämiskäytännöt
+In business environments, this can create confusion around email, login, reporting and application access.
 
-Nimenmuutoksissa ja uusien käyttäjien luonnissa ongelmaksi voivat tulla myös kaimat.
+In healthcare-related environments, the same kind of confusion can become even more stressful because people need access to work quickly and safely.
 
-Jos Ankkalinna Oy:ssä on jo käyttäjä nimeltä `aku.ankka@ankkalinna.fi` ja taloon tulee toinen Aku Ankka, käyttäjätunnusta tai sähköpostiosoitetta ei voida tehdä samalla tavalla.
+The user usually does not care whether the problem is Entra, AD, Exchange, sync, cache, an application connector or some old integration.
 
-Tällöin tarvitaan selkeä nimeämiskäytäntö.
+They just see that their name is wrong, email behaves strangely or login no longer works the way they expected.
 
-Esimerkiksi:
+And honestly, that is fair.
 
-- `etunimi.sukunimi`
-- `etunimi.sukunimi1`
-- `etunimi.toisennimenalkukirjain.sukunimi`
-- `etunimi.sukunimi.osasto`
+From the user’s point of view, IT owns the experience.
 
-Tärkeintä on, että käytäntö on johdonmukainen.
+That is why even a small identity change should have a clear path.
 
-Jos jokainen tapaus ratkaistaan eri tavalla, ympäristöstä tulee nopeasti sekava.
+Not a heavy process for the sake of process.
 
-**Elikkäs:**  
-Kaimat eivät ole vain nimiongelma. Ne ovat identiteetinhallinnan ongelma, jos nimeämiskäytäntöä ei ole mietitty.
+Just enough structure that people know what is changing, where it is changed, who owns the source and how the result will be checked.
 
----
+## Example: Iines Ankka becomes Iines Hanhi
 
-## Ankkalinna-esimerkki: hallittu nimenmuutos
+In my Ankkalinna lab scenario, Iines Ankka changes her name to Iines Hanhi.
 
-Iines Ankka ilmoittaa, että hänen uusi nimensä on Iines Hanhi.
+A controlled version of the change would not start with randomly editing every visible field.
 
-Ankkalinna Oy:n hyvä prosessi voisi mennä näin:
+First, I would check where Iines’ identity data comes from.
 
-1. HR päivittää nimen HR-järjestelmään.
-2. Tarkistetaan, tuleeko nimi HR-järjestelmästä AD:hen tai Entra ID:hen automaation kautta.
-3. Tarkistetaan, onko Iines cloud-only vai AD-synkronoitu käyttäjä.
-4. Päätetään muuttuuko vain näkyvä nimi.
-5. Päätetään muuttuuko UPN eli kirjautumistunnus vai jätetäänkö se ennalleen.
-6. Päätetään muuttuuko ensisijainen sähköpostiosoite.
-7. Lisätään vanha sähköpostiosoite aliakseksi.
-8. Tarkistetaan, ettei uudelle nimelle tai osoitteelle ole kaimaa.
-9. Tarkistetaan, voiko UPN-muutos vaikuttaa sovelluksiin, integraatioihin tai API-yhteyksiin.
-10. Tiedotetaan käyttäjälle mahdollisesta uudesta kirjautumistavasta tai sähköpostiosoitteesta.
-11. Tehdään muutos oikeassa lähdejärjestelmässä.
-12. Tarkistetaan synkronointi.
-13. Testataan kirjautuminen ja sähköpostin kulku.
-14. Tarkistetaan tärkeimmät sovellukset ja integraatiot.
-15. Dokumentoidaan muutos.
+Is she cloud-only?  
+Is she synced from local AD?  
+Does HR own the name data?  
+Does the email address need to change?  
+Does the UPN need to change, or should it stay the same?  
+Should the old address remain as an alias?  
+Could any application or integration depend on the current value?
 
-Tässä mallissa ei vain vaihdeta nimeä sokkona, vaan varmistetaan koko ketju.
+A simple target state could be:
 
-**Elikkäs:**  
-Hyvä nimenmuutos kulkee lähdejärjestelmästä hallitusti eteenpäin. Ei niin, että joku vaihtaa kiireessä yhden kentän ja toivoo parasta.
+Display name: Iines Hanhi
+Primary email: iines.hanhi@ankkalinnaidentitylab.fi
 
----
+Old email alias: iines.ankka@ankkalinnaidentitylab.fi
 
-## Oma tämänhetkinen ajatus
+Account identity: same user, not a new account
+Permissions: remain connected to the same identity
 
-Nimenmuutos on hyvä esimerkki siitä, miten identiteetinhallinnassa pieneltä näyttävä asia voi koskea montaa järjestelmää yhtä aikaa.
 
-Käyttäjän näkökulmasta kyse on ehkä vain uudesta nimestä.
+The important part is not the new name itself.
 
-IT:n näkökulmasta kyse voi olla:
+The important part is avoiding identity split.
 
-- identiteetistä
-- kirjautumisesta
-- sähköpostista
-- synkronoinnista
-- järjestelmien välisestä tiedonkulusta
-- tietojen omistajuudesta
-- käyttäjäkokemuksesta
-- integraatioista
-- audit trailista
+Iines should remain the same user.
 
-Siksi nimenmuutosta ei pitäisi käsitellä pelkkänä pikamuokkauksena.
+Same account.
 
-Se pitäisi tehdä hallitusti, oikeasta lähteestä ja niin, että vanha sähköposti, kirjautuminen ja käyttäjän perustiedot säilyvät järkevinä.
+Same access history.
 
-UPN:n kohdalla pitää olla erityisen varovainen. Sähköpostiosoite voidaan usein päivittää käyttäjän uuteen nimeen ja vanha osoite jättää aliakseksi, mutta UPN:n muuttaminen voi vaikuttaa kirjautumiseen, sovelluksiin ja integraatioihin.
+Same mailbox continuity.
 
-**Elikkäs:**  
-Nimenmuutos näyttää pieneltä, mutta IAM-ajattelussa se on hyvä muistutus siitä, että identiteetti on kokonaisuus eikä vain yksi nimi kentässä.
+Same identity chain.
+
+Only the relevant name and email values should change.
+
+## My current thinking
+
+Name changes are a good example of how identity work can look simple from the outside and still be connected to many layers underneath.
+
+A name is human.
+
+An account is technical.
+
+A working digital identity connects both.
+
+It connects the person to login, email, permissions, mailbox history, applications, reports, audit trail and support processes.
+
+Those layers do not always move together automatically.
+
+That is why I think name changes should be handled with more respect than “just edit the name”.
+
+Not fear.
+
+Not overengineering.
+
+Just respect for the fact that identity is connected.
+
+A good name change preserves identity continuity.
+
+The user’s visible details may change, but the underlying identity, permissions, mailbox history, audit trail and application relationships should remain intact.
+
+The goal is simple:
+
+The user should continue working.
+
+Email should continue flowing.
+
+Login should still make sense.
+
+Old addresses should not break communication.
+
+Systems should still agree that this is the same person.
+
+That is a good name change.
