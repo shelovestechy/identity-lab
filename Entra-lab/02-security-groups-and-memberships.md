@@ -135,7 +135,7 @@ He belongs to:
 - `SG-Security-Basic`
 - `SG-Privileged-Role-Eligible`
 
-![Mikki group membership](./Screenshots/05-mikki-group-membership.png)
+![Mikki group membership](./Screenshots/05-mikki-group-membership.png.png)
 
 This makes him useful for future privileged access examples.
 
