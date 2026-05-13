@@ -1,404 +1,416 @@
-# Access Request ei ole vain tiketti
+# Access Request Is Not Just a Ticket
 
-Käyttöoikeuspyyntö voi näyttää arjessa yksinkertaiselta tikettityöltä.
+This note documents what I have practised and thought through around access requests.
 
-Käyttäjä tarvitsee pääsyn johonkin järjestelmään, kansioon tai sovellukseen. Tiketti tulee sisään. Joku hyväksyy. IT lisää oikeuden. Tiketti suljetaan.
+On the surface, an access request can look like normal ticket work.
 
-Paperilla tämä kuulostaa helpolta.
+A user needs access to a system, folder or application.  
+A ticket comes in.  
+Someone approves it.  
+IT adds the access.  
+The ticket is closed.
 
-Käytännössä käyttöoikeuspyyntö on paljon enemmän kuin tekninen tehtävä.
+Paper-wise, that looks simple.
 
-Se liittyy tarpeeseen, vastuuseen, hyväksyntään, järjestelmän omistajuuteen, tietoturvaan, dokumentointiin ja siihen kuka myöhemmi pystyy todistamaan miksi oikeus annettiin.
+In reality, an access request is not only a technical task.
 
----
+It is a decision about who gets access, why they need it, who approved it, what risk the access creates and how the organization can prove later that the access was justified.
 
-## Pikakatsaus
+The technical action may be quick.
 
-Hyvässä käyttöoikeuspyynnössä pitäisi selvitä ainakin:
+The decision behind it should not be random.
 
-- kuka tarvitsee oikeuden
-- mihin järjestelmään tai resurssiin oikeus tarvitaan
-- miksi oikeus tarvitaan
-- kuka hyväksyy pyynnön
-- kuka omistaa järjestelmän tai tiedon
-- onko oikeus pysyvä vai väliaikainen
-- milloin oikeus pitää tarkistaa tai poistaa
-- mitä riskiä oikeuteen liittyy
-- mitä tikettiin dokumentoidaan
+## Key idea
 
-**Elikkäs:**  
-Access request ei ole vain “lisää käyttäjä ryhmään”. Se on päätös siitä, kuka saa pääsyn johonkin ja millä perusteella.
+An access request is one of the places where business need, approval, system ownership, technical execution and audit evidence meet.
 
----
+If the request is unclear, the access decision becomes weak.
 
-## Esimerkkitilanne
+And if access decisions are weak often enough, the whole access model starts to drift.
 
-Aku Ankka tarvitsee pääsyn Ankkalinna Oy:n raportointijärjestelmään.
+## What I practised
 
-Hän tekee pyynnön yrityksen tikettijärjestelmään, esimerkiksi ServiceNow’hun, tai ilmoittaa tarpeesta esihenkilölleen.
+In this learning area, I practised thinking through:
 
-Pyynnössä lukee:
+- what information an access request should contain
+- why user request and approval are not the same thing
+- why managers and system owners have different responsibilities
+- where Service Desk fits in the process
+- why urgent access still needs control
+- why temporary access needs an end point
+- why access level matters
+- what kind of evidence should remain in the ticket
+- how poor access requests can create role creep and audit problems
 
-- käyttäjä: Aku Ankka
-- tarvittava oikeus: raportointijärjestelmän lukuoikeus
-- perustelu: tarvitsee pääsyn viikoittaisten tuotantoraporttien tarkasteluun
-- hyväksyjä: Akun esihenkilö
-- järjestelmän omistaja: raportointijärjestelmän pääkäyttäjä tai business owner
+The goal was not only to understand how access is technically granted.
 
-Jos prosessi toimii hyvin, oikeus annetaan vasta kun tarve on perusteltu ja oikea vastuuhenkilö on hyväksynyt pyynnön.
+The goal was to understand what makes an access request trustworthy.
 
-Jos prosessi toimii huonosti, oikeus voidaan antaa vain siksi, että käyttäjä pyysi sitä.
+## The user can explain the problem, but not always the access decision
 
-**Elikkäs:**  
-Käyttäjä voi ilmoittaa tarpeen, mutta käyttöoikeuden ei pitäisi syntyä pelkästä “haluan tämän” -pyynnöstä.
+A user usually knows what is blocking their work.
 
----
+They can say:
 
-## Käyttäjä ei yleensä omista päätöstä
+> I cannot access the reporting system.
 
-Käyttäjä tietää usein, mitä hän ei pysty tekemään.
+Or:
 
-Hän voi sanoa:
+> I need access to this folder.
 
-> “En pääse raportointijärjestelmään.”
+That information matters.
 
-Tai:
+But the user does not always know what exact access level they need. They may not know whether the requested group gives read access, edit access, access to sensitive data or something much broader than they expected.
 
-> “Tarvitsen oikeuden tähän kansioon.”
+This is where the process needs more than the user’s own request.
 
-Mutta käyttäjä ei aina tiedä:
+The user can explain the need.
 
-- mitä oikeustasoa hän tarvitsee
-- mitä kaikkea oikeus antaa
-- onko oikeus liian laaja
-- kuuluuko pääsy hänen rooliinsa
-- onko tieto arkaluontoista
-- kuka oikeuden saa hyväksyä
+But the organization still needs to decide whether the access is valid.
 
-Siksi käyttöoikeuspyynnössä pitää erottaa kaksi asiaa:
+Those are not the same thing.
 
-- käyttäjän tarve
-- organisaation päätös antaa oikeus
+A request should not turn into access just because someone asked for it.
 
-Käyttäjä voi kertoa tarpeen, mutta vastuu päätöksestä kuuluu esihenkilölle, järjestelmän omistajalle tai muulle määritellylle hyväksyjälle.
+## Approval without understanding is weak approval
 
-**Elikkäs:**  
-Käyttäjä voi pyytää pääsyä, mutta käyttäjän oma pyyntö ei yksin saa olla hyväksyntä.
+Managers often play an important role in access requests because they understand the employee’s work.
 
----
+They usually know what the user is supposed to do.
 
-## Esihenkilön vastuu
+But that does not always mean they understand what a specific access group or system role actually gives.
 
-Esihenkilöllä on usein tärkeä rooli käyttöoikeuspyynnöissä.
+For example, in Ankkalinna Oy, Aku Ankka requests access to reporting.
 
-Esihenkilön pitäisi tietää:
+A manager may approve a group called `REPORTING-FINANCE-RW` because it sounds related to reporting.
 
-- mitä työntekijä tekee
-- mitä järjestelmiä työssä tarvitaan
-- onko pyyntö perusteltu
-- liittyykö oikeus nykyiseen tehtävään
-- onko kyse pysyvästä vai väliaikaisesta tarpeesta
-- pitääkö oikeus poistaa myöhemmin
+But the group name may hide an important detail: `RW` might mean read/write access to finance reports, when Aku only needed read access to production reports.
 
-Mutta tässä on käytännön ongelma.
+From the manager’s point of view, the approval may feel reasonable.
 
-Esihenkilö ei aina ymmärrä järjestelmän oikeustasoja tai sitä, mitä joku ryhmä oikeasti antaa.
+From an access control point of view, the user may now have broader access than needed.
 
-Esimerkiksi Ankkalinna Oy:ssä esihenkilö voi hyväksyä Akulle oikeuden ryhmään `REPORTING-FINANCE-RW`, koska nimi kuulostaa raportointiin liittyvältä.
+That is why approval alone is not always enough.
 
-Todellisuudessa ryhmä voi antaa muokkausoikeuden talousraportteihin, vaikka Akulle riittäisi pelkkä lukuoikeus.
+The approver needs enough context to approve the right thing, not just approve something.
 
-**Riski:**  
-Esihenkilö voi hyväksyä oikeuden ymmärtämättä täysin mitä oikeus antaa.
+## System ownership matters
 
-**Elikkäs:**  
-Esihenkilö tietää työn tarpeen, mutta järjestelmän omistajan pitäisi usein tietää oikeuden tekninen ja toiminnallinen merkitys.
+A system owner or application owner should understand what the access actually means.
 
----
+They should know the difference between normal user access, read access, editor access, approval rights and admin-level permissions.
 
-## Järjestelmän omistajan vastuu
+This is especially important when the system contains sensitive data, customer data, HR data, financial data or business-critical operations.
 
-Järjestelmän omistaja tai pääkäyttäjä tuntee yleensä paremmin järjestelmän roolit ja oikeustasot.
+If nobody owns the system properly, access requests become guesswork.
 
-Hänen pitäisi ymmärtää esimerkiksi:
+Service Desk may know how to add a user to a group, but that does not mean Service Desk knows whether the user should have that access.
 
-- mitä eri roolit tarkoittavat
-- mikä oikeus on lukuoikeus
-- mikä oikeus antaa muokkausmahdollisuuden
-- mikä oikeus antaa admin-tason valtaa
-- mitä tietoa järjestelmässä käsitellään
-- mitä riskejä väärään oikeuteen liittyy
+That is a different question.
 
-Jos järjestelmällä ei ole selkeää omistajaa, käyttöoikeuspyynnöt muuttuvat helposti arvailuksi.
+A weak access process often pushes decision-making to the wrong place.
 
-Service Desk voi nähdä tiketin ja teknisesti tietää miten käyttäjä lisätään ryhmään, mutta se ei tarkoita, että Service Desk tietäisi kuuluuko käyttäjän saada kyseinen oikeus.
+The ticket reaches the technical team, but the actual ownership is missing.
 
-**Elikkäs:**  
-Järjestelmän omistajan pitäisi tietää mitä oikeus tarkoittaa. IT voi toteuttaa, mutta jonkun pitää omistaa päätös.
+That is when the work becomes uncomfortable: the person doing the change may be technically able to complete it, but not properly positioned to decide if it is right.
 
----
+## Service Desk should not have to guess
 
-## Service Deskin rooli
+In daily work, Service Desk is often where access requests become visible.
 
-Service Desk on usein se paikka, jossa käyttöoikeuspyyntö näkyy käytännössä.
+A ticket arrives.
 
-Service Desk voi:
+The support person checks the request, checks whether approval exists and then performs the change.
 
-- vastaanottaa tiketin
-- tarkistaa pyynnön tiedot
-- varmistaa hyväksynnän
-- lisätä käyttäjän oikeaan ryhmään
-- dokumentoida tehdyn muutoksen
-- sulkea tiketin
-- huomata toistuvia ongelmia prosessissa
+That part is normal.
 
-Mutta Service Desk ei saisi joutua arvaamaan, kuuluuko oikeus käyttäjälle.
+The problem starts when the ticket does not explain enough.
 
-Jos tiketti on epäselvä, siitä pitäisi selvitä ennen toteutusta:
+If the request only says:
 
-- mitä oikeutta pyydetään
-- kuka hyväksyi pyynnön
-- mihin perustuu oikeuden tarve
-- onko oikeus määräaikainen
-- onko kyseessä normaali vai poikkeava oikeus
+> Give Aku access to reporting.
 
-**Riski:**  
-Jos prosessi on epäselvä, Service Desk voi joutua kantamaan vastuuta päätöksestä, jota sen ei pitäisi omistaa.
+That leaves too much open.
 
-**Elikkäs:**  
-Service Desk voi olla toteuttaja, mutta sen ei pitäisi olla arvaaja.
+Which reporting system?  
+Which role?  
+Read or edit?  
+Permanent or temporary?  
+Who approved it?  
+Is the access normal for Aku’s role?  
+Is this a sensitive system?
 
----
+If those answers are missing, Service Desk may be forced to guess or send the ticket back and forth.
 
-## “Kiireellinen tarve” ei saisi ohittaa kaikkea
+Neither option is great.
 
-Joskus käyttöoikeuspyyntö tulee kiireellisenä.
+Guessing creates risk.
 
-Esimerkiksi Ankkalinna Oy:ssä Hannu Hanhi tarvitsee nopeasti pääsyn hyväksyntäjärjestelmään, koska esihenkilö on lomalla ja työ pitää saada eteenpäin.
+Endless back-and-forth creates delay and frustration.
 
-Kiire voi olla todellinen.
+A good request should make the technical action clear enough that Service Desk can execute it without owning the business decision.
 
-Mutta kiire ei saisi tarkoittaa sitä, että kaikki kontrollit ohitetaan.
+## Urgent access still needs a control path
 
-Tällaisessa tilanteessa pitäisi silti kysyä:
+Urgent access is a real thing.
 
-- kuka hyväksyy väliaikaisen oikeuden
-- kuinka kauan oikeus on voimassa
-- mitä oikeustasoa tarvitaan
-- poistetaanko oikeus automaattisesti
-- dokumentoidaanko poikkeus
-- tarkistetaanko oikeus myöhemmin
+Sometimes work cannot wait.
 
-**Riski:**  
-Kiireellä annettu oikeus voi jäädä pysyväksi, vaikka tarve oli väliaikainen.
+Someone is covering for a manager.  
+A production issue needs attention.  
+A healthcare unit needs staff to access the right system quickly.  
+A project deadline is close.  
+A person needs temporary approval rights because the normal approver is unavailable.
 
-**Elikkäs:**  
-Kiireellinen käyttöoikeus voi olla perusteltu, mutta sen pitää olla hallittu poikkeus, ei villi ohituskaista.
+I understand why access sometimes needs to move fast.
 
----
+The problem is when urgency becomes a free pass around the whole process.
 
-## Väliaikaiset oikeudet
+Fast access should not mean uncontrolled access.
 
-Väliaikaiset oikeudet ovat käyttöoikeushallinnan klassinen miinakenttä.
+If access is granted urgently, the process should still capture enough information to make it traceable.
 
-Ne annetaan usein hyvällä syyllä:
+Who requested it?  
+Who approved it?  
+Why was it urgent?  
+What access level was granted?  
+When should it be removed or reviewed?
 
-- tuuraus
-- projekti
-- loma-aika
-- auditointi
-- testaus
-- kiireellinen tuotantotilanne
-- määräaikainen tehtävä
+The goal is not to block real work.
 
-Ongelma syntyy silloin, kun väliaikaiselle oikeudelle ei anneta päättymispäivää.
+The goal is to prevent urgent access from becoming silent permanent access.
 
-Esimerkiksi Hannu Hanhi saa kahdeksi viikoksi pääsyn esihenkilön hyväksyntäkansioon.
+## Temporary access without an end date is not temporary
 
-Jos oikeutta ei poisteta tuurauksen jälkeen, Hannulla voi olla sama pääsy vielä vuoden päästä.
+Temporary access is one of the easiest ways to create long-term access problems.
 
-**Elikkäs:**  
-Väliaikainen oikeus ilman päättymispäivää ei ole väliaikainen. Se on pysyvä oikeus valeviiksillä.
+It is usually granted for a good reason.
 
----
+A vacation cover.  
+A project.  
+Testing.  
+Audit work.  
+A production issue.  
+A short-term responsibility.
 
-## Oikeuden laajuus pitää ymmärtää
+At the time, it makes sense.
 
-Kaikki käyttöoikeudet eivät ole samanarvoisia.
+But if nobody defines when the access should end, the temporary access may stay for months or years.
 
-On eri asia antaa käyttäjälle:
+That is how role creep starts.
 
-- lukuoikeus ohjeisiin
-- muokkausoikeus raportteihin
-- pääsy henkilötietoihin
-- pääsy taloustietoihin
-- oikeus hyväksyä maksuja
-- admin-oikeus järjestelmään
-- oikeus muuttaa muiden käyttäjien oikeuksia
+Hannu Hanhi may get access to an approval folder for two weeks while covering for someone.
 
-Siksi pyynnössä pitäisi näkyä mahdollisimman tarkasti, mitä oikeutta pyydetään.
+If nobody removes the access afterwards, Hannu may still have it long after the reason disappeared.
 
-Huono pyyntö:
+At that point, the issue is not that the original request was wrong.
 
-- “Tarvitsen pääsyn raportointiin.”
+The issue is that the request did not include a cleanup path.
 
-Parempi pyyntö:
+A temporary access request should always answer:
 
-- “Tarvitsen lukuoikeuden tuotantoraportteihin, koska seuraan oman tiimini viikkotilastoja.”
+> When should this access end?
 
-Vielä parempi, jos mukana on:
+If nobody can answer that, the access is not really temporary.
 
-- järjestelmän nimi
-- tarvittava rooli
-- perustelu
-- hyväksyjä
-- päättymispäivä, jos oikeus on väliaikainen
+It is permanent access wearing a fake moustache.
 
-**Elikkäs:**  
-“Pääsy järjestelmään” ei riitä. Pitää tietää mitä pääsy oikeasti antaa.
+## Access level matters
 
----
+“Access to a system” is too vague.
 
-## Audit trail
+Not all access is equal.
 
-Käyttöoikeuspyynnöstä pitäisi jäädä jälki.
+There is a big difference between:
 
-Myöhemmin pitäisi pystyä tarkistamaan:
+- read access to instructions
+- read access to reports
+- edit access to reports
+- access to customer data
+- access to HR data
+- access to finance data
+- approval rights
+- admin rights
+- rights to manage other users
 
-- kuka pyysi oikeutta
-- mitä oikeutta pyydettiin
-- miksi oikeus tarvittiin
-- kuka hyväksyi oikeuden
-- milloin oikeus annettiin
-- kuka toteutti muutoksen
-- oliko oikeus määräaikainen
-- milloin oikeus poistettiin tai tarkistettiin
+A vague request can easily lead to too much access.
 
-Tämä on tärkeää auditoinnin, tietoturvan ja vastuiden kannalta.
+Bad request:
 
-Jos myöhemmin kysytään, miksi Aku Ankalla oli pääsy tiettyyn kansioon, vastauksen ei pitäisi olla:
+> I need access to reporting.
 
-> “En tiedä, se on varmaan joskus lisätty.”
+Better request:
 
-Parempi vastaus olisi:
+> I need read access to production reports for weekly team follow-up.
 
-> “Oikeus pyydettiin tiketin kautta, esihenkilö hyväksyi sen, järjestelmän omistaja vahvisti roolin ja oikeus annettiin määräajaksi projektia varten.”
+Better still:
 
-**Elikkäs:**  
-Jos käyttöoikeudesta ei jää jälkeä, myöhemmin on vaikea todistaa miksi se oli olemassa.
+> I need read access to Ankkalinna Reporting production reports for my current Support Specialist role. Access is needed permanently while I am in this role and should be reviewed in the next access review.
 
----
+That is not about writing a novel in the ticket.
 
-## Mitä voi mennä pieleen?
+It is about giving enough detail so the right access can be granted.
 
-Käyttöoikeuspyyntö voi epäonnistua monella tavalla.
+## Audit needs the story behind the access
 
-Esimerkiksi:
+Access should leave a trail.
 
-- käyttäjä pyytää liian laajaa oikeutta
-- esihenkilö hyväksyy ymmärtämättä oikeuden sisältöä
-- järjestelmän omistajaa ei tiedetä
-- hyväksyntä puuttuu
-- oikeus annetaan väärään ryhmään
-- oikeus jää pysyväksi, vaikka se oli väliaikainen
-- pyyntö dokumentoidaan huonosti
-- Service Desk joutuu arvaamaan mitä pitää tehdä
-- samaa oikeutta pyydetään eri nimillä
-- käyttäjälle kopioidaan oikeudet toiselta käyttäjältä
-- vanhoja oikeuksia ei poisteta
-- audit trail jää puutteelliseksi
+Later, someone should be able to understand:
 
-**Elikkäs:**  
-Huono access request -prosessi ei aiheuta vain yksittäistä virhettä. Se rakentaa hitaasti sekavan ja riskialttiin käyttöoikeusympäristön.
+- who requested the access
+- what access was requested
+- why it was needed
+- who approved it
+- who owned the system or data
+- when the access was granted
+- who performed the change
+- whether it was temporary
+- when it was reviewed or removed
 
----
+This matters because later the question may not be:
 
-## Hyvä käyttöoikeuspyyntö
+> Does Aku have access?
 
-Hyvä käyttöoikeuspyyntö voisi näyttää tältä:
+The question may be:
 
-| Asia | Hyvä kysymys |
-| :--- | :--- |
-| Käyttäjä | Kenelle oikeus annetaan? |
-| Tarve | Miksi oikeus tarvitaan? |
-| Resurssi | Mihin järjestelmään, kansioon tai sovellukseen pääsy tarvitaan? |
-| Oikeustaso | Tarvitaanko luku-, muokkaus- vai admin-oikeus? |
-| Hyväksyjä | Kuka hyväksyy pyynnön? |
-| Omistaja | Kuka omistaa järjestelmän tai tiedon? |
-| Kesto | Onko oikeus pysyvä vai määräaikainen? |
-| Riski | Sisältääkö oikeus arkaluontoista tietoa tai laajaa valtaa? |
-| Dokumentointi | Jääkö pyynnöstä riittävä jälki? |
+> Why did Aku have access?
 
-**Elikkäs:**  
-Hyvä käyttöoikeuspyyntö on selkeä, perusteltu ja jäljitettävä.
+That is a harder question.
 
----
+If the answer is “it was probably added at some point”, the evidence is weak.
 
-## Ankkalinna-esimerkki: huono prosessi
+A stronger answer would be:
 
-Aku Ankka tekee tiketin:
+> The access was requested through a ticket, approved by the manager, confirmed by the system owner and granted for a documented business reason.
 
-> “Tarvitsen pääsyn raportointiin.”
+That is the difference between a closed ticket and a defensible access decision.
 
-Service Desk saa tiketin, mutta siitä ei selviä:
+## Bad requests create future cleanup work
 
-- mihin raportointijärjestelmään pääsy tarvitaan
-- mitä oikeustasoa tarvitaan
-- kuka hyväksyi pyynnön
-- onko oikeus pysyvä vai määräaikainen
-- miksi oikeus tarvitaan
+A bad access request may not cause obvious damage immediately.
 
-Kiireessä Aku lisätään ryhmään, jolla on laajemmat oikeudet kuin olisi tarpeen.
+The user gets access.  
+The work continues.  
+The ticket closes.  
+Everyone moves on.
 
-Puolen vuoden päästä access reviewissä kukaan ei enää muista, miksi Aku sai oikeuden.
+But weak requests create future problems.
 
-**Riski:**  
-Oikeus annettiin nopeasti, mutta päätös oli huonosti perusteltu ja huonosti dokumentoitu.
+They can lead to:
 
-**Elikkäs:**  
-Tiketti meni kiinni, mutta käyttöoikeushallinta ei oikeasti onnistunut.
+- users getting broader access than needed
+- unclear ownership
+- missing approval evidence
+- temporary access becoming permanent
+- access reviews with no context
+- Service Desk correcting problems later
+- audit findings
+- role creep
+- access nobody can explain anymore
 
----
+This is why access request quality matters.
 
-## Ankkalinna-esimerkki: parempi prosessi
+A messy access environment is not usually created in one dramatic moment.
 
-Aku Ankka tarvitsee pääsyn tuotantoraportteihin.
+It is built slowly through unclear requests, weak approvals and missing cleanup.
 
-Pyyntöön kirjataan:
+One ticket at a time.
 
-- käyttäjä: Aku Ankka
-- järjestelmä: Ankkalinna Reporting
-- oikeus: tuotantoraporttien lukuoikeus
-- perustelu: viikkoraporttien tarkastelu oman tiimin osalta
-- hyväksyjä: Akun esihenkilö
-- järjestelmän omistaja: raportointijärjestelmän pääkäyttäjä
-- kesto: pysyvä nykyisen roolin ajan
-- tarkistus: seuraava access review
+## Ankkalinna example: weak request
 
-Tässä tilanteessa Service Desk voi toteuttaa pyynnön turvallisemmin, koska päätös ja perustelu ovat selkeämpiä.
+Aku Ankka creates a ticket:
 
-**Elikkäs:**  
-Hyvä tiketti ei ole pitkä romaani. Sen pitää vain vastata oikeisiin kysymyksiin.
+> I need access to reporting.
 
----
+The ticket does not explain:
 
-## Mittee mietin:
+- which reporting system
+- what access level
+- why the access is needed
+- who approved it
+- whether it is permanent or temporary
+- whether the system owner has confirmed the role
 
-Minusta käyttöoikeuspyynnöissä näkyy hyvin se, että IAM ei ole pelkkää tekniikkaa.
+Service Desk receives the ticket, but the decision is unclear.
 
-Teknisesti käyttäjän lisääminen ryhmään voi olla helppoa.
+If the request is handled too quickly, Aku may be added to a group with broader access than he actually needs.
 
-Vaikeampi osa on ymmärtää:
+The ticket can be closed, but the access process did not really succeed.
 
-- kuuluuko käyttäjän saada tämä oikeus
-- kuka saa päättää siitä
-- mitä riskiä oikeuteen liittyy
-- milloin oikeus pitää poistaa
-- miten päätös voidaan todistaa myöhemmin
+The work was completed technically.
 
-Service Deskissä access request voi näyttää yhdeltä tikettityypiltä muiden joukossa, mutta IAM-ajattelussa se on tärkeä kontrollipiste.
+The access decision was weak.
 
-Jos tässä kohtaa tehdään huonoja päätöksiä, niistä syntyy myöhemmin role creepiä, access driftiä, auditointiongelmia ja tietoturvariskejä.
+## Ankkalinna example: better request
 
-**Elikkäs:**  
-Access request ei ole vain tiketti. Se on kohta, jossa organisaatio päättää kuka saa pääsyn, miksi saa pääsyn ja kuka kantaa vastuun siitä päätöksestä.
+Aku Ankka needs access to production reports.
+
+A better request would include:
+
+| Field | Example |
+|---|---|
+| User | Aku Ankka |
+| System | Ankkalinna Reporting |
+| Access level | Read access to production reports |
+| Business reason | Weekly production report follow-up for own team |
+| Approver | Aku’s manager |
+| System owner | Reporting system owner / main user |
+| Duration | Valid while Aku works in this role |
+| Review | Included in next access review |
+
+This request is not complicated.
+
+It simply answers the right questions.
+
+Now Service Desk can perform the technical action with much better context.
+
+The access is easier to understand, easier to review and easier to defend later.
+
+## What a good access request should answer
+
+A good access request should make the decision clear.
+
+It should answer:
+
+- who needs access?
+- what system, folder or application is involved?
+- what exact access level is needed?
+- why is the access needed?
+- who approved the request?
+- who owns the system or data?
+- is the access permanent or temporary?
+- when should it be reviewed or removed?
+- does the access include sensitive data or elevated permissions?
+- what evidence should remain in the ticket?
+
+The request does not need to be long.
+
+It needs to be clear.
+
+## My current thinking
+
+Access requests are a good example of how technical work and business responsibility meet.
+
+Adding a user to a group can be easy.
+
+Understanding whether the user should be in that group is the harder part.
+
+That decision should not sit silently on the person closing the ticket if the process does not give enough context.
+
+A good access request protects the user, Service Desk, the manager, the system owner and the organization.
+
+It makes the access decision visible.
+
+It gives the technical team enough information to act.
+
+It leaves evidence for later.
+
+It gives reviewers context.
+
+And it reduces the chance that today’s quick fix becomes tomorrow’s role creep.
+
+An access request is not just a ticket.
+
+It is a control point.
+
+It is where the organization decides who gets access, why they get it and who is responsible for that decision.
