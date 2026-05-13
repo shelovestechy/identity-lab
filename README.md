@@ -48,6 +48,28 @@ This repository may include notes about:
 
 ---
 
+## Learning Resources
+
+- [SimplifyIAM community](https://www.skool.com/simplify-iam-6792/)  
+  Practical IAM homelab ideas, IAM concepts, portfolio building and career direction.
+
+- [Microsoft Learn](https://learn.microsoft.com/)  
+  Official Microsoft learning material for identity, security and cloud fundamentals.
+
+- [Microsoft Entra documentation](https://learn.microsoft.com/en-us/entra/)  
+  Reference material for Microsoft Entra ID, users, groups, roles, authentication and access management.
+
+- [Microsoft Graph documentation](https://learn.microsoft.com/en-us/graph/)  
+  Reference material for Microsoft Graph API and Microsoft Graph PowerShell.
+
+- [Microsoft Graph PowerShell documentation](https://learn.microsoft.com/en-us/powershell/microsoftgraph/)  
+  Used for practising identity management through PowerShell and Microsoft Graph commands.
+
+- [Microsoft SC-300 study guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300)  
+  Used to follow the official Identity and Access Administrator certification objectives.
+
+---
+
 ## Current Direction
 
 My current direction is toward IAM Analyst work.
