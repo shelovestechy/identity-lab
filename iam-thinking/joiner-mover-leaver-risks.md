@@ -1,404 +1,424 @@
-# Joiner, Mover ja Leaver -riskit
+# Joiner, Mover and Leaver Risks
 
-Tämä on pohdintaa siitä, miten käyttäjän elinkaaren hallinta voi mennä pieleen oikeassa IT-ympäristössä.
+This note documents what I have practised and thought through around Joiner, Mover and Leaver processes.
 
-Joiner, mover ja leaver kuulostavat paperilla yksinkertaisilta:
+The idea sounds simple on paper:
 
-- käyttäjä aloittaa
-- käyttäjä vaihtaa roolia
-- käyttäjä lähtee
+- a user joins the organization
+- a user changes role
+- a user leaves the organization
 
-Käytännössä nämä vaiheet voivat olla paljon sotkuisempia.
+In real environments, it is rarely that clean.
 
-Käyttöoikeudet eivät ole vain tekninen asia. Ne liittyvät ihmisiin, esihenkilöihin, HR-järjestelmiin, automaatioihin, järjestelmän pääkäyttäjiin, tietoturvaan ja siihen, ymmärtääkö kukaan oikeasti mitä käyttäjän pitäisi saada tehdä.
+User lifecycle management touches HR data, managers, access owners, system owners, automation, Service Desk, identity systems, security and the user’s ability to actually do their work.
 
----
+The technical action may be simple.
 
-## Miksi JML-prosessi on tärkeä?
+Create the account.  
+Add the group.  
+Remove the access.  
+Disable the user.
 
-JML tarkoittaa käyttäjän elinkaaren kolmea vaihetta:
+But the risk is usually not only in the button click.
 
-- **Joiner** - uusi työntekijä tai käyttäjä
-- **Mover** - käyttäjä vaihtaa roolia, tiimiä, osastoa tai tehtävää
-- **Leaver** - käyttäjä lähtee organisaatiosta
+The risk is in whether the organization actually knows what should happen, who owns the decision and how the result is verified afterwards.
 
-Hyvä JML-prosessi varmistaa, että käyttäjä saa oikeat oikeudet oikeaan aikaan ja menettää ne silloin kun niitä ei enää tarvita.
+## What I practised
 
-Huono JML-prosessi taas aiheuttaa helposti:
+In this learning area, I practised thinking through common user lifecycle risks:
 
-- liian laajoja käyttöoikeuksia
-- vanhoja oikeuksia, jotka jäävät roikkumaan
-- puuttuvia oikeuksia
-- tuplatunnuksia
-- väärään nimeen tai rooliin jääviä tilejä
-- epäselviä vastuita
-- tietoturvariskejä
-- käyttäjien ja IT-tuen turhaa kuormitusta
+- what can go wrong when a new user is created
+- why copying access from another user can be risky
+- how old access stays behind when a user changes role
+- why temporary access needs an end point
+- what can happen if a leaver account is not disabled correctly
+- what can happen if an account is disabled too early
+- how internal role changes can create duplicate or confusing identities
+- why name changes and naming rules matter
+- why access reviews need real context, not only approval clicks
 
-**Elikkäs:**  
-JML ei ole vain käyttäjätilin luontia ja sulkemista. Se on koko käyttäjän työelämän digitaalinen selkäranka.
+The goal was not only to understand the terms Joiner, Mover and Leaver.
 
----
+The goal was to understand where the process can break in a real working environment.
 
-## Esihenkilön ja pääkäyttäjien vastuu
+## Why JML matters
 
-Käyttöoikeuksien hallinnassa iso vastuu on usein esihenkilöillä ja järjestelmän pääkäyttäjillä.
+A good Joiner, Mover and Leaver process helps users get the right access at the right time.
 
-IT voi teknisesti lisätä käyttäjän ryhmään tai antaa pääsyn järjestelmään, mutta IT ei aina voi tietää, tarvitseeko käyttäjä sitä oikeasti.
+It should also remove access when the user no longer needs it.
 
-Esihenkilön pitäisi ymmärtää:
+That second part is just as important as granting access.
 
-- mitä työntekijä oikeasti tekee
-- mitä järjestelmiä hän tarvitsee
-- mitä tietoja hän saa nähdä
-- mitkä oikeudet ovat liian laajoja
-- milloin oikeus pitää poistaa
-- kuka hyväksyy pääsyn
-- kuka omistaa järjestelmän tai tiedon
+If the process is weak, the result can be messy:
 
-Järjestelmän pääkäyttäjän pitäisi ymmärtää:
+- new users may receive too much access
+- users may miss access they need for work
+- old access may stay behind after role changes
+- temporary access may become permanent by accident
+- leaver accounts may stay active
+- accounts may be disabled too early
+- duplicate accounts may be created
+- managers may approve access without understanding the impact
+- Service Desk may be left to fix problems without having the business context
 
-- mitä eri roolit järjestelmässä tarkoittavat
-- mitä riskejä oikeuksiin liittyy
-- kenelle oikeudet kuuluvat
-- milloin oikeudet pitää tarkistaa
-- mitä lokit ja audit trail näyttävät myöhemmin
+JML is not only about account creation and account closure.
 
-Ongelma on se, että esihenkilöillä ei aina ole tarpeeksi tietoa tai ymmärrystä käyttöoikeuksien tärkeydestä. He voivat ajatella, että oikeus on vain “pääsy johonkin ohjelmaan”, vaikka oikeasti kyse voi olla asiakastiedoista, henkilötiedoista, talousdatasta tai tuotannon kannalta kriittisistä järjestelmistä.
+It is the digital lifecycle of a worker.
 
-**Elikkäs:**  
-IT voi toteuttaa pyynnön, mutta esihenkilön ja järjestelmän omistajan pitäisi tietää miksi oikeus annetaan ja miksi se on perusteltu.
+If that lifecycle does not follow the real employment lifecycle, access starts to drift away from reality.
 
----
+## Ownership is often the hardest part
 
-## Joiner-riskit: oikeuksien kopiointi toiselta käyttäjältä
+One of the biggest risks I see in JML processes is unclear ownership.
 
-Joiner on uusi työntekijä tai käyttäjä.
+HR may own employment data.  
+The manager may understand the user’s actual work.  
+The system owner may understand what the application roles mean.  
+IT may perform the technical change.  
+Service Desk may handle the ticket.  
+The user only sees whether they can work or not.
 
-Esimerkiksi Ankkalinna Oy palkkaa uuden tuotannon työntekijän nimeltä Hupu Ankka. Hänelle pitää luoda tunnus, sähköposti ja pääsy tarvittaviin järjestelmiin.
+If these parts do not connect, the process becomes fragile.
 
-Tässä kohtaa ensimmäinen iso kysymys on:
+Service Desk can create an account or add a group membership, but Service Desk does not always know what access the user truly needs.
 
-> Mitä oikeuksia Hupu oikeasti tarvitsee?
+A manager may approve access, but the manager may not understand what the group actually gives.
 
-Käytännössä vastaus voi joskus olla:
+A system owner may understand the application, but may not be included in the approval flow.
 
-> “Antakaa Hupulle samat oikeudet kuin Akulla. Aku tekee samaa työtä.”
+This is where access problems start.
 
-Tämä kuulostaa helpolta, mutta se voi olla riskialtista.
+Not always because somebody did something careless.
 
-Aku on voinut olla Ankkalinna Oy:ssä monta vuotta. Hän on voinut työskennellä eri rooleissa, osallistua projekteihin, tuurata esihenkilöä tai saada väliaikaisia oikeuksia, joita ei ole koskaan poistettu.
+Often because the responsibility is split across many people, but nobody owns the whole chain.
 
-Jos Akun oikeudet kopioidaan suoraan Hupulle, mukana voi tulla myös vanhoja, turhia tai liian laajoja oikeuksia.
+## Joiner risk: copying access from another user
 
-**Riski:**  
-Uusi käyttäjä saa liian laajat oikeudet heti työsuhteen alussa.
+A new user joins Ankkalinna Oy.
 
-**Elikkäs:**  
-“Anna samat oikeudet kuin kollegalla” on helppo pyyntö, mutta huono IAM-periaate, jos kukaan ei tarkista mitä oikeuksia kollegalla oikeasti on.
+For example, Hupu Ankka starts in production.
 
----
+The request may say:
 
-## Mover-riskit: uudet oikeudet lisätään, vanhat unohtuvat
+> Give Hupu the same access as Aku. Aku does the same work.
 
-Mover tarkoittaa käyttäjää, joka vaihtaa roolia, tiimiä, osastoa tai tehtävää.
+This sounds practical.
 
-Mover on usein JML-prosessin hankalin vaihe, koska käyttäjä ei lähde talosta. Hän vain liikkuu talon sisällä.
+It is also risky.
 
-Tällöin huomio menee helposti uusiin oikeuksiin:
+Aku may have worked in the organization for years. He may have changed roles, helped in different projects, covered for another person or received temporary access that was never removed.
 
-- mitä käyttäjä tarvitsee uudessa roolissa?
-- mihin järjestelmiin hänen pitää päästä?
-- mitä ryhmiä hänelle lisätään?
+If Aku’s access is copied directly to Hupu, the new user may inherit all of that history.
 
-Mutta yhtä tärkeä kysymys unohtuu helposti:
+Not only the access needed for the current job, but also old permissions that no longer make sense.
 
-> Mitä vanhoja oikeuksia pitää poistaa?
+The risk is that the new user starts with too much access from day one.
 
-**Esimerkkitilanne:**  
-Iines Ankka työskenteli ensin hallinnossa ja hänellä oli pääsy arkaluontoisiin dokumentteihin, raportteihin ja henkilöstöön liittyviin tietoihin.
+The better question is not:
 
-Myöhemmin Iines siirtyy tuotannon puolelle.
+> Who looks similar enough to copy?
 
-Hänelle lisätään tuotannon järjestelmien oikeudet, mutta hallinnon oikeuksia ei poisteta.
+The better question is:
 
-Lopputulos:
+> What access does this role actually require?
 
-- Iines pääsee tuotannon järjestelmiin
-- Iines pääsee edelleen hallinnon kansioihin
-- kukaan ei muista, miksi hänellä on nämä oikeudet
-- access reviewissä joku voi hyväksyä oikeudet vanhasta tottumuksesta
+Copying access from another user may be fast, but it can also copy old mistakes.
 
-**Riski:**  
-Käyttäjälle kertyy oikeuksia eri rooleista, vaikka nykyinen tehtävä ei enää vaadi niitä.
+## Mover risk: new access is added, old access is forgotten
 
-**Elikkäs:**  
-Mover ei ole vain uusien oikeuksien lisäämistä. Se on myös vanhojen oikeuksien poistamista.
+Mover cases are often more difficult than joiner or leaver cases.
 
----
+The user does not leave the organization.
 
-## Väliaikaiset oikeudet, jotka jäävät pysyviksi
+They move inside it.
 
-Yksi yleinen mover-riski on väliaikainen pääsy.
+That makes the situation easy to underestimate.
 
-Hannu Hanhi tuuraa esihenkilöä kesäloman ajan. Hänelle annetaan pääsy hyväksyntäkansioihin ja raportteihin.
+When someone changes role, the focus often goes to the new access:
 
-Kesäloma loppuu. Esihenkilö palaa töihin.
+- what systems do they need now?
+- what groups should be added?
+- what tools are needed in the new team?
 
-Mutta Hannun oikeuksia ei poisteta.
+But the more difficult question is:
 
-Puolen vuoden päästä Hannulla on edelleen pääsy tietoihin, joita hän tarvitsi vain kahden viikon ajan.
+> What should be removed?
 
-Tämä ei välttämättä ole pahantahtoista. Se on vain unohtunut.
+For example, Iines Ankka used to work in administration and had access to sensitive documents, reports and HR-related information.
 
-Mutta tietoturvan kannalta unohtunut oikeus on silti oikeus.
+Later, she moves to production.
 
-**Elikkäs:**  
-Väliaikaisille oikeuksille pitäisi aina olla päättymispäivä tai tarkistus. Muuten “hetkeksi annettu” muuttuu helposti pysyväksi.
+Production access is added, but administration access is not removed.
 
----
+Now Iines can do her new work, but she may also still have access from her old role.
 
-## Leaver-riskit: tunnus jää auki tai sulkeutuu väärään aikaan
+That is where role creep starts.
 
-Leaver tarkoittaa käyttäjää, joka lähtee organisaatiosta.
+The move was handled halfway.
 
-Tässä vaiheessa tilin ja oikeuksien sulkemisen pitäisi toimia varmasti.
+The new access was added, but the old access was not reviewed.
 
-Mutta joskus näin ei käy.
+A mover process should not only add what is missing.
 
-Leaver-prosessi voi epäonnistua esimerkiksi siksi, että:
+It should also check what no longer belongs.
 
-- HR-järjestelmässä on väärä päättymispäivä
-- automaatio ei toimi
-- tieto ei siirry HR-järjestelmästä identiteettijärjestelmään
-- esihenkilö ei ilmoita lähtöä ajoissa
-- käyttäjällä on useita tunnuksia
-- käyttäjä on siirtynyt talon sisällä, mutta käsitellään väärin uutena käyttäjänä
-- manuaalinen tiketti unohtuu
+## Temporary access that becomes permanent
 
----
+Temporary access is one of the easiest ways to create long-term access risk.
 
-## Esimerkki: tunnus jää aktiiviseksi
+Hannu Hanhi covers for a manager during summer vacation.
 
-Roope Ankka lopettaa Ankkalinna Oy:ssä.
+He gets access to approval folders and reports.
 
-HR-järjestelmään on merkitty päättymispäivä, mutta automaatio epäonnistuu. Tämän takia Roopen käyttäjätili ei menekään automaattisesti pois käytöstä.
+The reason is valid.
 
-Tunnus jää aktiiviseksi.
+The access is needed.
 
-Jos kukaan ei huomaa virhettä, Roopella voi olla edelleen pääsy sähköpostiin, tiedostoihin tai muihin järjestelmiin.
+The problem starts when the cover period ends and nobody removes the access.
 
-**Riski:**  
-Lähteneen käyttäjän tunnus jää aktiiviseksi ja sitä voidaan käyttää väärin.
+Six months later, Hannu may still have access to information he only needed for two weeks.
 
-**Elikkäs:**  
-Leaver-prosessissa ei saa vain luottaa siihen, että automaatio varmasti teki kaiken. Tärkeistä asioista pitää jäädä tarkistettava jälki.
+That does not mean Hannu did anything wrong.
 
----
+It means the process had no cleanup point.
 
-## Esimerkki: tunnus menee pois päältä liian aikaisin
+Temporary access should have one of these:
 
-Joskus ongelma voi olla myös päinvastainen.
+- an end date
+- an access review date
+- an owner who is responsible for removal
+- an automated lifecycle rule
+- a ticket or process step that confirms cleanup
 
-Aku Ankan työsopimusta jatketaan, mutta esihenkilö ei muista ilmoittaa lisäaikaa ajoissa HR-järjestelmään tai käyttöoikeusprosessiin.
+If temporary access has no end point, it is not really temporary.
 
-Automaation näkökulmasta Aku on lähtevä käyttäjä.
+It is just permanent access with a temporary story.
 
-Tunnus menee pois päältä, vaikka Aku tulee seuraavana päivänä töihin.
+## Leaver risk: account stays active
 
-Lopputulos:
+Leaver processes should be reliable.
 
-- Aku ei pääse kirjautumaan
-- työ pysähtyy
-- Service Desk saa tiketin
-- käyttäjä turhautuu
-- esihenkilö ihmettelee miksi tunnus sulkeutui
+When a user leaves, access should be removed at the correct time.
 
-**Riski:**  
-Käyttäjän työ estyy, vaikka hänellä olisi edelleen oikeus olla töissä ja käyttää järjestelmiä.
+But this can fail.
 
-**Elikkäs:**  
-Leaver-prosessi tarvitsee myös hyvät jatko- ja poikkeuskäytännöt. Muuten oikea työntekijä voidaan vahingossa lukita ulos.
+For example, Roope Ankka leaves Ankkalinna Oy.
 
----
+HR has the end date, but the automation does not run correctly.
 
-## Talon sisäinen muutos: kun käyttäjän suhde organisaatioon muuttuu
+The account stays active.
 
-Talon sisäiset muutokset voivat olla yllättävän hankalia.
+If nobody notices, Roope may still have access to email, files or business systems after leaving.
 
-Kaikki muutokset eivät ole yksinkertaisesti “uusi työntekijä aloittaa” tai “työntekijä lähtee”. Joskus sama ihminen jatkaa organisaation ympärillä, mutta hänen roolinsa tai suhteensa yritykseen muuttuu.
+That is a serious risk.
 
-Esimerkiksi Ankkalinna Oy:ssä voi tapahtua näin:
+Not because the user will automatically misuse the access, but because the organization no longer has control over who can access its systems.
 
-- tuotannon tuntityöntekijä siirtyy toimihenkilörooliin
-- harjoittelija palkataan vakituiseksi työntekijäksi
-- sisäinen työntekijä lähtee talosta, mutta palaa myöhemmin yrittäjänä tai konsulttina myymään palveluitaan yritykselle
-- ulkoinen konsultti palkataan myöhemmin sisäiseksi työntekijäksi
-- määräaikainen työntekijä jatkaa uudella sopimuksella eri roolissa
+A leaver process should not depend only on hope that automation worked.
 
-Tämä ei ole aina varsinainen uusi työntekijä, mutta ei myöskään tavallinen pieni roolinvaihto.
+There should be evidence, logging or some kind of verification that the account was actually disabled and access was removed.
 
-Joissain ympäristöissä HR-järjestelmä voi käsitellä muutoksen uutena työsuhteena tai uutena henkilönä, vaikka kyse on samasta ihmisestä. Toisessa järjestelmässä käyttäjä taas voi näyttää edelleen vanhalta työntekijältä.
+## Leaver risk: account is disabled too early
 
-Tästä voi seurata:
+The opposite problem can also happen.
 
-- käyttäjälle luodaan uusi tunnus
-- vanha tunnus jää roikkumaan
-- käyttäjällä on samaan aikaan sisäinen ja ulkoinen identiteetti
-- sähköpostiosoite menee sekaisin
-- oikeudet eivät siirry oikein
-- vanhat oikeudet jäävät vanhalle tunnukselle
-- uudet oikeudet tulevat uudelle tunnukselle
-- järjestelmät eivät ymmärrä, kumpi tunnus on oikea
-- audit trail ja raportointi näyttävät sekavalta
-- käyttäjä ei pääse työhön tarvittaviin järjestelmiin oikeaan aikaan
+Aku Ankka’s contract is extended, but the extension is not updated in time.
 
-**Riski:**  
-Yhdestä ihmisestä voi syntyä kaksi tai useampi digitaalinen identiteetti, mikä aiheuttaa sotkua käyttöoikeuksiin, sähköpostiin, raportointiin ja auditointiin.
+From the system’s point of view, Aku is still leaving.
 
-Erityisen hankalaa tämä on silloin, jos henkilö muuttuu sisäisestä työntekijästä ulkoiseksi konsultiksi tai yrittäjäksi. Silloin oikeuksien ei pitäisi välttämättä jatkua samalla tavalla, vaikka ihminen on sama. Hänen työnsä, vastuunsa, sopimuksensa ja tietotarpeensa voivat olla erilaiset.
+The account is disabled automatically.
 
-**Elikkäs:**  
-Talon sisäinen muutos ei ole aina vain pieni päivitys. Jos HR- ja identiteettiprosessi eivät ymmärrä muutosta oikein, yhdestä ihmisestä voi tulla järjestelmissä monta käyttäjää tai hänelle voi jäädä väärät oikeudet vanhasta roolista.
+Aku comes to work the next day and cannot sign in.
 
+Now the problem becomes operational:
 
----
+- work stops
+- the user is frustrated
+- Service Desk gets a ticket
+- the manager has to explain the contract extension
+- access may need to be restored quickly
 
-## Nimenmuutokset ja identiteettitiedot
+This is also a JML risk.
 
-Nimenmuutos kuulostaa pieneltä asialta, mutta IT-ympäristössä se voi olla yllättävän kuormittava.
+Security is important, but so is continuity of work.
 
-Esimerkiksi Iines Ankka menee naimisiin ja hänen sukunimensä muuttuu.
+A good leaver process needs exception handling.
 
-Nimi pitäisi päivittyä oikein HR-järjestelmästä identiteettijärjestelmään, kuten Microsoft Entra ID:hen. Jos muutos kulkee hallitusti HR-järjestelmän ja automaation kautta, se voi mennä siististi.
+If contract extensions, internal transfers or delayed HR updates are common, the process needs a way to catch them before access is cut off too early.
 
-Mutta jos nimeä aletaan muokata käsin vääristä paikoista, voidaan rikkoa perustietoja.
+## Internal changes can create identity confusion
 
-Nimenmuutoksessa pitää ymmärtää esimerkiksi:
+Not every change is a clean joiner, mover or leaver.
 
-- mikä on käyttäjän näkyvä nimi
-- mikä on kirjautumistunnus
-- mikä on ensisijainen sähköpostiosoite
-- mitkä ovat vanhat sähköpostialiakset
-- mitkä attribuutit tulevat HR-järjestelmästä
-- mitkä tulevat AD:stä
-- mitkä synkronoituvat Entra ID:hen
-- mitä saa muuttaa käsin ja mitä ei
+Sometimes the same person continues around the organization, but their relationship changes.
 
----
+For example:
 
-## Esimerkki: nimenmuutos menee väärin
+- an hourly worker becomes an office employee
+- an intern becomes a permanent employee
+- an external consultant becomes an internal employee
+- an internal employee leaves and returns later as a consultant
+- a fixed-term employee continues in a new role
 
-Nimenmuutos voi vaikuttaa kirjautumiseen, sähköpostiin, synkronointiin ja käyttäjän identiteettiin useassa järjestelmässä.
+These cases can become messy because HR, identity systems and access processes may not interpret the change the same way.
 
-Lue tarkempi pohdinta täältä:  
-[Nimenmuutos ja identiteettiriskit Microsoft-ympäristössä](./name-change-identity-risks.md)
+One system may treat the person as a new worker.
 
-Iines Ankan nimi vaihtuu muotoon Iines Hanhi.
+Another system may still see the old identity.
 
-Joku muuttaa käsin käyttäjän tietoja väärästä paikasta ja vääristä attribuuteista.
+The result can be confusing:
 
-Tämän seurauksena:
+- a new account is created
+- the old account stays active
+- the user has both internal and external identities
+- email addresses become unclear
+- permissions stay attached to the wrong account
+- access history becomes harder to follow
+- reporting and audit trails become messy
 
-- käyttäjän kirjautumistunnus voi muuttua väärin
-- sähköpostin kulku voi rikkoutua
-- vanhalle nimelle tulevat viestit eivät löydä perille
-- käyttäjän tiedot voivat synkronoitua väärin
-- eri järjestelmissä näkyy eri nimi
-- Service Desk joutuu korjaamaan sotkua jälkikäteen
+The person is the same human being, but the systems may not agree what identity they should use.
 
-Usein nimenmuutoksessa pitäisi miettiä erikseen ainakin näkyvä nimi, käyttäjätunnus ja sähköpostiosoitteet.
+That is why internal changes need careful handling.
 
-Sähköpostin takia on yleensä tärkeää säilyttää myös vanha osoite aliaksena, jotta vanhalla nimellä lähetetyt viestit tulevat edelleen perille.
+The goal should be identity continuity where appropriate, but also correct access based on the new relationship.
 
-Microsoft-ympäristössä tämä voi liittyä esimerkiksi käyttäjän ensisijaiseen sähköpostiosoitteeseen ja vanhoihin osoitteisiin, jotka säilytetään aliaksina. Ympäristökohtaiset käytännöt pitää kuitenkin aina tarkistaa, koska AD-, Entra ID- ja Exchange-asetukset voivat vaihdella.
+A consultant should not automatically keep the same access they had as an internal employee.
 
-**Riski:**  
-Pieni nimenmuutos voi rikkoa kirjautumista, sähköpostia tai käyttäjän perustietoja, jos ei ymmärretä mistä attribuutit tulevat ja mihin ne vaikuttavat.
+Same person does not always mean same access need.
 
-**Elikkäs:**  
-Nimenmuutos ei ole vain “vaihda nimi kenttään”. Se pitää tehdä hallitusti, koska nimi voi liittyä kirjautumiseen, sähköpostiin, synkronointiin ja käyttäjän identiteettiin monessa järjestelmässä.
+## Name changes and identity data
 
----
+Name changes are another good example of how a small human change can touch many technical layers.
 
-## Kaimat ja nimeämiskäytännöt
+For example, Iines Ankka gets married and becomes Iines Hanhi.
 
-Nimenmuutoksissa ja uusien käyttäjien luonnissa ongelmaksi voivat tulla myös kaimat.
+The request sounds simple:
 
-Jos Ankkalinna Oy:ssä on jo käyttäjä nimeltä `aku.ankka@ankkalinna.fi` ja taloon tulee toinen Aku Ankka, käyttäjätunnusta tai sähköpostiosoitetta ei voida tehdä samalla tavalla.
+> Update the name.
 
-Tällöin voidaan tarvita selkeä nimeämiskäytäntö.
+But the actual change may involve several things:
 
-Esimerkiksi:
+- display name
+- login name
+- primary email address
+- old email alias
+- HR data
+- AD attributes
+- Entra ID values
+- Exchange attributes
+- application profiles
+- reporting data
 
-- `etunimi.sukunimi`
-- `etunimi.sukunimi1`
-- `etunimi.toisennimenalkukirjain.sukunimi`
-- `etunimi.sukunimi.osasto`
+If the name is changed from the wrong place, the change may be overwritten later.
 
-Tärkeintä on, että käytäntö on johdonmukainen eikä jokainen tapaus ole oma villi poikkeuksensa.
+If the email address is changed badly, mail flow may break.
 
-**Elikkäs:**  
-Kaimat eivät ole vain nimiongelma. Ne ovat identiteetinhallinnan ongelma, jos nimeämiskäytäntöä ei ole mietitty.
+If the UPN is changed without checking dependencies, sign-in or application matching may be affected.
 
----
+If a new account is created instead of updating the existing identity, the organization may create an identity split.
 
-## Access review ei saa olla pelkkä klikkausharjoitus
+This is why I treat name changes as small identity changes, not only cosmetic edits.
 
-Access review on tärkeä osa JML-riskien hallintaa.
+Related note: [Name Change and Identity Continuity](./name-change-identity-risks.md)
 
-Sen tarkoitus on tarkistaa, tarvitseeko käyttäjä edelleen hänellä olevia oikeuksia.
+## Naming conflicts and naming rules
 
-Mutta access review voi epäonnistua, jos se tehdään liian mekaanisesti.
+Duplicate names can also create identity problems.
 
-Esimerkiksi Roope Ankka saa listan käyttäjistä, joilla on pääsy taloushallinnon järjestelmään. Hänellä on kiire, eikä hän tunne kaikkia käyttäjiä tai oikeuksien merkitystä.
+If Ankkalinna Oy already has one Aku Ankka and another Aku Ankka joins, the organization cannot use the same username or email address for both.
 
-Hän klikkaa kaikki hyväksytyksi.
+Without a clear naming rule, every case becomes a manual exception.
 
-Paperilla review on tehty.
+That makes the environment harder to understand later.
 
-Todellisuudessa mitään ei tarkistettu kunnolla.
+A naming convention does not need to be perfect, but it should be consistent enough that accounts are predictable and supportable.
 
-**Riski:**  
-Review antaa väärän turvallisuuden tunteen. Näyttää siltä, että oikeudet on tarkistettu, vaikka kukaan ei oikeasti ymmärtänyt mitä hyväksyi.
+The problem is not only that two people have the same name.
 
-**Elikkäs:**  
-Access review ei ole hyödyllinen, jos se on vain “approve all ja kahville”. Jonkun pitää oikeasti ymmärtää mitä oikeuksia tarkistetaan.
+The problem is what happens if the organization has no clean way to create and manage their digital identities.
 
----
+## Access reviews should not become a clicking exercise
 
-## Mitä hyvässä JML-prosessissa pitäisi miettiä?
+Access reviews are supposed to help clean up access.
 
-Hyvä JML-prosessi ei perustu pelkkään oletukseen tai muistiin.
+But they only work if the reviewer understands what they are reviewing.
 
-Siinä pitäisi miettiä ainakin:
+For example, Roope Ankka receives a list of users who have access to a finance system.
 
-- kuka omistaa käyttäjän tiedot
-- mistä järjestelmästä käyttäjän perustiedot tulevat
-- kuka hyväksyy oikeudet
-- kuka omistaa järjestelmän
-- kuka poistaa vanhat oikeudet
-- miten roolimuutokset huomataan
-- miten väliaikaiset oikeudet päättyvät
-- miten leaver-prosessi varmistetaan
-- miten automaatiovirheet huomataan
-- miten audit trail säilyy
-- miten käyttäjälle kerrotaan muutoksista
-- miten Service Desk tietää mitä tehdä
+He is busy.
 
----
+He does not know every user.
 
-## Oma tämänhetkinen ajatus
+He does not fully understand why each person has access.
 
-Minusta JML-prosessin suurin haaste ei ole pelkkä tekniikka.
+So he approves everything.
 
-Suurin haaste on se, että vastuut ovat usein hajallaan.
+On paper, the review is complete.
 
-HR omistaa työsuhdetiedon. Esihenkilö tietää työn tarpeen. Järjestelmän omistaja tietää sovelluksen oikeudet. IT toteuttaa muutoksen. Käyttäjä näkee lopputuloksen. Service Desk korjaa kiireessä sen, mikä meni pieleen.
+In reality, very little was reviewed.
 
-Jos nämä eivät keskustele keskenään, käyttöoikeuksista tulee helposti sekava kerros vanhoja päätöksiä, oletuksia ja unohtuneita poikkeuksia.
+This creates a false sense of control.
 
-Hyvä IAM vaatii tekniikkaa, mutta se vaatii myös selkeitä prosesseja, omistajuutta ja ymmärrystä siitä, miksi oikeuksia ei anneta tai poisteta kevyesti.
+The organization can say that access reviews are being done, but the quality of the review is weak.
 
-**Elikkäs:**  
-JML on paljon enemmän kuin “tee tunnus” ja “sulje tunnus”. Se on prosessi, jossa käyttäjän oikeuksien pitäisi muuttua samaa tahtia kuin hänen oikea työnsä muuttuu.
+A useful review needs context:
+
+- what does this access allow?
+- why does this user have it?
+- does the user still need it?
+- who owns the system?
+- who can challenge the access if it looks wrong?
+
+Without context, access review becomes a ritual.
+
+It may satisfy a process requirement, but it does not actually reduce risk.
+
+## What a good JML process should consider
+
+A good JML process should not rely on memory, assumptions or random tickets.
+
+It should answer questions like:
+
+- where does the user data come from?
+- who owns the user’s employment status?
+- who approves access?
+- who owns the system or application?
+- who removes old access?
+- how are role changes detected?
+- how is temporary access ended?
+- how are leaver actions verified?
+- how are automation failures noticed?
+- how is audit evidence preserved?
+- how is the user informed about changes?
+- what does Service Desk need in order to act correctly?
+
+The process does not need to be heavy for the sake of being heavy.
+
+But it needs enough structure that access follows the user’s real work.
+
+## My current thinking
+
+The biggest challenge in JML is not only technical.
+
+The hardest part is that responsibility is often spread across different people and systems.
+
+HR knows the employment status.  
+Managers know the work need.  
+System owners know the application roles.  
+IT performs the technical changes.  
+Service Desk handles the tickets.  
+The user experiences the result.
+
+If these parts do not connect, access becomes a layer of old decisions, assumptions and forgotten exceptions.
+
+That is where risk grows.
+
+A good JML process should keep the digital identity aligned with the user’s real situation.
+
+When the user starts, they should get the access they need.
+
+When the user changes role, old access should be reviewed.
+
+When the user leaves, access should end at the right time.
+
+And when something changes in between, the process should be able to handle it without creating duplicate identities, missing access or old permissions that nobody owns anymore.
