@@ -1,73 +1,86 @@
 # Access Creep and Ownership
 
-I have been thinking about access creep a lot while building my Entra ID lab.
+I have been thinking about access creep while building my Entra ID lab.
 
-The lab case itself is simple: Hannu Hanhi has Sales access, CRM access and temporary Finance access that should have been removed after a short project.
+The lab case itself is small on purpose: Hannu Hanhi has Sales access, CRM access and temporary Finance access that should have been removed after a short project.
 
 Related lab case: [Role Creep Case: Hannu Hanhi](../entra-lab/03-role-creep-hannu.md)
 
-But the real problem behind this is not simple.
+But the real problem behind this is not small.
 
 Access creep is not just “someone has too many groups”.
 
-That is the visible symptom.
+That is only what we can see on the surface.
 
-The deeper problem is that access often lives longer than the business reason behind it.
+The deeper problem is this:
+
+> Access often lives longer than the business reason behind it.
+
+And that is where IAM starts to get interesting.
+
+Not flashy. Not dramatic. Just quietly messy in the background.
 
 ## Access does not usually become messy all at once
 
-In real environments, access creep rarely happens because someone makes one huge obvious mistake.
+In real environments, access creep rarely starts with one huge obvious mistake.
 
-It usually grows quietly.
+It grows quietly.
 
-A user needs access quickly because work cannot wait.
-
-Someone covers another person during sick leave.
-
-A team is short-staffed.
-
-A project needs extra hands.
-
-A manager approves access because the request sounds reasonable in that moment.
-
-Service Desk adds the user to the requested group because the request is approved and the work needs to move forward.
+A user needs access quickly because work cannot wait.  
+Someone covers another person during sick leave.  
+A team is short-staffed.  
+A project needs extra hands.  
+A manager approves access because the request makes sense in that moment.  
+Service Desk adds the user to the requested group because the request is approved.
 
 None of this is automatically wrong.
 
-Actually, most of these decisions make sense at the time they are made.
+Actually, most of these decisions are completely reasonable when they happen.
 
 The weakness appears later, when the reason for the access is gone but the access itself stays.
 
-This is where IAM becomes less about clicking buttons and more about ownership, process and visibility.
+That is the uncomfortable part.
 
-## Visibility changes how easy it is to notice problems
+IAM is not only about who can click “add member”.
+
+It is about whether the organization knows why that membership exists in the first place.
+
+## Visibility matters more than people think
 
 One thing I have noticed when working with older Azure AD views is that access can feel strangely hidden.
 
-Groups and memberships are there, but they often feel like they are behind a wall. You need to open the correct “room” before you can really see who is inside.
+Groups and memberships are there, yes.
 
-That matters more than people may think.
+But they often feel like they are behind a wall. You need to open the right “room” before you really see who is inside.
 
-If visibility is poor, wrong access does not scream. It just sits there quietly.
+And that matters.
+
+If visibility is poor, wrong access does not scream.
+
+It just sits there.
+
+Quietly.
 
 A user can be in a group they no longer need, but unless someone knows where to look, it is easy to miss.
 
 In Microsoft Entra, the experience feels more open to me. It feels easier to move between users, groups and memberships and notice when something looks off.
 
-That visual clarity matters.
+That visual clarity matters because IAM work is not only about creating access.
 
-IAM is not only about creating access. It is also about being able to detect access that no longer makes sense.
+It is also about spotting access that no longer makes sense.
 
-If the system makes relationships hard to see, cleanup becomes harder. And when cleanup is hard, people avoid it.
+If the system makes relationships hard to see, cleanup becomes harder.
+
+And when cleanup is hard, people avoid it.
+
+Classic human behaviour. Annoying, but very real.
 
 ## Service Desk can execute, but it cannot own the business reason
 
 This is one of the most important points for me.
 
-Service Desk can add a user to a group.
-
-Service Desk can remove a user from a group.
-
+Service Desk can add a user to a group.  
+Service Desk can remove a user from a group.  
 Service Desk can follow a ticket, check approval and complete the technical action.
 
 But Service Desk cannot always know whether the user truly needs that access from a business point of view.
@@ -82,7 +95,9 @@ Those are not purely technical questions.
 
 They are business ownership questions.
 
-This is where many access processes become weak. The technical team is expected to “manage access”, but the actual knowledge about access need lives somewhere else.
+This is where many access processes become weak.
+
+The technical team is expected to “manage access”, but the actual knowledge about the access need lives somewhere else.
 
 A support team can see the group membership.
 
@@ -100,17 +115,16 @@ One pattern I have seen is the idea of leaving access in place “just in case�
 
 It sounds practical.
 
-Maybe the user will need it again.
-
-Maybe removing it creates extra work.
-
-Maybe it is easier to avoid another ticket later.
-
+Maybe the user will need it again.  
+Maybe removing it creates extra work.  
+Maybe it is easier to avoid another ticket later.  
 Maybe nobody wants to break anything.
 
-I understand why people think like this. In busy environments, removing access can feel like unnecessary friction.
+I understand why people think like this.
 
-But from an IAM perspective, “just in case” is a weak justification.
+In busy environments, removing access can feel like unnecessary friction.
+
+But from an IAM point of view, “just in case” is a weak justification.
 
 Access should be based on current need, not possible future convenience.
 
@@ -118,9 +132,11 @@ If the user needs the access again later, there should be a new request with a c
 
 Otherwise the access model slowly becomes a collection of old assumptions.
 
-And old assumptions are dangerous because they look normal after a while.
+And old assumptions are dangerous because they start looking normal after a while.
 
 Nobody questions them anymore.
+
+That is how the mess gets comfortable.
 
 ## Managers are part of the control, whether they know it or not
 
@@ -138,7 +154,9 @@ But approving access is not just an administrative task.
 
 It is a control point.
 
-When a manager approves access, they are basically saying: this person has a business need for this access.
+When a manager approves access, they are basically saying:
+
+> This person has a valid business need for this access.
 
 That means the manager also needs to understand that the need can end.
 
@@ -148,18 +166,15 @@ Access goes in easily.
 
 Access does not come out as easily.
 
-That is how creep starts.
+And then everyone is surprised when the access model looks like a storage closet nobody has cleaned since 2017.
 
 ## Healthcare makes the problem more complicated, not less important
 
-In healthcare environments, I can understand why access has to move fast.
+In healthcare environments, I understand why access has to move fast.
 
-People change shifts.
-
-Someone gets sick.
-
-Another person covers.
-
+People change shifts.  
+Someone gets sick.  
+Another person covers.  
 New staff may need access quickly because patient care cannot wait for a perfect access process.
 
 That reality matters.
@@ -170,19 +185,23 @@ But the need for speed does not remove the risk.
 
 It means the process needs to be better designed.
 
-Fast access should still have ownership.
-
-Temporary access should still have a review point.
-
+Fast access should still have ownership.  
+Temporary access should still have a review point.  
 Emergency or cover access should still leave evidence.
 
 If the environment is high-pressure and sensitive, access governance becomes more important, not less.
 
 Because the data is sensitive, the work is critical and the consequences of wrong access can be serious.
 
-The answer is not “make access difficult”.
+The answer is not:
 
-The answer is “make access fast, traceable and reviewable”.
+> make access difficult.
+
+The answer is:
+
+> make access fast, traceable and reviewable.
+
+That is the difference.
 
 ## Audit is where weak ownership becomes visible
 
@@ -194,35 +213,37 @@ But in an audit, the question changes.
 
 The question is no longer only:
 
-“Does the user have access?”
+> Does the user have access?
 
 The question becomes:
 
-“Can you prove why the user has access?”
+> Can you prove why the user has access?
 
 That is a very different standard.
 
 If Hannu has Finance access, the organization should be able to explain why.
 
-Who approved it?
-
-What business reason supports it?
-
-Is the reason still valid?
-
-When was it reviewed?
-
+Who approved it?  
+What business reason supports it?  
+Is the reason still valid?  
+When was it reviewed?  
 Who owns that group?
 
-If nobody can answer, the weakness is not only the access. The weakness is lack of evidence.
+If nobody can answer, the weakness is not only the access.
+
+The weakness is lack of evidence.
 
 That is a senior-level IAM concern.
 
 Access without explanation is hard to defend.
 
-And if access reviews are done without real context, they become theatre. People approve what already exists because they do not have enough information to challenge it.
+And if access reviews are done without real context, they become theatre.
 
-That is not governance. That is checkbox clicking.
+People approve what already exists because they do not have enough information to challenge it.
+
+That is not governance.
+
+That is checkbox clicking with better branding.
 
 ## Old access increases incident impact
 
@@ -236,9 +257,13 @@ If Hannu still has old Finance access, the blast radius is bigger than it should
 
 This is why unnecessary access matters even when the user is trustworthy.
 
-The risk is not only “will Hannu misuse this?”
+The risk is not only:
 
-The risk is also “what happens if Hannu’s account is misused?”
+> Will Hannu misuse this?
+
+The risk is also:
+
+> What happens if Hannu’s account is misused?
 
 Old access quietly increases damage potential.
 
@@ -251,32 +276,3 @@ The more I think about IAM, the more I see that access management is really life
 Granting access is only one moment.
 
 The bigger picture is:
-
-- access is requested  
-- access is approved  
-- access is granted  
-- access is used  
-- access is reviewed  
-- access is removed when the reason no longer exists
-
-If the last part is missing, the model slowly breaks.
-
-Not loudly.
-
-Quietly.
-
-One temporary group at a time.
-
-Good IAM should make access intentional.
-
-Not accidental.
-
-Not inherited forever.
-
-Not left behind because nobody knew who was responsible for removing it.
-
-For me, access creep is a good example of why IAM needs both technical visibility and business ownership.
-
-The system can show who has access.
-
-But people still need to understand why that access exists, who owns it and when it should end.
