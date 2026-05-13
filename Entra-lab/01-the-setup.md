@@ -86,6 +86,35 @@ This is what I did first:
 
 ---
 
+#Screenshots
+
+## Budget safety
+
+Before building the lab further, I created a small Azure budget alert.  
+This helps me avoid accidental costs while learning.
+
+![Budget alert](./Screenshots/01-budget-alert.png)
+
+## Creating test users
+
+I created fictional test users for the Ankkalinna Oy lab.
+
+![Create user example](./Screenshots/02-create-user-example.png)
+
+## Starter users
+
+The first users represent different departments and access needs.
+
+![Users overview](./Screenshots/03-users-overview.png)
+
+## Group membership example
+
+Roope Ankka is Head of Finance, so he belongs to finance-related groups.
+
+![Roope group membership](./Screenshots/04-roope-group-membership.png)
+
+---
+
 ## Why this matters
 
 This setup gives me a safe base for learning IAM.
