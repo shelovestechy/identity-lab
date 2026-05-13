@@ -29,10 +29,10 @@ Dynamic groups can be tested later, but I wanted to start with the basic model f
 I used a simple naming pattern: SG-[Area]-[Purpose]
 
 example: 
-SG-HR-Basic
-SG-Finance-Leadership
-SG-App-CRM-Users
-SG-App-CRM-Owners
+- SG-HR-Basic
+- SG-Finance-Leadership
+- SG-App-CRM-Users
+- SG-App-CRM-Owners
 
 `SG` means security group.
 
