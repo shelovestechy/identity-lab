@@ -1,31 +1,35 @@
 # Role Creep Case: Hannu Hanhi
 
-This page documents a small role creep scenario in my Ankkalinna Entra ID lab.
+This page documents a role creep scenario in my Ankkalinna Entra ID lab.
 
-The goal is to practise how old access can stay behind when a user changes role or collects permissions over time.
+The goal is to practise how old access can remain behind when a user changes responsibilities, receives temporary access or supports another team for a short time.
+
+This case is simple on purpose, but the problem is realistic.
+
+Role creep is not always caused by careless users or bad intentions. Often it is caused by unclear ownership, missing review points and temporary access that nobody remembers to remove.
 
 ## What is role creep?
 
-Role creep means that a user slowly collects more and more access over time.
+Role creep means that a user slowly collects more access than they currently need.
 
-This can happen when the user:
+This can happen when a user:
 
 - changes department
-- gets temporary access
+- joins a temporary project
 - helps another team
-- works on a project
-- covers for another person
-- gets access that is never removed later
+- covers for another employee
+- receives urgent access during a busy period
+- gets access that is never reviewed or removed later
 
 The problem is not always one big mistake.
 
-Often it is many small access decisions that are not cleaned up.
+More often, it is many small access decisions that are individually understandable, but together create a weak access model.
 
 ## Scenario
 
 Hannu Hanhi works as a Sales Representative at Ankkalinna Oy.
 
-At the start of the lab, he belongs to:
+His normal access is:
 
 - `SG-Sales-Basic`
 - `SG-App-CRM-Users`
@@ -38,83 +42,126 @@ For that project, he is added to:
 
 - `SG-Finance-Basic`
 
-The access is meant to be temporary.
+The finance access is meant to be temporary.
 
-But after the project ends, nobody removes it.
+The project ends, but Hannu is not removed from the finance group.
 
-Now Hannu still has finance access even though he works in Sales.
+Now Hannu still has finance access even though his current role is Sales.
 
 That is role creep.
 
-## Current access
-
-| User | Role | Groups |
-|---|---|---|
-| Hannu Hanhi | Sales Representative | SG-Sales-Basic, SG-App-CRM-Users |
-
-## Temporary project access
-
-| Added group | Reason | Intended duration |
-|---|---|---|
-| SG-Finance-Basic | Short finance reporting project | Temporary |
-
-## Problem
-
-The project ends, but Hannu is still a member of `SG-Finance-Basic`.
-
-This creates unnecessary access.
-
-Hannu may not be doing anything wrong, but the access model is now weaker.
-
-The risk is that a user has access they no longer need.
-
 ## Why this matters
 
-Old access can create security and compliance problems.
+Role creep weakens the trustworthiness of the access model.
 
-If users keep access from old roles or projects, the organization may lose track of who can see what.
+The issue is not only that Hannu has one extra group membership.
 
-This can affect:
+The bigger issue is that the organization can no longer clearly prove that access follows current business need.
 
-- sensitive data protection
-- least privilege
-- access reviews
-- audit readiness
-- incident impact
-- trust in the access model
+This affects several areas.
 
-## IAM principle
+## Least privilege
 
-Access should follow current need.
+Least privilege means users should only have the access they need for their current role.
 
-If the business reason no longer exists, the access should be removed.
+If Hannu works in Sales but still has Finance access, the access model no longer follows least privilege.
 
-Temporary access should not become permanent by accident.
+This increases unnecessary exposure to sensitive information.
 
-## Better process
+Even if Hannu never misuses the access, the access still exists.
 
-A better process would include:
+That matters.
 
-- clear reason for temporary access
-- owner or approver for the access
-- end date for temporary access
-- review after the project ends
-- removal of access when it is no longer needed
+## Audit readiness
 
-## Example access review questions
+In an audit, it is not enough to say “we think the access is probably fine”.
 
-When reviewing Hannu’s access, I would ask:
+The organization should be able to explain:
+
+- why the user has the access
+- who approved it
+- what business need it supports
+- whether the access is still needed
+- when it was last reviewed
+- who owns the access decision
+
+If Hannu has Finance access but nobody can explain why, that is an audit weakness.
+
+The problem is not only the access itself.
+
+The problem is missing evidence and weak control.
+
+## Access reviews
+
+Access reviews become less useful if group ownership and membership reasons are unclear.
+
+If a reviewer sees Hannu in `SG-Finance-Basic`, they should be able to decide whether that access is valid.
+
+But if there is no context, the reviewer may approve it just because “it was already there”.
+
+That turns access review into a checkbox exercise instead of a real control.
+
+A good access review needs context.
+
+## Incident impact
+
+Unnecessary access can increase the impact of an incident.
+
+If Hannu’s account is compromised, the attacker may get access to more than Hannu actually needs for his current job.
+
+This means old access can increase the blast radius of an incident.
+
+The more unnecessary access exists, the harder it is to contain damage.
+
+## Data protection
+
+Finance access may include sensitive business information.
+
+Even basic finance access can matter depending on what systems or data are connected to the group.
+
+If access is not removed when the business need ends, sensitive data may be exposed to users who no longer need it.
+
+This creates risk for confidentiality, internal policy and compliance.
+
+## Before cleanup
+
+At this point, Hannu has his normal Sales access and one extra Finance group.
+
+| User | Current role | Groups |
+|---|---|---|
+| Hannu Hanhi | Sales Representative | SG-App-CRM-Users, SG-Finance-Basic, SG-Sales-Basic |
+
+![Hannu before cleanup](./Screenshots/06-hannu-before-cleanup.png)
+
+The problematic group membership is:
+
+- `SG-Finance-Basic`
+
+This access was originally added for a temporary finance reporting project.
+
+After the project ended, the access should have been reviewed and removed if no longer needed.
+
+## Access review questions
+
+Before removing or approving Hannu’s Finance access, I would ask:
 
 - Does Hannu still work in Sales?
 - Does Hannu still need CRM access?
-- Why does Hannu have finance access?
-- Is there still a business reason for it?
-- Who approved it?
-- When should it be removed?
+- Why does Hannu have Finance access?
+- Is there still a current business reason for it?
+- Who approved the Finance access?
+- Was the access meant to be temporary?
+- Is there an end date or review date?
+- Who owns the Finance group?
+- Would this access make sense in an audit?
 
-## Expected cleanup
+If nobody can explain the business reason, the access should not stay.
 
-If Hannu no longer needs finance access, he should be removed from:
+## Cleanup decision
+
+Hannu no longer needs access to `SG-Finance-Basic`.
+
+The correct cleanup action is to remove him from:
 
 - `SG-Finance-Basic`
 
@@ -123,40 +170,70 @@ His normal access should remain:
 - `SG-Sales-Basic`
 - `SG-App-CRM-Users`
 
-## Before cleanup
+The goal is not to remove access randomly.
 
-| User | Groups |
-|---|---|
-| Hannu Hanhi | SG-Sales-Basic, SG-App-CRM-Users, SG-Finance-Basic |
+The goal is to align access with current business need.
 
 ## After cleanup
 
-| User | Groups |
-|---|---|
-| Hannu Hanhi | SG-Sales-Basic, SG-App-CRM-Users |
+After review, Hannu’s unnecessary Finance access was removed.
 
----
-
-## Screenshot: before cleanup
-
-Hannu has temporary finance access that should be reviewed.
-
-![Hannu before cleanup](./Screenshots/06-hannu-before-cleanup.png)
-
-## Screenshot: after cleanup
-
-The unnecessary finance access was removed.
+| User | Current role | Groups |
+|---|---|---|
+| Hannu Hanhi | Sales Representative | SG-App-CRM-Users, SG-Sales-Basic |
 
 ![Hannu after cleanup](./Screenshots/07-hannu-after-cleanup.png)
 
----
+Now Hannu’s group membership matches his current Sales role.
+
+This is a cleaner access state.
+
+## Better process
+
+A better process would prevent this from becoming a long-term issue.
+
+Temporary access should have:
+
+- a clear business reason
+- a named requester
+- an approver or owner
+- an expected end date
+- a review date
+- documented cleanup responsibility
+
+For project-based access, the access request should not only answer “who needs access?”
+
+It should also answer “when should this access end?”
+
+## Senior-level takeaway
+
+The real risk in role creep is not only one user having one extra group.
+
+The real risk is losing control over the access model.
+
+If old access is not removed, the organization slowly loses visibility into who can access what and why.
+
+That affects security, audit readiness, access reviews, data protection and incident response.
+
+Good IAM is not only about granting access.
+
+It is also about removing access when the reason no longer exists.
 
 ## What I learned
 
-Role creep is not always caused by bad intentions.
+Role creep is a practical IAM problem.
 
-It can happen because temporary access is added quickly and nobody owns the cleanup.
+It can happen even when every single access request looked reasonable at the time.
 
-This is why access should be documented, reviewed and connected to a real business need.
+The weakness appears later if nobody owns the cleanup.
 
-A small access decision can become a long-term risk if nobody checks it later.
+This case helped me practise thinking about access as a lifecycle:
+
+- access is requested
+- access is approved
+- access is granted
+- access is used
+- access is reviewed
+- access is removed when no longer needed
+
+Access should not live forever just because nobody remembered to clean it up.
