@@ -154,12 +154,3 @@ That is why old access matters.
 Not only for audits.
 
 For real incident impact.
-
-## Related portfolio notes
-
-These notes show how this thinking connects to practical access scenarios:
-
-- [Joiner, Mover and Leaver Risks](../iam-thinking/joiner-mover-leaver-risks.md)
-- [Access Creep and Ownership](../iam-thinking/access-creep-and-ownership.md)
-- [Access Request Is Not Just a Ticket](../iam-thinking/access-request-is-not-just-a-ticket.md)
-- [Role Creep Case: Hannu Hanhi](../entra-lab/03-role-creep-hannu.md)
