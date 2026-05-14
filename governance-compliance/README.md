@@ -2,21 +2,10 @@
 
 This folder contains my practical notes about governance, compliance and risk topics related to identity and access management.
 
-The goal is not to rewrite standards or legal text.
+The focus is not legal theory.
 
-The goal is to understand what these topics mean in real IT work.
+The focus is how standards and regulations show up in real access work: users, groups, approvals, lifecycle changes, external access, sensitive data and audit evidence.
 
-For me, governance and compliance become practical when they affect questions like:
+Start here:
 
-- who has access?
-- why do they have it?
-- who approved it?
-- is the access still needed?
-- can we prove the decision later?
-- what happens if the account is misused?
-- how do we protect sensitive data?
-- who owns the system or information?
-
-Compliance is not only paperwork.
-
-If done properly, it should make access decisions clearer, more traceable and easier to review.
+- [Standards and Regulations Map](./standards-and-regulations-map.md)
