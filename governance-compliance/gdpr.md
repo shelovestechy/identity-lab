@@ -6,9 +6,9 @@ It is the EU regulation for protecting personal data.
 
 In plain words, GDPR is about making sure that personal data is handled lawfully, fairly and carefully.
 
-Personal data means information related to an identified or identifiable person.
+For access work, GDPR becomes real when someone can see, use, edit, export or share information about people.
 
-Examples:
+Personal data can include:
 
 - name
 - email address
@@ -20,22 +20,45 @@ Examples:
 - support ticket
 - log data, if it can be linked to a person
 
+## The practical point
+
+GDPR is not only about whether personal data exists somewhere in a system.
+
+The sharper question is:
+
+> Who can touch that data, how much of it, and why?
+
+That is where access work becomes important.
+
+A user may need some personal data to do their job.
+
+That does not mean they need all personal data in the system.
+
+And it definitely does not mean they need edit, export or admin rights just because read access would be useful.
+
+Access to personal data should match the real work need.
+
+Not curiosity.
+
+Not convenience.
+
+Not “just in case”.
+
 ## What GDPR is for
 
-GDPR exists to protect people’s personal data.
+GDPR is there to protect people’s personal data and make organizations handle it properly.
 
-For organizations, it means personal data cannot be handled casually.
+That means personal data should not be collected, viewed, stored, shared or kept casually.
 
-There should be a valid reason for collecting, viewing, storing, sharing or using personal data.
+There needs to be a valid reason.
 
-The organization should understand:
+In daily access work, this means personal data should not be visible just because someone has a broad group membership, old role access or copied permissions from another user.
 
-- what personal data it has
-- why it is used
-- who can access it
-- how it is protected
-- how long it is kept
-- what happens if something goes wrong
+That is the part I care about here.
+
+Not memorising legal articles.
+
+Understanding how personal data exposure happens in normal IT work.
 
 ## What it contains
 
@@ -52,68 +75,89 @@ At a high level, GDPR includes topics like:
 | Breach handling | Personal data incidents need clear handling |
 | Accountability | The organization should be able to show what it has done and why |
 
-For IAM work, the most interesting parts are access, minimization, confidentiality, logging, accountability and unnecessary exposure.
+For access work, the most interesting parts are access limitation, data minimization, confidentiality, logging, accountability and unnecessary exposure.
 
-## What it means in access work
+## What this means in access work
 
-GDPR becomes practical when someone asks for access to personal data.
+GDPR changes the access question.
 
-For example:
-
-- HR data
-- payroll data
-- customer data
-- patient-related data
-- employee records
-- support tickets
-- audit logs
-- user profile data
-- reports that contain personal information
-
-The access question should not only be:
+The question should not only be:
 
 > Can we technically give this access?
 
 The better question is:
 
-> Does this user need this personal data for their current work?
+> Does this user need this personal data for their current work, at this access level?
 
-That is the important shift.
+That last part matters.
 
-## My practical interpretation
+There is a big difference between:
 
-For me, the practical GDPR question in IAM is:
+- seeing one customer record
+- seeing all customer records
+- editing customer records
+- exporting customer lists
+- seeing sensitive notes
+- accessing historical records
+- accessing data outside the user’s own team or responsibility area
 
-> Who can see personal data, and can we justify why?
+All of these may look like “customer data access” in a ticket.
 
-A person may work in the organization and still not need access to all personal data.
+But the risk level is not the same.
 
-A manager may need information about their own team, not the whole company.
+That is why vague access requests are dangerous when personal data is involved.
 
-Service Desk may need enough access to support users, not unlimited visibility into sensitive data.
+## Access level matters
 
-Healthcare staff may need fast access for care work, but that access still needs proper control and logging.
+With personal data, access level matters a lot.
 
-The point is not to block real work.
+Read access may already be sensitive.
 
-The point is to avoid unnecessary exposure.
+Edit access creates more impact.
 
-## What I would check
+Export access can create a bigger leakage risk.
 
-When looking at access from a GDPR point of view, I would check:
+Admin access may allow the user to change other users, permissions or data handling settings.
 
-- does the system contain personal data?
-- what type of personal data is involved?
-- is the data sensitive or high-risk?
-- who needs access for actual work?
-- is read access enough?
-- does the user need export rights?
-- does the user need edit rights?
-- is access based on role or copied from another user?
-- are old accesses removed when the role changes?
-- are external users reviewed?
-- is access logged?
-- can access decisions be explained later?
+A weak request would be:
+
+> I need access to customer reports.
+
+A better request would be:
+
+> I need read access to customer reports for my own team because I follow weekly service metrics.
+
+That gives context.
+
+It helps limit access to the actual need instead of throwing the user into some broad group and hoping it is fine.
+
+Hope is not access control.
+
+## Data minimization and access
+
+GDPR includes the idea that personal data should be limited to what is necessary.
+
+In access work, I read this very practically:
+
+users should not see more personal data than they need for their current work.
+
+That sounds obvious, but it breaks easily.
+
+It can break when:
+
+- access is copied from another user
+- old access stays after role changes
+- temporary access is not removed
+- groups are too broad
+- reports include more data than needed
+- export rights are given too freely
+- managers approve access without knowing what it includes
+
+This is where GDPR connects directly to role creep.
+
+Old access is not only a security issue.
+
+If it gives access to personal data, it can also become a privacy issue.
 
 ## Example: customer reporting access
 
@@ -121,7 +165,7 @@ Aku Ankka asks for access to a customer reporting system.
 
 I would not only ask which group he needs.
 
-I would ask what customer data the system contains and what Aku needs to do with it.
+I would ask what the system contains and what Aku needs to do with the data.
 
 | Question | Why it matters |
 |---|---|
@@ -130,6 +174,7 @@ I would ask what customer data the system contains and what Aku needs to do with
 | Does Aku need export rights? | Export increases data leakage risk |
 | Does Aku need edit rights? | Edit access creates more impact |
 | Is this permanent or temporary? | Temporary need should not become permanent |
+| Is this access reviewed later? | Personal data access should not be forgotten |
 
 “Access to customer reports” is too vague if the reports contain personal data.
 
@@ -153,9 +198,20 @@ Most of these problems do not start as dramatic incidents.
 
 They start as normal access decisions that were too broad, too vague or never cleaned up.
 
-## Related portfolio notes
+## Practical takeaway
 
-- [Access Request Is Not Just a Ticket](../iam-thinking/access-request-is-not-just-a-ticket.md)
-- [Joiner, Mover and Leaver Risks](../iam-thinking/joiner-mover-leaver-risks.md)
-- [Access Creep and Ownership](../iam-thinking/access-creep-and-ownership.md)
-- [Name Change and Identity Continuity](../iam-thinking/name-change-identity-risks.md)
+GDPR makes access work more serious when personal data is involved.
+
+It is not enough to say that a user has access.
+
+The real question is what they can see, what they can do with it, why they need it and whether the access still makes sense.
+
+Personal data access should not happen by accident.
+
+Not because a group was convenient.
+
+Not because someone copied another user.
+
+Not because nobody dared to remove old access.
+
+If the data is about people, access needs a better reason than “this was easy”.
