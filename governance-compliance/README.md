@@ -10,7 +10,6 @@ The focus is how standards, regulations and audit topics show up in real access 
 
 | Page | Topic | Practical angle |
 |---|---|---|
-| [Standards and Regulations Map](./standards-and-regulations-map.md) | Overview | Quick map of how standards and regulations connect to IAM work |
 | [ISO/IEC 27001](./iso-27001.md) | Information security management | Risk-based security, ISMS, controls and process vs reality |
 | [GDPR](./gdpr.md) | Personal data protection | Who can access personal data, why and at what level |
 | [NIS2](./nis2.md) | Cybersecurity risk and resilience | Incident impact, blast radius, critical services and access risk |
