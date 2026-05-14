@@ -25,7 +25,7 @@ The repository includes Microsoft Entra ID lab work, fictional access scenarios,
 
 ## Lab company
 
-The practical lab work is built around a fictional company called **Ankkalinna Oy**.
+The practical lab work is built around a fictional company called **Ankkalinna Identity Lab Oy**.
 
 Using fictional users and departments makes it easier to build realistic access scenarios without using real customer data, real users or production environments.
 
