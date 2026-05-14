@@ -4,7 +4,7 @@ This repository is my learning and portfolio space for Identity and Access Manag
 
 The focus is not only on tools or portal buttons. I use this space to practise how access works in real environments, where technical actions, business decisions, user lifecycle, ownership, audit evidence and support processes all meet.
 
-The repository includes Microsoft Entra ID lab work, fictional access scenarios, IAM thinking notes and practical technical checklists.
+The repository includes Microsoft Entra ID lab work, fictional access scenarios, IAM thinking notes, governance and compliance notes, tool mapping and practical technical checklists.
 
 ---
 
@@ -19,6 +19,7 @@ The repository includes Microsoft Entra ID lab work, fictional access scenarios,
 - access reviews
 - privileged access thinking
 - governance, risk and compliance
+- IAM tools and platforms
 - practical Service Desk and IAM process thinking
 
 ---
@@ -47,9 +48,8 @@ Example users:
 | [`entra-lab/`](./entra-lab/) | Hands-on Microsoft Entra ID lab documentation and fictional access scenarios |
 | [`iam-thinking/`](./iam-thinking/) | Longer notes about IAM risks, ownership, lifecycle and access problems |
 | [`operational-notes/`](./operational-notes/) | Practical technical notes and checklists for identity-related tasks |
-| [`sc-300/`](./sc-300/) | Study notes for the SC-300 certification |
+| [`governance-compliance/`](./governance-compliance/) | Notes about ISO/IEC 27001, GDPR, NIS2, Finnish cybersecurity regulation, audit evidence and risk thinking |
 | [`tools/`](./tools/) | Notes about IAM-related tools and platforms |
-| [`governance-compliance/`](./governance-compliance/) | Notes about ISO/IEC 27001, GDPR, NIS2, Finnish cybersecurity regulation and risk thinking |
 
 ---
 
@@ -67,6 +67,18 @@ Example users:
 - [Name Change and Identity Continuity](./iam-thinking/name-change-identity-risks.md)
 - [Joiner, Mover and Leaver Risks](./iam-thinking/joiner-mover-leaver-risks.md)
 - [Access Request Is Not Just a Ticket](./iam-thinking/access-request-is-not-just-a-ticket.md)
+
+### Governance and Compliance
+
+- [ISO/IEC 27001 - Practical View](./governance-compliance/iso-27001.md)
+- [GDPR - Practical View](./governance-compliance/gdpr.md)
+- [NIS2 - Practical View](./governance-compliance/nis2.md)
+- [Finnish Cybersecurity Regulation - Practical View](./governance-compliance/finnish-cybersecurity-regulation.md)
+- [Audit Evidence - Practical View](./governance-compliance/audit-evidence.md)
+
+### Tools
+
+- [IAM Tools and Platforms](./tools/README.md)
 
 ### Operational Notes
 
@@ -102,9 +114,6 @@ The goal is clear thinking.
 
 - [Microsoft Graph PowerShell documentation](https://learn.microsoft.com/en-us/powershell/microsoftgraph/)  
   Used for practising identity management through PowerShell and Microsoft Graph commands.
-
-- [Microsoft SC-300 study guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300)  
-  Used to follow the official Identity and Access Administrator certification objectives.
 
 ---
 
