@@ -188,10 +188,5 @@ Then every old account, broad permission and missing owner suddenly matters.
 
 ## Related portfolio notes
 
-These notes show how this thinking connects to practical access scenarios:
-
 - [NIS2 - Practical View](./nis2.md)
-- [Joiner, Mover and Leaver Risks](../iam-thinking/joiner-mover-leaver-risks.md)
-- [Access Creep and Ownership](../iam-thinking/access-creep-and-ownership.md)
-- [Access Request Is Not Just a Ticket](../iam-thinking/access-request-is-not-just-a-ticket.md)
-- [Role Creep Case: Hannu Hanhi](../entra-lab/03-role-creep-hannu.md)
+
