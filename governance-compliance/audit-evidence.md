@@ -1,279 +1,310 @@
 # Audit Evidence - Practical View
 
-Audit evidence sounds boring until someone needs to prove what happened.
+Audit is one of those words that sounds dry until people suddenly start asking for proof.
 
-In access work, it is not enough that access “probably made sense”.
+In real work, audit often feels like this:
 
-Later, someone may ask:
+someone starts checking systems, tickets, users, access lists, logs, policies and old decisions.
 
-- who had access?
-- why did they have it?
-- who approved it?
-- when was it granted?
-- was it still needed?
-- when was it reviewed?
-- when was it removed?
+Then everyone hopes the environment is clean enough and the evidence makes sense.
 
-If the answer is only:
+That is the part I want to understand here.
 
-> I think it was added at some point
+Not audit as a fancy word.
 
-then the access process is weak.
+Audit as a real check where someone asks:
 
-The problem is not only the access itself.
+> Can you prove that this works the way you say it works?
 
-The problem is that the organization cannot prove control.
+## What audit means
 
-## What audit evidence is
+An audit is a structured check.
 
-Audit evidence means information that shows what happened and why.
+It compares what should happen against what actually happens.
 
-In access management, that evidence can come from things like:
+In information security and access management, an audit may look at things like:
 
-| Evidence | What it can show |
+- are users created properly?
+- are access requests approved?
+- are leavers disabled on time?
+- are privileged accounts controlled?
+- are access reviews done?
+- are logs available?
+- are policies followed in real work?
+- can decisions be proven later?
+
+The audit is not only about whether something exists.
+
+It is about whether it works and whether there is evidence.
+
+A process can look nice on paper.
+
+Audit asks if reality matches the paper.
+
+## Internal audit
+
+Internal audit is done from inside the organization or on behalf of the organization.
+
+The point is to check things before an external party does.
+
+Internal audit can help find problems like:
+
+- unclear access approval
+- missing evidence
+- old accounts
+- weak leaver handling
+- privileged access without review
+- policies that people do not actually follow
+- systems with unclear ownership
+
+Internal audit should not be treated as an enemy.
+
+In a healthy organization, it is a way to find weak spots early.
+
+Better to find the mess yourself than have a customer, regulator or external auditor find it first.
+
+## External audit
+
+External audit is done by someone outside the organization.
+
+This could be for example:
+
+- a certification auditor
+- a customer auditor
+- a regulator
+- an external security assessor
+- a partner or supplier risk review
+
+External audit usually has more pressure around it.
+
+People start checking if documentation is ready, if screenshots exist, if tickets are clean and if the right people can answer questions.
+
+This is the part that can become a full circus if the daily work has not been clean.
+
+If evidence is missing, people may need to dig through old tickets, logs and conversations.
+
+That is not fun.
+
+And it is not a good look.
+
+## Why companies need audits
+
+Companies need audits because trust alone is not enough.
+
+A company can say:
+
+> We control access.
+
+Audit asks:
+
+> Show me.
+
+A company can say:
+
+> Leavers are disabled on time.
+
+Audit asks:
+
+> Prove it.
+
+A company can say:
+
+> Privileged access is reviewed.
+
+Audit asks:
+
+> Where is the review evidence?
+
+This is why audits matter.
+
+They help prove that security is not only a nice promise.
+
+They also help customers, partners, regulators and management trust that the organization has control.
+
+## What can force audits
+
+Audits can happen for different reasons.
+
+Not all of them come from the same source.
+
+| Reason | What it means |
 |---|---|
-| Access request ticket | Who requested access and why |
-| Approval record | Who approved the access |
-| Group membership history | When access was added or removed |
-| Access review result | Whether access was checked |
-| System owner decision | Who confirmed the access was valid |
-| Logs | What the user or account did |
-| Change record | What was changed and by whom |
+| ISO/IEC 27001 certification | Internal audits and external certification audits are part of maintaining the ISMS |
+| Customer requirement | A customer may require proof before trusting a supplier |
+| Supplier risk management | A company may audit vendors that handle important systems or data |
+| GDPR accountability | The organization may need to show how personal data is protected |
+| NIS2 / cybersecurity regulation | Authorities may supervise and check cybersecurity risk management |
+| Internal governance | Management may want assurance that controls work |
+| Incident aftermath | After an incident, people may check what failed and why |
+
+So the answer is not always “because one law says so”.
+
+Sometimes it is a standard.
+
+Sometimes it is a customer.
+
+Sometimes it is regulation.
+
+Sometimes it is management wanting proof.
+
+Sometimes it is because something already went wrong.
+
+## What auditors may look at
+
+In access and identity work, auditors may look at:
+
+- user lists
+- admin accounts
+- group memberships
+- access request tickets
+- approval records
+- access review results
+- leaver tickets
+- disabled accounts
+- external users
+- privileged roles
+- logs
+- policies
+- procedures
+- screenshots
+- system owner lists
+- change records
+
+The annoying part is that one missing piece can create a lot of extra work.
+
+For example:
+
+The access may be correct.
+
+But if nobody can show who approved it, the evidence is weak.
+
+The account may have been disabled.
+
+But if nobody can prove when it happened, the control is harder to defend.
+
+The review may have been done.
+
+But if it only says “approved”, it may not show whether anyone actually checked anything.
+
+## The real-life mess
+
+This is where audit becomes very real.
+
+When audit starts, people may suddenly ask:
+
+- where is the policy?
+- who owns this system?
+- why does this user have access?
+- where is the approval?
+- why is this account still active?
+- when was this reviewed?
+- who removed this access?
+- why does this group have no owner?
+- where are the logs?
+- why is this process different in this team?
+
+And then the digging starts.
+
+Old tickets.
+
+Old emails.
+
+Screenshots.
+
+Teams messages.
+
+Excel lists.
+
+Someone who “might remember”.
+
+Someone who no longer works there.
+
+This is why clean daily work matters.
+
+If the evidence is not created when the work is done, it is painful to rebuild later.
+
+## Audit evidence
+
+Audit evidence is the material used to prove what happened.
+
+It can be:
+
+| Evidence | What it helps prove |
+|---|---|
+| Ticket | What was requested |
+| Approval | Who accepted the decision |
+| Group history | When access changed |
+| Log entry | What account did something |
+| Review result | Whether access was checked |
 | Leaver record | When access should have ended |
+| Change record | Who changed what |
+| Screenshot | What the system showed at that time |
+| Policy or procedure | What should have happened |
 
 The point is not to collect random screenshots forever.
 
-The point is to keep enough useful evidence that access decisions can be explained later.
+The point is to keep useful evidence.
 
-## Why it matters
+Evidence should help answer the real question.
 
-Audit evidence matters because memory is not a control.
+Not just create a pile of files that nobody understands.
 
-People forget.
+## Good evidence vs weak evidence
 
-Managers change.
+Weak evidence says:
 
-Service Desk people move to other roles.
+> Access added.
 
-Projects end.
+Better evidence says:
 
-System owners leave.
+> Read access was granted to Aku Ankka for production reporting. Manager approved it. Access is valid while Aku works in this role.
 
-Old tickets get closed and nobody remembers the background anymore.
+Weak evidence shows activity.
 
-But access may still remain.
-
-Without evidence, the organization is left guessing.
-
-That is a bad place to be when someone asks why a user had access to sensitive data, finance reports, HR records, admin tools or customer information.
-
-## Access without evidence is hard to defend
-
-A user may have valid access.
-
-The access may have been approved correctly.
-
-The business reason may have been completely reasonable.
-
-But if there is no record of it, it becomes difficult to prove later.
-
-That is the annoying part.
-
-Good access can look suspicious if the evidence is missing.
-
-Bad access can look normal if nobody checks the history.
-
-This is why documentation matters.
-
-Not because paperwork is fun.
-
-Because access decisions need a trail.
-
-## What good evidence should answer
-
-Good audit evidence should help answer:
-
-- who requested the access?
-- what access was requested?
-- why was it needed?
-- who approved it?
-- who owns the system or data?
-- when was access granted?
-- who performed the change?
-- was the access temporary or permanent?
-- when should it be reviewed?
-- when was it removed?
-
-A ticket does not need to be a novel.
-
-But it should include enough context that someone can understand the decision later.
-
-## Weak evidence example
-
-A weak access request might look like this:
-
-> Give Aku access to reporting.
-
-That does not explain much.
-
-It does not say which reporting system.  
-It does not say what access level.  
-It does not say why access is needed.  
-It does not say who approved it.  
-It does not say whether the access is temporary.  
-It does not say who owns the system.
-
-The ticket may be closed, but the evidence is weak.
-
-Later, if someone asks why Aku had access, the organization does not have a strong answer.
-
-## Better evidence example
-
-A better access request might look like this:
-
-| Field | Example |
-|---|---|
-| User | Aku Ankka |
-| System | Ankkalinna Reporting |
-| Access level | Read access to production reports |
-| Business reason | Weekly reporting for own team |
-| Approver | Aku’s manager |
-| System owner | Reporting system owner |
-| Duration | Valid while Aku works in this role |
-| Review | Included in next access review |
-
-This is not heavy.
-
-It is just clear.
-
-Now the access decision is easier to understand, review and defend later.
-
-## Evidence and access reviews
-
-Access reviews also need evidence.
-
-A review should not only show that someone clicked approve.
-
-It should show enough context to understand whether the review was meaningful.
-
-A weak review says:
-
-> Reviewed.
-
-A better review shows:
-
-- who reviewed the access
-- what access was reviewed
-- what decision was made
-- whether access was kept or removed
-- why the decision made sense
-- when the review happened
-
-The danger is that access reviews can become theatre.
-
-A list is sent.  
-Someone approves everything.  
-The process says review completed.  
-Nothing actually improves.
-
-That may create evidence that a review happened.
-
-But it does not prove that access was properly challenged.
-
-## Evidence and leavers
-
-Leaver evidence is especially important.
-
-When a user leaves, the organization should be able to show that access was removed or blocked at the right time.
-
-Useful evidence could include:
-
-- employment end date
-- account disable date
-- removed group memberships
-- mailbox handling
-- revoked privileged roles
-- removed external access
-- ticket or automation result
-- logs showing the action completed
-
-This matters because leaver mistakes can be serious.
-
-An old account that stays active is not only a cleanup issue.
-
-It can become a security risk.
-
-## Evidence and incidents
-
-During an incident, audit evidence becomes very practical.
-
-People may need to know:
-
-- which account was used?
-- what access did the account have?
-- when was access granted?
-- was the access normal?
-- who approved it?
-- what systems were reached?
-- what actions were taken?
-- were old permissions involved?
-
-If evidence is poor, incident investigation becomes harder.
-
-The organization may lose time trying to understand basic identity and access facts.
-
-That is not where anyone wants to be during a real incident.
-
-## My practical interpretation
-
-For me, audit evidence is the difference between:
-
-> “We think this was fine.”
-
-and:
-
-> “We can show why this was done.”
+Good evidence explains the decision.
 
 That difference matters.
 
-A working access process should not depend on memory, assumptions or someone being available to explain old decisions.
+A closed ticket is not automatically good evidence.
 
-If access is granted, reviewed or removed, the organization should leave a useful trail.
+A screenshot is not automatically good evidence.
 
-Not endless documentation.
+A review result is not automatically good evidence.
 
-Useful evidence.
+The evidence needs context.
 
-Enough to explain the access decision later.
+## My practical interpretation
 
-## What I would check
+For me, audit evidence is about one simple thing:
 
-When looking at audit evidence in access work, I would check:
+can the organization prove control?
 
-- do access requests include a business reason?
-- is the approver visible?
-- is the system owner known?
-- is the access level clear?
-- is temporary access marked clearly?
-- is there an end date or review date?
-- are changes traceable?
-- are removals documented?
-- do access reviews show real decisions?
-- can leaver actions be proven?
-- can logs support incident investigation?
+Not just claim control.
+
+Prove it.
+
+Control without evidence is mostly trust.
+
+And trust is not enough when someone asks for proof.
+
+This is why access work should leave a clean trail.
+
+Not because paperwork is fun.
+
+Because later someone may need to understand what happened without guessing.
 
 ## Practical takeaway
 
-Audit evidence is not just about passing an audit.
+Audit is not only a formal event where someone checks boxes.
 
-It is about being able to prove control.
+It is a stress test for daily work.
 
-If access exists, there should be a reason.
+If access requests, approvals, leavers, privileged access and reviews are handled cleanly every day, audit is easier.
 
-If access was approved, there should be a record.
+If daily work is messy, audit becomes a panic cleanup.
 
-If access was reviewed, the decision should make sense.
+That is the real lesson.
 
-If access was removed, the removal should be visible.
+Audit does not create the mess.
 
-Without evidence, access management becomes guesswork with a nicer interface.
+Audit reveals it.
