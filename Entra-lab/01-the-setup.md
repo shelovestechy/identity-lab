@@ -17,11 +17,11 @@ For the first setup, I created:
 - a fictional tenant display name: **Ankkalinna**
 - test users for different departments
 - security groups for basic access modelling
-- screenshots for documentation
+- a simple documentation structure for GitHub
 
 The goal was not to build a perfect enterprise environment on day one.
 
-The goal was to create a simple base that I can expand into more realistic IAM scenarios.
+The goal was to create a simple base that I can expand into more realistic IAM scenarios over time.
 
 ## Lab idea
 
@@ -42,7 +42,9 @@ I want to understand the access logic behind the configuration.
 
 ## Security note
 
-Real tenant identifiers, technical tenant details and any sensitive information are not published in this repository.
+Real tenant identifiers, subscription identifiers, technical tenant details and any sensitive information are not published in this repository.
+
+Screenshots will be added only after tenant, subscription and user identifier details have been reviewed and blurred where needed.
 
 ## Test users
 
@@ -75,36 +77,8 @@ This is what I did first:
 4. Changed the tenant display name to Ankkalinna
 5. Created fictional test users
 6. Created the first security groups
-7. Took screenshots while building the lab
-8. Started documenting the setup in GitHub
-
-## Screenshots
-
-### Budget safety
-
-Before building the lab further, I created a small Azure budget alert.
-
-This helps me avoid accidental costs while learning.
-
-![Budget alert](./Screenshots/01-budget-alert.png)
-
-### Creating test users
-
-I created fictional test users for the Ankkalinna Identity Lab Oy environment.
-
-![Create user example](./Screenshots/02-create-user-example.png)
-
-### Starter users
-
-The first users represent different departments and access needs.
-
-![Users overview](./Screenshots/03-users-overview.png)
-
-### Group membership example
-
-Roope Ankka is Head of Finance, so he belongs to finance-related groups.
-
-![Roope group membership](./Screenshots/04-roope-group-membership.png)
+7. Started documenting the setup in GitHub
+8. Planned the next lab pages around practical IAM scenarios
 
 ## Why this matters
 
