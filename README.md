@@ -2,71 +2,66 @@
 
 This repository is my learning and portfolio space for Identity and Access Management.
 
-The focus is not only on tools or portal buttons. I use this space to practise how access works in real environments, where technical actions, business decisions, user lifecycle, ownership, audit evidence and support processes all meet.
+I use this space to practise how access works in real environments, where technical actions, business decisions, user lifecycle, ownership, audit evidence and support processes all meet.
 
-The repository includes Microsoft Entra ID lab work, fictional access scenarios, IAM thinking notes, governance and compliance notes, tool mapping and practical technical checklists.
+The focus is not only on tools or portal buttons. The goal is to understand why access exists, who owns the decision, how it should be reviewed and what happens when the process fails.
 
----
-
-## Focus areas
+## Focus Areas
 
 - Microsoft Entra ID / Azure AD
-- user and group management
-- access requests
+- User and group management
+- Access requests
 - Joiner, Mover and Leaver processes
-- role creep and access cleanup
-- identity continuity
-- access reviews
-- privileged access thinking
-- governance, risk and compliance
+- Role creep and access cleanup
+- Identity continuity
+- Access reviews
+- Privileged access thinking
+- Governance, risk and compliance
 - IAM tools and platforms
-- practical Service Desk and IAM process thinking
+- Practical Service Desk and IAM process thinking
 
----
-
-## Lab company
+## Lab Company
 
 The practical lab work is built around a fictional company called **Ankkalinna Identity Lab Oy**.
 
-Using fictional users and departments makes it easier to build realistic access scenarios without using real customer data, real users or production environments.
+Using fictional users and departments makes it possible to build realistic access scenarios without using real customer data, real users or production environments.
 
-Example users:
+Example users include Aku Ankka, Iines Ankka, Roope Ankka, Mikki Hiiri, Minni Hiiri and Hannu Hanhi.
 
-- Aku Ankka
-- Iines Ankka
-- Roope Ankka
-- Mikki Hiiri
-- Minni Hiiri
-- Hannu Hanhi
-
----
-
-## Repository structure
+## Repository Structure
 
 | Folder | Purpose |
 | :--- | :--- |
 | [`entra-lab/`](./entra-lab/) | Hands-on Microsoft Entra ID lab documentation and fictional access scenarios |
-| [`iam-thinking/`](./iam-thinking/) | Longer notes about IAM risks, ownership, lifecycle and access problems |
+| [`iam-thinking/`](./iam-thinking/) | Notes about IAM risks, ownership, lifecycle and access problems |
 | [`operational-notes/`](./operational-notes/) | Practical technical notes and checklists for identity-related tasks |
-| [`governance-compliance/`](./governance-compliance/) | Notes about ISO/IEC 27001, GDPR, NIS2, Finnish cybersecurity regulation, audit evidence and risk thinking |
+| [`governance-compliance/`](./governance-compliance/) | Notes about regulation, audit evidence and risk thinking |
 | [`tools/`](./tools/) | Notes about IAM-related tools and platforms |
 
----
-
-## Current pages
+## Current Pages
 
 ### Entra Lab
 
-- [The Setup](./entra-lab/01-the-setup.md)
-- [Security Groups and Memberships](./entra-lab/02-security-groups-and-memberships.md)
-- [Role Creep Case: Hannu Hanhi](./entra-lab/03-role-creep-hannu.md)
+- [01 - The Setup](./entra-lab/01-the-setup.md)
+- [02 - Security Groups and Memberships](./entra-lab/02-security-groups-and-memberships.md)
+- [03 - Role Creep Case: Hannu Hanhi](./entra-lab/03-role-creep-hannu.md)
+- [04 - Group Ownership and Access Model](./entra-lab/04-group-ownership-and-access-model.md)
+- [05 - Manual Access Review Simulation](./entra-lab/05-manual-access-review-simulation.md)
+- [06 - Application Access Model: Ankkalinna CRM](./entra-lab/06-application-access-model-crm.md)
+- [07 - Privileged Access Risk Model](./entra-lab/07-privileged-access-risk-model.md)
+- [08 - Joiner-Mover-Leaver Lifecycle Model](./entra-lab/08-joiner-mover-leaver-lifecycle-model.md)
+- [09 - HR-Driven Identity Lifecycle Concept](./entra-lab/09-hr-driven-identity-lifecycle-concept.md)
+- [10 - Conditional Access Control Design](./entra-lab/10-conditional-access-control-design.md)
+- [11 - Microsoft Graph PowerShell Validation](./entra-lab/11-microsoft-graph-powershell-validation.md)
 
 ### IAM Thinking
 
 - [Access Creep and Ownership](./iam-thinking/access-creep-and-ownership.md)
-- [Name Change and Identity Continuity](./iam-thinking/name-change-identity-risks.md)
-- [Joiner, Mover and Leaver Risks](./iam-thinking/joiner-mover-leaver-risks.md)
 - [Access Request Is Not Just a Ticket](./iam-thinking/access-request-is-not-just-a-ticket.md)
+- [Identity Architecture After Acquisition](./iam-thinking/identity-architecture-after-acquisition.md)
+- [Joiner, Mover and Leaver Risks](./iam-thinking/joiner-mover-leaver-risks.md)
+- [Name Change and Identity Continuity](./iam-thinking/name-change-identity-risks.md)
+- [Segregation of Duties as Business Logic](./iam-thinking/segregation-of-duties-as-business-logic.md)
 
 ### Governance and Compliance
 
@@ -84,21 +79,15 @@ Example users:
 
 - [Name Change - Technical Work Note](./operational-notes/name-change-technical.md)
 
----
-
-## Language note
+## Language Note
 
 The main language of this repository is English.
 
-Some early notes or drafts may still be written in Finnish because some ideas are easier to capture in my native language first.
+Some early notes may still be written in Finnish because some ideas are easier to capture first in my native language.
 
-The goal is not perfect academic English.
+The goal is clear thinking, not perfect academic English.
 
-The goal is clear thinking.
-
----
-
-## Learning resources
+## Learning Resources
 
 - [SimplifyIAM community](https://www.skool.com/simplify-iam-6792/)  
   Practical IAM homelab ideas, IAM concepts, portfolio building and career direction.
@@ -115,14 +104,10 @@ The goal is clear thinking.
 - [Microsoft Graph PowerShell documentation](https://learn.microsoft.com/en-us/powershell/microsoftgraph/)  
   Used for practising identity management through PowerShell and Microsoft Graph commands.
 
----
-
-## Current direction
+## Current Direction
 
 My current direction is toward IAM Analyst work.
 
 Long term, I want to grow toward identity architecture.
 
 Right now, I am building practical understanding through Microsoft Entra ID lab work, access scenarios, technical notes and written analysis.
-
-I want to understand why access exists, who owns the decision, how it should be reviewed and what happens when the process fails.
