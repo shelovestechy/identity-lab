@@ -2,7 +2,7 @@
 
 This page documents how Microsoft Graph PowerShell can be used to validate identity and group data in the Ankkalinna Entra ID lab.
 
-The goal is to compare the expected access model against the current Entra ID state.
+The goal is to compare the expected access model against the current Microsoft Entra ID state.
 
 ## Validation scope
 
@@ -22,6 +22,12 @@ The goal is to compare the expected access model against the current Entra ID st
 | Hannu Hanhi | Finance Specialist | SG-Finance-Basic |
 | Minni Hiiri | Application Owner | SG-App-CRM-Owners |
 | Mikki Hiiri | Security Specialist | SG-Security-Basic, SG-Privileged-Role-Eligible |
+
+The expected access model gives the validation a clear target.
+
+A group membership list alone only shows current access.
+
+An expected access model shows whether the current access is correct.
 
 ## Validation questions
 
@@ -46,9 +52,11 @@ The goal is to compare the expected access model against the current Entra ID st
 | Get user memberships | Check what access a specific user has |
 | Export results | Save evidence for access review or cleanup |
 
+{IMAGE 01: Microsoft Graph PowerShell connection or module check. Blur tenant identifiers, account identifiers and technical details.}
+
 ## Example: Hannu Hanhi validation
 
-Hannu moved from Sales to Finance.
+Hannu Hanhi moved from Sales to Finance.
 
 Expected final access:
 
@@ -56,7 +64,7 @@ Expected final access:
 |---|---|
 | Hannu Hanhi | SG-Finance-Basic |
 
-Validation result should check:
+Validation should check whether Hannu still has old Sales access or unnecessary application access.
 
 | Group | Expected result |
 |---|---|
@@ -66,7 +74,11 @@ Validation result should check:
 | SG-Finance-Leadership | Hannu should not be a member |
 | SG-Privileged-Role-Eligible | Hannu should not be a member |
 
+{IMAGE 02: PowerShell or Entra output showing Hannu’s current group memberships. Blur UPN, object IDs, group IDs and tenant details.}
+
 ## Expected output format
+
+A useful validation output should connect technical data to an access decision.
 
 | User | Department | Job title | Group | Expected? | Decision |
 |---|---|---|---|---|---|
@@ -75,9 +87,11 @@ Validation result should check:
 | Roope Ankka | Finance | Head of Finance | SG-Finance-Leadership | Yes | Keep |
 | Mikki Hiiri | Security | Security Specialist | SG-Privileged-Role-Eligible | Yes | Review monthly |
 
+{IMAGE 03: Expected vs actual validation table or exported result. Blur all UPNs, object IDs and tenant details.}
+
 ## HR data comparison
 
-Microsoft Graph can also help compare Entra ID data against the mock HR source.
+Microsoft Graph can also support comparison between mock HR data and current Entra ID data.
 
 | HR data | Entra ID data | Validation question |
 |---|---|---|
@@ -86,7 +100,13 @@ Microsoft Graph can also help compare Entra ID data against the mock HR source.
 | employmentStatus = Terminated | accountEnabled = true | Should the account be disabled? |
 | manager = Roope Ankka | Entra manager = Empty | Is manager data missing? |
 
-## Evidence value
+This comparison helps identify data quality issues before automation is trusted.
+
+If the HR source and Entra ID state do not match, access decisions may also become unreliable.
+
+{IMAGE 04: Mock HR data compared with Entra ID attribute output. Use fictional users only and blur technical identifiers.}
+
+## Evidence
 
 | Evidence | Purpose |
 |---|---|
@@ -95,45 +115,48 @@ Microsoft Graph can also help compare Entra ID data against the mock HR source.
 | Expected vs actual table | Shows whether access matches the model |
 | Before and after comparison | Shows cleanup result |
 | Exception list | Shows access that needs review |
+| Exported review result | Supports access review documentation |
+
+Evidence should be readable without exposing unnecessary identity or tenant details.
+
+Raw output should be cleaned before publishing.
+
+## Exception handling
+
+Validation may find access or identity data that does not match the expected model.
+
+| Finding | Possible action |
+|---|---|
+| User has old department access | Remove access or confirm exception |
+| User is missing expected access | Add access after approval |
+| User has high-risk access without clear role need | Review with owner |
+| User account is enabled after termination | Block sign-in and remove access |
+| Manager is missing | Fix identity attribute data |
+| Department or job title is wrong | Correct source data or Entra attribute |
+
+The result should lead to a decision, not only a report.
 
 ## Control view
 
 | Control question | Answer in this lab |
 |---|---|
 | What risk is this addressing? | Actual access may not match the expected access model |
-| What control is being practised? | Graph PowerShell validation |
+| What control is being practised? | Microsoft Graph PowerShell validation |
 | What is being validated? | User attributes, group memberships and expected access |
+| Who uses the result? | IAM, IT, security owner, business owner or application owner |
 | What evidence supports the control? | Exported validation output and documented review decision |
-| What happens if access does not match the model? | Investigate, approve or remove the access |
+| What happens if access does not match the model? | Investigate, approve, correct or remove the access |
 
 ## Security note
 
-Screenshots and command outputs are not included on this page yet.
+Published screenshots and command outputs should not expose tenant identifiers, user principal names, object IDs, group IDs or other technical identifiers.
 
-Before publishing outputs, tenant identifiers, user principal names, object IDs, group IDs and other technical identifiers should be removed or blurred.
+PowerShell output can expose identity data, so it should be reviewed and cleaned before publishing.
 
-PowerShell output can expose identity data, so it should be cleaned before publishing.
+## Summary
 
-## Evidence to add later
+This page defines how Microsoft Graph PowerShell can support IAM validation.
 
-Future evidence could include:
+The validation compares expected access against the current Entra ID state and turns identity data into review evidence.
 
-- cleaned user attribute output
-- cleaned group membership output
-- expected vs actual access table
-- exported review evidence
-- before and after cleanup comparison
-
-## Practical takeaway
-
-Microsoft Graph PowerShell can be used to validate whether Entra ID data matches the planned access model.
-
-The useful part is not only collecting data.
-
-The useful part is connecting the output to a decision:
-
-- keep access
-- remove access
-- review access
-- fix identity data
-- investigate an exception
+The output should support clear decisions: keep access, remove access, review access, fix identity data or investigate an exception.
