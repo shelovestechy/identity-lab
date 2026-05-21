@@ -1,16 +1,12 @@
 # 02 - Security Groups and Memberships
 
-This page documents the first security groups and user memberships in my Ankkalinna Entra ID lab.
+This page documents the first security groups and user memberships in the Ankkalinna Entra ID lab.
 
-The goal is to practise group-based access management instead of giving permissions directly to individual users.
+The purpose is to build a basic group-based access model instead of assigning access directly to individual users.
 
-This is still a simple first version. I wanted to build a clean base before making the lab more complex.
+## Group model
 
-## Why security groups?
-
-Security groups help keep access more structured.
-
-Instead of giving access one user at a time, users can be added to groups based on their department, role or application need.
+Security groups are used to represent access based on department, role or application need.
 
 This makes access easier to:
 
@@ -18,15 +14,15 @@ This makes access easier to:
 - remove
 - review
 - document
-- troubleshoot later
+- troubleshoot
 
-For this first setup, I used assigned group membership.
+For this first version, the lab uses assigned group membership.
 
-Dynamic groups can be tested later, but I wanted to understand the basic group model first.
+Dynamic groups can be tested later, but the first step is to define a clear manual access model.
 
-## Group naming
+## Naming pattern
 
-I used a simple naming pattern:
+The lab uses a simple naming pattern:
 
 **SG-[Area]-[Purpose]**
 
@@ -37,14 +33,10 @@ Examples:
 - `SG-App-CRM-Users`
 - `SG-App-CRM-Owners`
 
-`SG` means security group.
-
-The goal is that the group name already gives a basic idea of what the group is for.
-
-A good group name should help answer:
+A useful group name should show:
 
 - what area the group belongs to
-- what kind of access it represents
+- what access the group represents
 - whether the access is basic, sensitive, application-related or privileged
 
 ## Groups created
@@ -59,22 +51,26 @@ A good group name should help answer:
 | SG-Sales-Basic | Basic access for sales users | Hannu Hanhi |
 | SG-App-CRM-Users | Standard access to the fictional CRM application | Hannu Hanhi, Roope Ankka |
 | SG-App-CRM-Owners | Owner-level access to the fictional CRM application | Minni Hiiri |
-| SG-Privileged-Role-Eligible | Planning example for privileged access | Mikki Hiiri |
+| SG-Privileged-Role-Eligible | Planning example for privileged access eligibility | Mikki Hiiri |
+
+{IMAGE 01: Security groups overview showing created SG groups, with object IDs and tenant details hidden}
 
 ## Membership overview
 
 | User | Role | Groups | Reason |
 |---|---|---|---|
-| Aku Ankka | Support Specialist | SG-IT-Support-Basic | Needs basic IT support access |
-| Iines Ankka | HR Specialist | SG-HR-Basic | Needs basic HR access |
-| Roope Ankka | Head of Finance | SG-Finance-Basic, SG-Finance-Leadership, SG-App-CRM-Users | Needs finance leadership access and CRM visibility |
-| Mikki Hiiri | Security Specialist | SG-Security-Basic, SG-Privileged-Role-Eligible | Needs security access and is useful for privileged access planning |
-| Minni Hiiri | Application Owner | SG-App-CRM-Owners | Owns the fictional CRM application |
-| Hannu Hanhi | Sales Representative | SG-Sales-Basic, SG-App-CRM-Users | Needs sales access and CRM user access |
+| Aku Ankka | Support Specialist | SG-IT-Support-Basic | Basic IT support access |
+| Iines Ankka | HR Specialist | SG-HR-Basic | Basic HR access |
+| Roope Ankka | Head of Finance | SG-Finance-Basic, SG-Finance-Leadership, SG-App-CRM-Users | Finance leadership access and CRM visibility |
+| Mikki Hiiri | Security Specialist | SG-Security-Basic, SG-Privileged-Role-Eligible | Security access and privileged access planning |
+| Minni Hiiri | Application Owner | SG-App-CRM-Owners | CRM application ownership |
+| Hannu Hanhi | Sales Representative | SG-Sales-Basic, SG-App-CRM-Users | Sales access and CRM user access |
+
+{IMAGE 02: User membership overview or example membership view, with UPNs and object identifiers blurred}
 
 ## Department-based access
 
-Some groups are based on the user’s department or work area.
+Department-based groups provide basic access for users working in a specific business area.
 
 Examples:
 
@@ -84,39 +80,24 @@ Examples:
 - `SG-Security-Basic`
 - `SG-Sales-Basic`
 
-The idea is simple: users get basic access based on where they work.
+The group should match the user’s current department or role.
 
-For example, Iines works in HR, so she belongs to `SG-HR-Basic`.
-
-This is cleaner than giving random permissions directly to each user.
-
-It also makes access easier to review later, because the group should match the user’s current department or role.
+If the user changes role, old department-based access should be reviewed and removed if it is no longer needed.
 
 ## Application access
 
-I created two CRM-related groups:
+The lab includes two CRM-related groups:
 
-- `SG-App-CRM-Users`
-- `SG-App-CRM-Owners`
+| Group | Access level | Purpose |
+|---|---|---|
+| SG-App-CRM-Users | Standard user | Normal CRM access for business users |
+| SG-App-CRM-Owners | Owner-level access | Application owner or admin-level access |
 
-`SG-App-CRM-Users` is for people who use the fictional CRM application.
+This separates standard application users from application owners.
 
-Example members:
+A normal CRM user should not automatically have owner-level access.
 
-- Hannu Hanhi
-- Roope Ankka
-
-`SG-App-CRM-Owners` is for the application owner.
-
-Example member:
-
-- Minni Hiiri
-
-This separates normal users from application owners.
-
-That matters later when practising access reviews, approvals and application ownership.
-
-A normal application user should not automatically have owner-level access.
+{IMAGE 03: CRM user and owner groups visible in group list, with object IDs hidden}
 
 ## Example: Roope Ankka
 
@@ -130,11 +111,11 @@ He belongs to:
 
 Roope needs finance-related access and may need CRM visibility for business reporting.
 
-But Head of Finance does not mean technical administrator.
+Finance leadership does not mean tenant administration.
 
-Business authority and technical admin access are two different things.
+Business authority and technical admin access are separate concepts.
 
-Roope can approve finance-related business access without needing broad admin rights in the tenant.
+{IMAGE 04: Roope group membership showing finance and CRM access, with UPN and object identifiers blurred}
 
 ## Example: Mikki Hiiri
 
@@ -145,56 +126,48 @@ He belongs to:
 - `SG-Security-Basic`
 - `SG-Privileged-Role-Eligible`
 
-This makes him useful for future privileged access examples.
+This makes him useful for privileged access examples.
 
-Security work may require elevated access, but elevated access should still be controlled.
+Security-related work may require elevated access, but elevated access should still have a clear reason, limited scope and review process.
 
-It should not be permanent by default.
+{IMAGE 05: Mikki group membership showing security and privileged eligibility groups, with UPN and object identifiers blurred}
 
-Privileged access should have a clear reason, limited scope and review process.
+## Example: Hannu Hanhi
 
-## Future use: Hannu Hanhi and role creep
-
-Hannu Hanhi works in Sales.
+Hannu Hanhi works as a Sales Representative.
 
 He belongs to:
 
 - `SG-Sales-Basic`
 - `SG-App-CRM-Users`
 
-Hannu is useful for a future role creep case.
+Hannu is later used in role creep and mover scenarios.
 
-For example, if Hannu moves to another department, his old sales and CRM access should be reviewed.
+If Hannu changes role or receives temporary access, his old access should be reviewed instead of left behind.
 
-This is a common IAM problem: users collect access over time, but old access is not always removed.
+{IMAGE 06: Hannu group membership showing Sales and CRM access, with UPN and object identifiers blurred}
 
-Role changes should not only add new access.
+## Control view
 
-They should also trigger a review of old access.
+| Control question | Answer in this lab |
+|---|---|
+| What risk is this addressing? | Access may be assigned directly, inconsistently or without clear structure |
+| What control is being practised? | Group-based access modelling |
+| What is being defined? | Groups, memberships and access reasons |
+| Who should own the access decision? | Business owner, application owner or security owner depending on group |
+| What evidence supports the model? | Group list, membership view and documented access reason |
+| What should happen during role change? | Group memberships should be reviewed and updated |
 
 ## Security note
 
-Screenshots are not included on this page yet.
+Published screenshots should not expose tenant identifiers, user principal names, group object IDs or other technical identifiers.
 
-Before adding screenshots to GitHub, I will review and blur tenant identifiers, subscription identifiers, user principal names and any other technical details that should not be published.
+The documentation should show access structure and membership logic, not tenant details.
 
-## What I learned
+## Summary
 
-Groups should have a clear purpose.
+This page defines the first group-based access model for the lab.
 
-Group membership should also have a clear reason.
+Each group should have a clear purpose, membership reason and future review path.
 
-Before creating a group or adding a user to a group, I should be able to answer:
-
-- what is this group for?
-- what access does it represent?
-- who should belong to it?
-- why does this user need it?
-- who would approve or review this access later?
-- how would this access be removed if the user changes role?
-
-If the reason is unclear, the access probably needs to be reviewed.
-
-## Next step
-
-The next page will focus on group ownership, approvers, risk levels and review needs.
+The next page focuses on group ownership, approvers, risk levels and review requirements.
