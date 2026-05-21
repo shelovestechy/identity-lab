@@ -1,4 +1,4 @@
-# Application Access Model: Ankkalinna CRM
+# 06 - Application Access Model: Ankkalinna CRM
 
 This page documents a simple application access model for the fictional **Ankkalinna CRM** application in my Entra lab.
 
@@ -18,12 +18,14 @@ In a real environment, a CRM system could contain customer data, contact history
 
 That means access should not be treated as “just another app”.
 
+Application access should have a clear business reason, owner and review process.
+
 ## Access groups
 
 | Group | Access level | Purpose | Risk level |
 |---|---|---|---|
 | SG-App-CRM-Users | Standard user | Normal CRM access for business users | Medium |
-| SG-App-CRM-Owners | Owner / admin-level access | Application owner or admin-level access | High |
+| SG-App-CRM-Owners | Owner-level access | Application owner or admin-level access | High |
 
 The groups should not mean the same thing.
 
@@ -33,13 +35,15 @@ Owner-level access should be limited because it may allow wider visibility, conf
 
 ## Current model
 
-| User | Role | CRM access |
-|---|---|---|
-| Hannu Hanhi | Sales Representative | SG-App-CRM-Users |
-| Roope Ankka | Head of Finance | SG-App-CRM-Users |
-| Minni Hiiri | Application Owner | SG-App-CRM-Owners |
+| User | Role | CRM access | Reason |
+|---|---|---|---|
+| Hannu Hanhi | Sales Representative | SG-App-CRM-Users | Needs CRM access for customer-related sales work |
+| Roope Ankka | Head of Finance | SG-App-CRM-Users | Needs CRM visibility for business reporting |
+| Minni Hiiri | Application Owner | SG-App-CRM-Owners | Owns the fictional CRM application |
 
-![CRM access groups](./Screenshots/14-crm-access-groups.png)
+This model separates standard application users from application owners.
+
+That separation matters because using an application and owning an application are different responsibilities.
 
 ## Why access levels matter
 
@@ -63,6 +67,25 @@ If all of this is hidden behind one vague “CRM access” group, the access mod
 The group name should tell something about the access level.
 
 The access level should match the user’s actual role.
+
+## Standard user access
+
+`SG-App-CRM-Users` represents standard CRM user access.
+
+This access is for users who need the application for normal business work.
+
+In this lab, the example members are:
+
+- Hannu Hanhi
+- Roope Ankka
+
+Hannu needs CRM access because he works in Sales.
+
+Roope may need CRM visibility for finance-related reporting.
+
+This does not mean either user should have owner-level access.
+
+Standard application access should still be reviewed, especially if the application contains customer data or reporting information.
 
 ## Owner access
 
@@ -92,7 +115,11 @@ It could mean that a standard Sales user has more control over the CRM applicati
 
 Depending on what the owner group grants, he might be able to see more data, change settings or affect other users.
 
-That would increase both security and data protection risk.
+That would increase security, governance and data protection risk.
+
+The problem would not be Hannu as a person.
+
+The problem would be that the access model allowed the wrong level of access for his role.
 
 ## Review logic
 
@@ -114,6 +141,45 @@ Example review logic:
 
 This keeps the review focused on access level, not only application name.
 
+A good review should confirm both:
+
+- whether the user still needs the application
+- whether the user still has the correct level of access
+
+## Ownership questions
+
+Before giving access to an application, I should be able to answer:
+
+- who owns the application?
+- who can approve standard user access?
+- who can approve owner-level access?
+- what data does the application contain?
+- what can each access level do?
+- how often should access be reviewed?
+- who removes access when the user changes role?
+- what evidence should be kept after access changes?
+
+If these questions are unclear, the application access model is not ready to be trusted.
+
+## Security note
+
+Screenshots are not included on this page yet.
+
+Before adding screenshots to GitHub, I will review and blur tenant identifiers, user principal names, group object identifiers, application identifiers and any other technical details that should not be published.
+
+## Evidence to add later
+
+When screenshots are added, they should support the access model without exposing unnecessary technical identifiers.
+
+Planned evidence:
+
+- CRM user group membership
+- CRM owner group membership
+- example of standard user access
+- example of owner-level access
+
+The evidence should show the separation between standard users and owners, not expose the tenant.
+
 ## Practical takeaway
 
 Application access should be modelled by role and responsibility.
@@ -123,3 +189,24 @@ A standard user group and an owner group should not be treated as the same risk.
 The stronger the access level, the clearer the ownership and review need should be.
 
 A vague “app access” group is easy to create, but hard to govern later.
+
+## What I learned
+
+Application access needs more structure than simply adding users to a group.
+
+The important part is understanding what the access level means.
+
+This page helped me practise separating:
+
+- standard users
+- application owners
+- business approval
+- technical ownership
+- review needs
+- access risk
+
+The access model becomes easier to review when each group has a clear purpose and responsibility.
+
+## Next step
+
+The next page will focus on privileged access risk and why admin-level access should be limited, justified and reviewed.
