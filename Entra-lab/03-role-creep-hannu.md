@@ -1,4 +1,4 @@
-# Role Creep Case: Hannu Hanhi
+# 03 - Role Creep Case: Hannu Hanhi
 
 This page documents a role creep scenario in my Ankkalinna Entra ID lab.
 
@@ -27,7 +27,7 @@ More often, it is many small access decisions that are individually understandab
 
 ## Scenario
 
-Hannu Hanhi works as a Sales Representative at Ankkalinna Oy.
+Hannu Hanhi works as a Sales Representative at Ankkalinna Identity Lab Oy.
 
 His normal access is:
 
@@ -46,7 +46,7 @@ The finance access is meant to be temporary.
 
 The project ends, but Hannu is not removed from the finance group.
 
-Now Hannu still has finance access even though his current role is Sales.
+Now Hannu still has Finance access even though his current role is Sales.
 
 That is role creep.
 
@@ -131,8 +131,6 @@ At this point, Hannu has his normal Sales access and one extra Finance group.
 |---|---|---|
 | Hannu Hanhi | Sales Representative | SG-App-CRM-Users, SG-Finance-Basic, SG-Sales-Basic |
 
-![Hannu before cleanup](./Screenshots/06-hannu-before-cleanup.png)
-
 The problematic group membership is:
 
 - `SG-Finance-Basic`
@@ -182,8 +180,6 @@ After review, Hannu’s unnecessary Finance access was removed.
 |---|---|---|
 | Hannu Hanhi | Sales Representative | SG-App-CRM-Users, SG-Sales-Basic |
 
-![Hannu after cleanup](./Screenshots/07-hannu-after-cleanup.png)
-
 Now Hannu’s group membership matches his current Sales role.
 
 This is a cleaner access state.
@@ -204,6 +200,24 @@ Temporary access should have:
 For project-based access, the access request should not only answer “who needs access?”
 
 It should also answer “when should this access end?”
+
+## Security note
+
+Screenshots are not included on this page yet.
+
+Before adding screenshots to GitHub, I will review and blur tenant identifiers, user principal names, group object identifiers and any other technical details that should not be published.
+
+## Evidence to add later
+
+When screenshots are added, they should show the case clearly without exposing unnecessary technical identifiers.
+
+Planned evidence:
+
+- Hannu’s group memberships before cleanup
+- removal of `SG-Finance-Basic`
+- Hannu’s group memberships after cleanup
+
+The evidence should support the case, not expose the tenant.
 
 ## Senior-level takeaway
 
@@ -237,3 +251,7 @@ This case helped me practise thinking about access as a lifecycle:
 - access is removed when no longer needed
 
 Access should not live forever just because nobody remembered to clean it up.
+
+## Next step
+
+The next page will continue with group ownership, approvers, risk levels and review needs.
