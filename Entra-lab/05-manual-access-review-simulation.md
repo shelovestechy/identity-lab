@@ -1,8 +1,8 @@
-# Manual Access Review Simulation
+# 05 - Manual Access Review Simulation
 
 This page documents a manual access review simulation in my Ankkalinna Entra ID lab.
 
-This is not an automated Entra ID Governance access review.
+This is not an automated Microsoft Entra ID Governance access review.
 
 The purpose is to practise the review logic manually first:
 
@@ -15,7 +15,7 @@ The purpose is to practise the review logic manually first:
 
 The focus is not the portal button.
 
-The focus is the decision.
+The focus is the access decision.
 
 ## Review scope
 
@@ -41,14 +41,16 @@ The review is not only checking whether the user is listed in the group.
 
 The review should challenge whether the membership still makes sense.
 
+Access can be valid when it is granted and invalid later when the user’s role, project or business need changes.
+
 ## Current members before review
+
+Before the review, `SG-Finance-Basic` had the following members:
 
 | User | Current role | Review decision | Reason |
 |---|---|---|---|
 | Roope Ankka | Head of Finance | Keep | Current finance leadership role |
 | Hannu Hanhi | Sales Representative | Remove | Temporary finance project access is no longer needed |
-
-![SG-Finance-Basic before review](./Screenshots/12-finance-basic-before-review.png)
 
 ## Finding
 
@@ -56,7 +58,7 @@ The review found that Hannu Hanhi was still a member of `SG-Finance-Basic`.
 
 Hannu works in Sales.
 
-He had finance access because of a temporary reporting project, but that project is no longer active.
+He had Finance access because of a temporary reporting project, but that project is no longer active.
 
 This means the access no longer matches his current role.
 
@@ -69,7 +71,7 @@ The issue is that the access stayed behind after the business need ended.
 | User | Decision | Action |
 |---|---|---|
 | Roope Ankka | Keep access | No change |
-| Hannu Hanhi | Remove access | Remove from SG-Finance-Basic |
+| Hannu Hanhi | Remove access | Remove from `SG-Finance-Basic` |
 
 The decision should be based on current need, not old history.
 
@@ -86,22 +88,52 @@ His normal Sales and CRM access remained unchanged.
 | Hannu Hanhi | SG-Sales-Basic, SG-App-CRM-Users |
 | Roope Ankka | SG-Finance-Basic, SG-Finance-Leadership, SG-App-CRM-Users |
 
-![SG-Finance-Basic after review](./Screenshots/13-finance-basic-after-review.png)
+Now the group membership better matches the current business need.
+
+Roope still has Finance access because it matches his current role.
+
+Hannu no longer has Finance access because the temporary need has ended.
 
 ## Evidence captured
 
-For this review, the useful evidence is:
+For this review, useful evidence would include:
 
 | Evidence | Purpose |
 |---|---|
-| Screenshot before review | Shows original group membership |
+| Group membership before review | Shows original group membership |
 | Review decision table | Shows who was reviewed and what decision was made |
-| Screenshot after cleanup | Shows that unnecessary access was removed |
-| Written reason | Explains why the access was removed |
+| Group membership after cleanup | Shows that unnecessary access was removed |
+| Written reason | Explains why access was kept or removed |
 
 The evidence does not need to be huge.
 
 It needs to be clear enough that someone can understand the review later.
+
+Good evidence should show:
+
+- what was reviewed
+- who was included
+- what decision was made
+- what changed after the review
+- why the decision was made
+
+## Security note
+
+Screenshots are not included on this page yet.
+
+Before adding screenshots to GitHub, I will review and blur tenant identifiers, user principal names, group object identifiers and any other technical details that should not be published.
+
+## Evidence to add later
+
+When screenshots are added, they should support the review without exposing unnecessary technical identifiers.
+
+Planned evidence:
+
+- `SG-Finance-Basic` membership before review
+- Hannu Hanhi removed from `SG-Finance-Basic`
+- `SG-Finance-Basic` membership after review
+
+The evidence should prove the cleanup, not expose the tenant.
 
 ## What this review shows
 
@@ -131,3 +163,26 @@ A useful review should have:
 A review without cleanup is only a list.
 
 A review with a decision and action is control.
+
+## What I learned
+
+Access review is not only about confirming who is in a group.
+
+It is about checking whether the access still matches the user’s current role and business need.
+
+This simulation helped me practise access review as a control:
+
+- define the review scope
+- check membership against current role
+- make a keep or remove decision
+- remove unnecessary access
+- document the reason
+- keep evidence of the cleanup
+
+The most important part is not the review table.
+
+The most important part is whether the review leads to action when access no longer makes sense.
+
+## Next step
+
+The next page will focus on application access modelling and separating standard users, owners and sensitive application access.
