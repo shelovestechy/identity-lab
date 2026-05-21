@@ -1,4 +1,4 @@
-# Security Groups and Memberships
+# 02 - Security Groups and Memberships
 
 This page documents the first security groups and user memberships in my Ankkalinna Entra ID lab.
 
@@ -14,7 +14,7 @@ Instead of giving access one user at a time, users can be added to groups based 
 
 This makes access easier to:
 
-- give
+- assign
 - remove
 - review
 - document
@@ -26,18 +26,26 @@ Dynamic groups can be tested later, but I wanted to understand the basic group m
 
 ## Group naming
 
-I used a simple naming pattern: SG-[Area]-[Purpose]
+I used a simple naming pattern:
+
+**SG-[Area]-[Purpose]**
 
 Examples:
-- SG-HR-Basic
-- SG-Finance-Leadership
-- SG-App-CRM-Users
-- SG-App-CRM-Owners
 
+- `SG-HR-Basic`
+- `SG-Finance-Leadership`
+- `SG-App-CRM-Users`
+- `SG-App-CRM-Owners`
 
 `SG` means security group.
 
 The goal is that the group name already gives a basic idea of what the group is for.
+
+A good group name should help answer:
+
+- what area the group belongs to
+- what kind of access it represents
+- whether the access is basic, sensitive, application-related or privileged
 
 ## Groups created
 
@@ -82,6 +90,8 @@ For example, Iines works in HR, so she belongs to `SG-HR-Basic`.
 
 This is cleaner than giving random permissions directly to each user.
 
+It also makes access easier to review later, because the group should match the user’s current department or role.
+
 ## Application access
 
 I created two CRM-related groups:
@@ -106,6 +116,8 @@ This separates normal users from application owners.
 
 That matters later when practising access reviews, approvals and application ownership.
 
+A normal application user should not automatically have owner-level access.
+
 ## Example: Roope Ankka
 
 Roope Ankka works as Head of Finance.
@@ -116,15 +128,13 @@ He belongs to:
 - `SG-Finance-Leadership`
 - `SG-App-CRM-Users`
 
-![Roope group membership](./Screenshots/04-roope-group-membership.png)
-
 Roope needs finance-related access and may need CRM visibility for business reporting.
 
 But Head of Finance does not mean technical administrator.
 
 Business authority and technical admin access are two different things.
 
-Roope can approve finance-related things without needing broad admin rights in the tenant.
+Roope can approve finance-related business access without needing broad admin rights in the tenant.
 
 ## Example: Mikki Hiiri
 
@@ -135,13 +145,13 @@ He belongs to:
 - `SG-Security-Basic`
 - `SG-Privileged-Role-Eligible`
 
-![Mikki group membership](./Screenshots/05-mikki-group-membership.png.png)
-
 This makes him useful for future privileged access examples.
 
 Security work may require elevated access, but elevated access should still be controlled.
 
 It should not be permanent by default.
+
+Privileged access should have a clear reason, limited scope and review process.
 
 ## Future use: Hannu Hanhi and role creep
 
@@ -157,6 +167,16 @@ Hannu is useful for a future role creep case.
 For example, if Hannu moves to another department, his old sales and CRM access should be reviewed.
 
 This is a common IAM problem: users collect access over time, but old access is not always removed.
+
+Role changes should not only add new access.
+
+They should also trigger a review of old access.
+
+## Security note
+
+Screenshots are not included on this page yet.
+
+Before adding screenshots to GitHub, I will review and blur tenant identifiers, subscription identifiers, user principal names and any other technical details that should not be published.
 
 ## What I learned
 
@@ -174,3 +194,7 @@ Before creating a group or adding a user to a group, I should be able to answer:
 - how would this access be removed if the user changes role?
 
 If the reason is unclear, the access probably needs to be reviewed.
+
+## Next step
+
+The next page will focus on group ownership, approvers, risk levels and review needs.
