@@ -1,17 +1,40 @@
-# Microsoft Entra ID
+# Entra ID käsitteet
 
-This folder collects my notes about Microsoft Entra ID, identity objects, access control, authentication, devices, applications and governance.
+Tähän kansioon kerään Microsoft Entra ID:hen, identiteettiin, käyttäjiin, ryhmiin, käyttöoikeuksiin ja hallintaan liittyviä käsitteitä.
 
-## Contents
+Tavoite on selittää asiat omin sanoin, käytännönläheisesti ja niin selkeästi, että ne eivät jää pelkäksi Microsoft-jargoniksi tai lyhennepuuroksi.
 
-| Section | Topic |
+En halua vain opetella sanoja ulkoa. Haluan ymmärtää, mitä ne tarkoittavat oikeassa työssä, miten ne näkyvät käyttäjille, ylläpidolle ja organisaatiolle sekä miksi niillä on merkitystä tietoturvan ja hallittavuuden kannalta.
+
+---
+
+## Sisältö
+
+| Tiedosto | Sisältö |
 | :--- | :--- |
-| [Basic Structure](01-basic-structure.md) | Entra ID, Azure AD, AD vs Entra, tenant and directory |
-| [Users and Groups](02-users-and-groups.md) | Users, member users, guest users, groups, dynamic groups and administrative units |
-| [Admin Roles](03-admin-roles.md) | Built-in roles, custom roles, role assignments, scope, least privilege and privileged roles |
-| [Devices](04-devices.md) | Device identity, Entra joined, hybrid joined, registered devices and compliance |
-| [Applications](05-applications.md) | App registrations, enterprise applications, service principals and API permissions |
-| [Conditional Access](06-conditional-access.md) | Conditional Access policies, named locations, MFA, risk and access decisions |
-| [Identity Governance](07-identity-governance.md) | Access reviews, entitlement management, access packages and lifecycle workflows |
-| [Logs and Monitoring](08-logs-and-monitoring.md) | Sign-in logs, audit logs, risk events and troubleshooting |
+| [`01-basic-structure.md`](./01-basic-structure.md) | Entra ID:n perusrakenne, tenant, directory, identiteetti ja hallinnan lähtökohdat |
+| [`02-users-and-groups.md`](./02-users-and-groups.md) | Käyttäjät, ryhmät, jäsenyydet, access ja ryhmäpohjainen hallinta |
+| [`03-admin-roles.md`](./03-admin-roles.md) | Admin-roolit, privileged access, vastuut ja liiallisten oikeuksien riskit |
+| [`04-devices.md`](./04-devices.md) | Laitteet, device identity, join-tilat ja miksi laitteet ovat osa IAM-ajattelua |
+| [`05-applications.md`](./05-applications.md) | Sovellukset, enterprise applications, app registrations ja identiteettiin liitetyt palvelut |
+| [`06-conditional-access.md`](./06-conditional-access.md) | Conditional Access, riskipohjainen pääsynhallinta, MFA ja käyttöehdot |
+| [`07-identity-governance.md`](./07-identity-governance.md) | Identity Governance, access reviews, lifecycle-ajattelu ja oikeuksien hallittavuus |
+| [`08-logs-and-monitoring.md`](./08-logs-and-monitoring.md) | Sign-in logs, audit logs, seuranta, tutkinta ja näkyvyys ympäristöön |
 
+---
+
+## Kirjoitustyyli
+
+Selitän käsitteet omin sanoin.
+
+Mukana on yleensä:
+
+- mitä käsite tarkoittaa
+- miksi sillä on merkitystä
+- missä se näkyy käytännössä
+- esimerkki tilanteesta
+- lyhyt “Elikkäs” yhteenveto
+
+Osa teksteistä voi olla suomeksi, osa englanniksi. Tärkeintä on, että ymmärrän itse mitä olen kirjoittamassa.
+
+Tämä ei ole virallinen Microsoft-dokumentaatio, vaan oma oppimis- ja muistiinpanokokonaisuus.
