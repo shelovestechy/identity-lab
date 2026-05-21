@@ -1,24 +1,14 @@
 # 07 - Privileged Access Risk Model
 
-This page documents a privileged access risk model in my Ankkalinna Entra ID lab.
+This page documents a privileged access risk model in the Ankkalinna Entra ID lab.
 
-The goal is to practise how privileged access should be limited, justified and reviewed.
+The model focuses on limiting elevated access through task-based need, approval, scope and review.
 
-Privileged access is different from normal business access because it can allow users to make changes that affect other users, systems, security settings or access rights.
+Privileged access is higher risk than normal business access because it can affect users, groups, applications, security settings and access rights.
 
-The point is not only to ask:
+## Privileged access scope
 
-> Who needs admin access?
-
-The better question is:
-
-> What exact privileged action is needed, why is it needed and how can the risk be limited?
-
-## What is privileged access?
-
-Privileged access means access that gives a user more power than a normal user account.
-
-This can include the ability to:
+Privileged access can include the ability to:
 
 - manage users
 - reset passwords
@@ -29,11 +19,11 @@ This can include the ability to:
 - view sensitive admin information
 - affect access for other users
 
-In a real environment, privileged access should be treated carefully because a mistake or compromised admin account can have a much bigger impact than a normal user account.
+A mistake or compromised privileged account can have a much larger impact than a normal user account.
 
 ## Lab scenario
 
-In this lab, Mikki Hiiri works as a Security Specialist.
+Mikki Hiiri works as a Security Specialist.
 
 He belongs to:
 
@@ -44,50 +34,29 @@ He belongs to:
 
 `SG-Privileged-Role-Eligible` represents a planning example for privileged access eligibility.
 
-The idea is not that Mikki should have permanent broad admin rights.
+This does not mean Mikki should have permanent broad admin rights.
 
-The idea is that some elevated access may be needed for specific tasks, but it should be controlled.
+The access should be limited to the task, justified and reviewed.
 
-## Why permanent admin access is risky
+{IMAGE 01: Mikki Hiiri group membership showing SG-Security-Basic and SG-Privileged-Role-Eligible. Blur UPN, object IDs and tenant details.}
 
-Permanent admin access can create unnecessary risk.
+## Standing privilege risk
 
-If a user has admin access all the time, the access exists even when the user is not actively doing admin work.
+Standing privilege means privileged access that remains available even when the user is not actively performing an admin task.
 
-That increases risk because:
-
-- the account becomes a more valuable target
-- mistakes can have wider impact
-- old admin access may be forgotten
-- access reviews become more important
-- it becomes harder to prove why the access is still needed
+| Risk area | Impact |
+|---|---|
+| Account compromise | The account becomes a higher-value target |
+| Human error | Mistakes can affect more users or systems |
+| Forgotten access | Old privileged access may remain active |
+| Audit readiness | It may be difficult to prove why access is still needed |
+| Least privilege | The user may have more access than the task requires |
 
 Standing privilege should not exist only because it is convenient.
 
-Convenience is not the same as control.
+## Task-based access model
 
-## Better privileged access thinking
-
-A better model asks:
-
-- what task requires elevated access?
-- what role is actually needed?
-- does the user need permanent access or temporary access?
-- who approves the access?
-- how long should the access last?
-- what evidence should be captured?
-- when should the access be reviewed?
-- how is the access removed when no longer needed?
-
-The goal is to avoid giving broad access when a smaller, more specific role would be enough.
-
-## Example: Mikki Hiiri
-
-Mikki works with security-related tasks.
-
-That does not automatically mean he should be a Global Administrator.
-
-A better approach would be to identify the exact task.
+Privileged access should be mapped to the actual task.
 
 | Task | Possible access need | Risk |
 |---|---|---|
@@ -99,77 +68,58 @@ A better approach would be to identify the exact task.
 
 The role should match the task.
 
-If the task only requires viewing information, write or admin-level access should not be granted just in case.
+If the task only requires viewing information, write or admin-level access should not be granted.
 
 ## Privileged group example
 
-In this lab, `SG-Privileged-Role-Eligible` is treated as high risk.
+`SG-Privileged-Role-Eligible` is treated as a high-risk group in this lab.
 
 | Group | Purpose | Risk level | Review need |
 |---|---|---|---|
 | SG-Privileged-Role-Eligible | Planning example for privileged access eligibility | High | Monthly |
 
-This group should not become a storage place for users who “might need admin rights someday”.
-
-Membership should have a clear reason.
-
-The group should have:
+Membership should have:
 
 - clear owner
 - clear approver
 - clear business or technical reason
-- limited membership
+- limited scope
 - regular review
 - cleanup when the need ends
 
+This group should not become a storage place for users who might need admin access someday.
+
+{IMAGE 02: SG-Privileged-Role-Eligible group overview or membership view. Blur UPNs, object IDs and tenant details.}
+
 ## Eligibility vs active access
 
-There is a difference between being eligible for privileged access and actively using privileged access.
+| Access state | Meaning | Control need |
+|---|---|---|
+| Eligible access | User may be allowed to activate privileged access when needed | Approval, justification and review |
+| Active access | Privileged access is currently in use | Time limit, logging and monitoring |
 
-Eligibility means the user may be allowed to activate elevated access when needed.
+Eligibility is lower risk than permanent active access, but it still needs control.
 
-Active access means the elevated access is currently in use.
-
-Even eligibility should be controlled because it can still create risk.
-
-In a stronger privileged access model, elevated access should be:
-
-- justified
-- time-limited
-- approved when needed
-- logged
-- reviewed regularly
-
-The goal is to reduce standing privilege.
+The goal is to reduce standing privilege and avoid unnecessary permanent admin access.
 
 ## Example risk: broad admin access
 
-If Mikki was given permanent broad admin access, the issue would not only be that he has “too much access”.
+If Mikki received permanent broad admin access, the access model would need to prove:
 
-The issue would be that the access model does not clearly prove:
+| Question | Purpose |
+|---|---|
+| What task requires the access? | Confirms business or technical need |
+| What role is actually required? | Prevents over-permissioning |
+| Who approved the access? | Confirms ownership and risk acceptance |
+| Is a smaller role enough? | Supports least privilege |
+| Is the access still needed? | Supports review and cleanup |
+| When was it last reviewed? | Supports audit evidence |
 
-- why the access is needed
-- what task it supports
-- who approved it
-- whether a smaller role would be enough
-- whether the access is still needed
-- when it was last reviewed
-
-Broad admin access may be easy to grant, but hard to justify later.
+Broad admin access is easy to grant and hard to justify later.
 
 ## Review logic
 
-A privileged access review should ask more than:
-
-> Is this user trusted?
-
-Trust is not enough.
-
-The review should ask:
-
-> Does this user still need this privileged access for current work?
-
-Example review logic:
+A privileged access review should focus on need, scope and current responsibility.
 
 | User | Access | Review question |
 |---|---|---|
@@ -177,22 +127,20 @@ Example review logic:
 | Aku Ankka | No privileged access | Does Aku need admin access or only normal IT support access? |
 | Minni Hiiri | Application owner access | Does Minni need application owner access but not tenant admin access? |
 
-This keeps the review focused on actual need and scope.
+Trust is not enough reason for privileged access.
 
 A user can be responsible and still not need broad admin rights.
 
-## Least privilege
+## Least privilege rules
 
-Least privilege is especially important for privileged access.
+Privileged access should follow least privilege.
 
-The user should only receive the access needed for the task.
-
-For example:
-
-- do not give Global Administrator if a more limited role is enough
-- do not give permanent access if temporary access is enough
-- do not give write access if read-only access is enough
-- do not keep privileged access after the need has ended
+| Rule | Reason |
+|---|---|
+| Do not grant Global Administrator if a limited role is enough | Reduces tenant-wide risk |
+| Do not grant permanent access if temporary access is enough | Reduces standing privilege |
+| Do not grant write access if read-only access is enough | Reduces accidental or malicious changes |
+| Do not keep privileged access after the need ends | Reduces leftover access risk |
 
 Privileged access should be narrow, justified and reviewed.
 
@@ -200,59 +148,23 @@ Privileged access should be narrow, justified and reviewed.
 
 | Control question | Answer in this lab |
 |---|---|
-| What risk is this addressing? | Users may have unnecessary or permanent privileged access |
-| What control is being practised? | Limiting privileged access through justification, scope and review |
+| What risk is this addressing? | Users may have unnecessary, broad or permanent privileged access |
+| What control is being practised? | Privileged access limitation through task-based need, scope and review |
+| What access is being reviewed? | `SG-Privileged-Role-Eligible` membership |
 | Who should own the decision? | Security Owner / IAM Owner |
-| What evidence would support the control? | Group membership, approval reason, review decision and cleanup evidence |
+| What evidence supports the control? | Group membership, approval reason, review decision and cleanup evidence |
 | What should happen if access is no longer needed? | Remove the user from privileged access eligibility |
 
 ## Security note
 
-Screenshots are not included on this page yet.
+Published screenshots should not expose tenant identifiers, user principal names, group object IDs, role IDs or other technical identifiers.
 
-Before adding screenshots to GitHub, I will review and blur tenant identifiers, user principal names, group object identifiers, role identifiers and any other technical details that should not be published.
+Privileged access evidence should show the control logic, not tenant details.
 
-## Evidence to add later
+## Summary
 
-When screenshots are added, they should support the privileged access model without exposing unnecessary technical identifiers.
+This page defines privileged access as a high-risk access area that needs stronger justification, ownership and review.
 
-Planned evidence:
+The model reduces standing privilege by mapping elevated access to task-based need, limiting scope and reviewing privileged eligibility regularly.
 
-- `SG-Privileged-Role-Eligible` group overview
-- example membership for Mikki Hiiri
-- review of privileged access eligibility
-- cleanup evidence if privileged access is removed later
-
-The evidence should show the access control logic, not expose the tenant.
-
-## Practical takeaway
-
-Privileged access should not be treated like normal access.
-
-The stronger the access, the stronger the justification, ownership and review process should be.
-
-Admin access should not be granted only because it is convenient.
-
-It should be limited to what is needed, reviewed regularly and removed when the reason no longer exists.
-
-## What I learned
-
-This case helped me practise privileged access as a risk model.
-
-The important part is not only whether someone has admin access.
-
-The important part is whether the access is:
-
-- justified
-- scoped correctly
-- approved by the right owner
-- reviewed regularly
-- removed when no longer needed
-
-Privileged access is not only about trust.
-
-It is about control.
-
-## Next step
-
-The next page will focus on leaver cleanup, blocking sign-in and reducing orphaned identity risk after employment ends.
+The next page focuses on the Joiner-Mover-Leaver lifecycle model.
