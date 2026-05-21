@@ -1,43 +1,37 @@
 # 10 - Conditional Access Control Design
 
-This page documents Conditional Access control design in my Ankkalinna Entra ID lab.
+This page documents Conditional Access control design in the Ankkalinna Entra ID lab.
 
-The goal is to practise how MFA and sign-in controls can reduce identity risk.
+The model focuses on MFA, privileged access protection, legacy authentication blocking, testing, rollback planning and sign-in log validation.
 
-Conditional Access is not only a portal setting.
+## Conditional Access scope
 
-It is a security control that decides when access should be allowed, blocked or require stronger verification.
+Conditional Access applies access controls based on sign-in signals.
 
-## What is Conditional Access?
+| Signal | Example use |
+|---|---|
+| User or group | Target standard users or privileged users |
+| Application | Protect Microsoft cloud apps or admin portals |
+| Location | Apply controls based on trusted or untrusted locations |
+| Device state | Require compliant or managed devices |
+| Sign-in risk | Add controls for risky sign-ins |
+| User risk | Add controls for risky users |
+| Client app | Block older authentication methods |
+| Admin role | Apply stronger controls for elevated access |
 
-Conditional Access can apply access controls based on signals such as:
+Conditional Access can allow access, block access or require stronger verification such as MFA.
 
-- user or group
-- application
-- location
-- device state
-- sign-in risk
-- user risk
-- client app
-- admin role or privileged access
+## Risk focus
 
-Based on those signals, access can be allowed, blocked or protected with extra requirements such as MFA.
+A clean group model is not enough if sign-ins are weak.
 
-## Why this matters
-
-A clean access model is not enough if sign-ins are weak.
-
-Even if users have the correct groups, accounts can still be compromised.
-
-Conditional Access helps reduce risks such as:
-
-- password-only sign-ins
-- compromised admin accounts
-- risky sign-in attempts
-- legacy authentication
-- access from unexpected conditions
-
-The goal is to protect access without creating unnecessary lockouts or support chaos.
+| Risk area | Impact |
+|---|---|
+| Password-only access | A stolen password may be enough to access cloud services |
+| Compromised admin account | Elevated access could be used to change users, groups or security settings |
+| Legacy authentication | Older authentication methods may bypass modern controls such as MFA |
+| Poor testing | A policy may block legitimate users or administrators |
+| Missing rollback plan | Recovery may be slow if a policy causes access issues |
 
 ## Policy scope
 
@@ -49,13 +43,14 @@ This lab focuses on three Conditional Access control areas:
 | Privileged access | Compromised admin or elevated account |
 | Legacy authentication | Older sign-in methods that may bypass MFA |
 
-Each policy should answer:
+Each policy should define:
 
-- who is targeted?
-- what access is protected?
-- what control is required?
-- who is excluded and why?
-- how is the result validated?
+- target users
+- protected applications
+- required control
+- exclusions
+- testing method
+- validation evidence
 
 ## Policy 1: Require MFA for standard users
 
@@ -69,11 +64,9 @@ Each policy should answer:
 | Testing method | Pilot group or report-only mode |
 | Exclusion | Emergency access account |
 
-This policy reduces the risk of password-only access.
+This policy reduces the risk of password-only access to cloud applications.
 
-A password alone is not enough protection for cloud applications.
-
-MFA adds another verification step before access is granted.
+{IMAGE 01: Conditional Access policy configuration for standard user MFA. Blur tenant details, policy IDs and object IDs.}
 
 ## Policy 2: Require MFA for privileged access
 
@@ -91,7 +84,7 @@ Privileged users need stronger protection than standard users.
 
 Admin or elevated access can affect users, groups, applications, security settings and access rights.
 
-Even if privileged access is temporary or eligible, the sign-in should still be protected.
+{IMAGE 02: Conditional Access policy configuration for privileged access MFA. Blur tenant details, policy IDs, role IDs and object IDs.}
 
 ## Policy 3: Block legacy authentication
 
@@ -106,95 +99,99 @@ Even if privileged access is temporary or eligible, the sign-in should still be 
 | Testing method | Check sign-in logs before enforcement |
 | Exclusion | Emergency access account if needed |
 
-Legacy authentication can be risky because it may not support modern security controls like MFA.
+Legacy authentication can be risky because it may not support modern security controls such as MFA.
 
-Before blocking it, sign-in logs should be checked to make sure legitimate users or applications are not still depending on it.
+Sign-in logs should be reviewed before enforcement to confirm whether any users or applications still depend on legacy authentication.
+
+{IMAGE 03: Conditional Access policy configuration blocking legacy authentication. Blur tenant details, policy IDs and object IDs.}
 
 ## Emergency access account
 
 Conditional Access policies should not accidentally lock administrators out of the tenant.
 
-An emergency access account should be considered before enforcing policies.
+An emergency access account should be considered before enforcement.
 
-The emergency access account should be:
+| Requirement | Purpose |
+|---|---|
+| Cloud-only account | Keeps access available if hybrid identity has issues |
+| Carefully protected | Reduces misuse risk |
+| Monitored | Detects unexpected use |
+| Excluded from selected Conditional Access policies | Prevents tenant lockout |
+| Used only for emergencies | Keeps normal administration separate |
+| Reviewed regularly | Confirms the account remains controlled |
 
-- cloud-only
-- protected carefully
-- monitored
-- excluded from Conditional Access where needed
-- used only for emergency access
-- reviewed regularly
+The emergency access account should not be used for daily administration.
 
-It should not be used for daily administration.
+{IMAGE 04: Emergency access account exclusion example. Blur account identifiers, UPNs, object IDs and tenant details.}
 
 ## Testing before enforcement
 
-Conditional Access policies should be tested before enforcement.
+Conditional Access policies should be tested before they are enforced.
 
-A safer rollout can include:
+| Testing step | Purpose |
+|---|---|
+| Report-only mode | Shows expected policy impact without blocking access |
+| Pilot group | Limits impact during testing |
+| One policy at a time | Makes troubleshooting easier |
+| Sign-in log review | Confirms policy result |
+| Admin access testing | Reduces lockout risk |
+| Rollback planning | Defines recovery steps |
+| User impact review | Identifies support and communication needs |
 
-- report-only mode
-- pilot users
-- one policy at a time
-- sign-in log review
-- admin access testing
-- rollback planning
-- user impact review
+A policy should not be enforced until the expected impact is understood.
 
-A badly tested policy can block legitimate users or administrators.
-
-Security control without testing is just spicy chaos with a checkbox.
+{IMAGE 05: Report-only result or policy impact view. Blur user identifiers, tenant details and policy IDs.}
 
 ## User impact
 
-Conditional Access affects real users.
+Conditional Access affects real users and support teams.
 
-Before enforcing a policy, I should consider:
+Before enforcement, the following should be checked:
 
-- who will be affected?
-- are users ready for MFA?
-- do users have MFA methods registered?
-- are there shared accounts or service accounts?
-- could old applications break?
-- is support ready for sign-in issues?
+| Question | Reason |
+|---|---|
+| Who will be affected? | Defines scope |
+| Are users ready for MFA? | Reduces sign-in disruption |
+| Do users have MFA methods registered? | Prevents failed sign-ins |
+| Are shared accounts or service accounts affected? | Identifies exceptions |
+| Could old applications break? | Identifies compatibility risk |
+| Is support ready for sign-in issues? | Reduces operational impact |
 
-Good security also needs good communication.
-
-If users are surprised by sign-in changes, support tickets can increase quickly.
+Security controls need communication and support planning.
 
 ## Rollback plan
 
-A Conditional Access policy should have a rollback plan.
+A Conditional Access policy should have a rollback plan before enforcement.
 
-Before enforcement, I should know:
-
-- how to disable the policy
-- who can disable it
-- what emergency account can be used
-- what problem signs to look for
-- how to check sign-in logs
-- how to document the change
+| Rollback question | Purpose |
+|---|---|
+| How can the policy be disabled? | Defines recovery action |
+| Who can disable it? | Defines responsibility |
+| What emergency account can be used? | Prevents lockout |
+| What problem signs should be monitored? | Defines failure indicators |
+| Where are sign-in logs checked? | Supports troubleshooting |
+| How is the change documented? | Supports review and audit evidence |
 
 Rollback planning is part of controlled change management.
 
-It is not a sign of weak security.
+It does not weaken the security control.
 
 ## Sign-in log validation
 
 After testing or enabling a policy, sign-in logs should be reviewed.
 
-Sign-in logs can show:
+| Validation item | Purpose |
+|---|---|
+| Applied policy | Confirms which Conditional Access policy affected the sign-in |
+| MFA requirement | Confirms whether MFA was required |
+| Access result | Shows whether access was allowed or blocked |
+| User result | Shows whether the user passed or failed the control |
+| Unexpected impact | Identifies users affected incorrectly |
+| Legacy authentication attempts | Confirms whether legacy authentication is still used |
 
-- which policy was applied
-- whether MFA was required
-- whether access was blocked
-- whether the user passed or failed the control
-- whether unexpected users were affected
-- whether legacy authentication attempts exist
+A policy should be validated against real sign-in results.
 
-A policy should not only exist.
-
-It should work as intended.
+{IMAGE 06: Sign-in log validation showing Conditional Access result. Blur UPNs, IP addresses, tenant details and policy IDs.}
 
 ## Policy summary
 
@@ -204,26 +201,22 @@ It should work as intended.
 | CA-Require-MFA-Privileged-Access | Privileged users | Require MFA | Compromised admin access |
 | CA-Block-Legacy-Authentication | All users | Block legacy authentication | Weak authentication methods |
 
-Each policy should have a clear purpose.
-
-A Conditional Access policy should not exist only because “MFA is good”.
-
-It should be clear what risk the policy reduces.
+Each policy should have a clear purpose, target, control and validation method.
 
 ## Common mistakes
 
-Common Conditional Access mistakes include:
+| Mistake | Risk |
+|---|---|
+| Enforcing policies without testing | Legitimate users or admins may be blocked |
+| Forgetting emergency access exclusions | Tenant lockout risk |
+| Targeting too many controls at once | Troubleshooting becomes difficult |
+| Not checking sign-in logs | Policy impact is not verified |
+| Not communicating MFA changes | Support tickets may increase |
+| Not documenting policy purpose | Future review becomes unclear |
+| No rollback plan | Recovery may be slow |
+| One policy for every risk level | Sensitive access may not receive stronger protection |
 
-- enforcing policies without testing
-- forgetting emergency access exclusions
-- targeting too many controls at once
-- not checking sign-in logs
-- not communicating MFA changes
-- not documenting policy purpose
-- not having a rollback plan
-- assuming one policy fits every user and risk level
-
-Conditional Access should be planned like a control, not clicked on randomly.
+Conditional Access should be planned as a control, not applied randomly.
 
 ## Control view
 
@@ -231,70 +224,33 @@ Conditional Access should be planned like a control, not clicked on randomly.
 |---|---|
 | What risk is this addressing? | Sign-ins may happen without enough verification or from risky conditions |
 | What control is being practised? | Conditional Access policy design |
+| What is being protected? | Standard user access, privileged access and authentication flow |
 | Who should own the decision? | Security Owner / IAM Owner |
 | What should be tested first? | Pilot users, report-only results and sign-in logs |
-| What evidence would support the control? | Policy design, sign-in log results and documented test outcome |
+| What evidence supports the control? | Policy design, sign-in log results and documented test outcome |
 | What should happen if the policy causes problems? | Use rollback plan and emergency access process |
+
+## Evidence
+
+| Evidence | Purpose |
+|---|---|
+| Policy design table | Shows target, control, exclusion and risk |
+| Report-only result | Shows expected impact before enforcement |
+| Sign-in log result | Confirms policy behavior |
+| MFA requirement result | Shows stronger verification was required |
+| Legacy authentication result | Shows weak authentication was blocked or detected |
+| Rollback plan | Shows recovery process |
 
 ## Security note
 
-Screenshots are not included on this page yet.
-
-Before adding screenshots to GitHub, I will review and blur tenant identifiers, user principal names, policy IDs, object IDs and any other technical details that should not be published.
+Published screenshots should not expose tenant identifiers, user principal names, policy IDs, object IDs, IP addresses or other technical identifiers.
 
 Conditional Access screenshots can reveal tenant structure and security design, so they should be reviewed carefully before publishing.
 
-## Evidence to add later
+## Summary
 
-Future evidence could include:
+This page defines Conditional Access controls for standard users, privileged access and legacy authentication.
 
-- Conditional Access policy design table
-- report-only result example
-- sign-in log validation example
-- MFA requirement result
-- legacy authentication block result
-- documented rollback plan
+The model reduces sign-in risk through MFA, policy testing, emergency access planning, rollback preparation and sign-in log validation.
 
-The evidence should show the control logic and testing approach, not expose the tenant.
-
-## Practical takeaway
-
-Conditional Access is not only about turning MFA on.
-
-It is about designing sign-in controls around risk.
-
-A good Conditional Access policy should have:
-
-- clear purpose
-- clear target users
-- clear target applications
-- clear control
-- emergency access consideration
-- testing plan
-- user impact review
-- rollback plan
-- sign-in log validation
-
-Security controls should be strong, but they also need to be controlled.
-
-## What I learned
-
-This design helped me understand Conditional Access as a security control, not only a portal feature.
-
-MFA is important, but the design around MFA also matters.
-
-A Conditional Access policy should answer:
-
-- who is targeted?
-- what risk is reduced?
-- what control is required?
-- who is excluded and why?
-- how is the policy tested?
-- what evidence proves it worked?
-- what happens if it breaks something?
-
-A well-planned policy reduces sign-in risk while keeping access manageable.
-
-## Next step
-
-The next page will focus on Microsoft Graph PowerShell validation and how identity and group data can be checked for review evidence.
+The next page focuses on Microsoft Graph PowerShell validation and how identity and group data can be checked for review evidence.
