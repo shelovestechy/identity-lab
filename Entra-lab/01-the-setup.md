@@ -1,14 +1,14 @@
 # 01 - The Setup
 
-This is the starting point of my Microsoft Entra ID lab.
+This page documents the starting point of my Microsoft Entra ID lab.
 
-I wanted to build a small test environment where I can practise Identity and Access Management without touching real company data, real users or production systems.
+The lab environment is built for practising Identity and Access Management without using real company data, real users or production systems.
 
-The lab is based on a fictional company called **Ankkalinna Identity Lab Oy**.
+The fictional company used in this lab is **Ankkalinna Identity Lab Oy**.
 
-Fictional users make it safer to document the work publicly and easier to build realistic access scenarios without exposing any real customer or employee information.
+Fictional users make the lab safe to document publicly while still allowing realistic access scenarios.
 
-## What I started with
+## Initial setup
 
 For the first setup, I created:
 
@@ -17,38 +17,15 @@ For the first setup, I created:
 - a fictional tenant display name: **Ankkalinna**
 - test users for different departments
 - security groups for basic access modelling
-- a simple documentation structure for GitHub
+- a GitHub documentation structure for the lab
 
-The goal was not to build a perfect enterprise environment on day one.
+The setup is intentionally simple.
 
-The goal was to create a simple base that I can expand into more realistic IAM scenarios over time.
+It creates a base that can later be expanded into access reviews, lifecycle scenarios, application access, privileged access, Conditional Access and validation work.
 
-## Lab idea
+## Lab users
 
-The lab uses fictional users, departments and roles.
-
-This helps me practise questions like:
-
-- who needs access?
-- why do they need it?
-- what group should give that access?
-- who owns the access?
-- what happens when someone changes role?
-- how can old access be reviewed and removed?
-
-I do not want this lab to be only about where buttons are in the portal.
-
-I want to understand the access logic behind the configuration.
-
-## Security note
-
-Real tenant identifiers, subscription identifiers, technical tenant details and any sensitive information are not published in this repository.
-
-Screenshots will be added only after tenant, subscription and user identifier details have been reviewed and blurred where needed.
-
-## Test users
-
-The first users are fictional characters with different work roles.
+The first users represent different business areas and access needs.
 
 | User | Department | Role |
 |---|---|---|
@@ -59,43 +36,58 @@ The first users are fictional characters with different work roles.
 | Minni Hiiri | Application Management | Application Owner |
 | Hannu Hanhi | Sales | Sales Representative |
 
-These users give the lab a simple company structure.
+These users give the lab a small company structure.
 
-For example, Roope needs finance-related access, but that does not mean he should have technical admin rights.
+Roope needs finance-related access, but that does not mean he should have technical admin rights.
 
-Mikki works with security, so he is a useful test user for future privileged access examples.
+Mikki is useful for privileged access examples because security-related work may require controlled elevated access.
 
-Hannu is useful for future role creep cases, because he can be used to demonstrate how access can accumulate over time if role changes are not reviewed properly.
+Hannu is useful for role creep examples because he can be used to show how access can accumulate over time if role changes are not reviewed properly.
 
-## First setup steps
+## Setup actions
 
-This is what I did first:
+| Step | Action | Purpose |
+|---|---|---|
+| 1 | Created an Azure free account | Lab subscription base |
+| 2 | Opened Microsoft Entra admin center | Tenant administration |
+| 3 | Checked tenant overview | Confirmed tenant context |
+| 4 | Changed tenant display name to Ankkalinna | Fictional lab identity |
+| 5 | Created fictional test users | User base for IAM scenarios |
+| 6 | Created first security groups | Base for group-based access modelling |
+| 7 | Started GitHub documentation | Public portfolio documentation |
+| 8 | Planned the lab path | Structure for practical IAM scenarios |
 
-1. Created an Azure free account
-2. Opened Microsoft Entra admin center
-3. Checked the tenant overview
-4. Changed the tenant display name to Ankkalinna
-5. Created fictional test users
-6. Created the first security groups
-7. Started documenting the setup in GitHub
-8. Planned the next lab pages around practical IAM scenarios
+{IMAGE 01: Azure budget alert with subscription identifiers blurred}
 
-## Why this matters
+{IMAGE 02: Microsoft Entra tenant overview with tenant ID and technical identifiers blurred}
 
-This setup gives me a safe base for learning IAM.
+{IMAGE 03: Test user creation example with UPN, domain and password fields blurred}
 
-Instead of randomly creating users and groups, I can build small cases around real IAM problems:
+{IMAGE 04: Users overview showing fictional lab users, with user principal names blurred}
 
-- joiner, mover and leaver processes
+## Safe documentation boundaries
+
+Real tenant identifiers, subscription identifiers, object IDs, user principal names and other technical details are not published in this repository.
+
+Screenshots are reviewed and blurred before publishing.
+
+The documentation should show the IAM logic, not expose tenant details.
+
+## Lab purpose
+
+This setup creates a safe base for modelling practical IAM scenarios, including:
+
 - group-based access
+- joiner, mover and leaver lifecycle events
 - application access
 - privileged access
 - access reviews
 - role creep
-- approval flows
+- approval and ownership logic
+- validation evidence
 
-This is only the first step, but now the lab has a structure.
+## Summary
 
-## Next step
+This first setup establishes the lab environment, fictional company, test users and documentation structure.
 
 The next page continues with security groups, naming logic and initial memberships.
