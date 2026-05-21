@@ -1,31 +1,25 @@
 # 04 - Group Ownership and Access Model
 
-This page documents the ownership and access model for the security groups in my Ankkalinna Entra ID lab.
+This page documents ownership, approval responsibility, risk levels and review requirements for the security groups in the Ankkalinna Entra ID lab.
 
-The point is not only to create groups.
+A security group is not only a technical object.
 
-The point is to understand what each group represents, who should own it, who can approve access and what risk the group creates if the wrong user is added.
+It represents an access decision that needs ownership, approval logic, review and cleanup.
 
-A security group is not only a technical container.
+## Ownership model
 
-It is also an access decision that needs ownership, review and cleanup.
+A group without ownership becomes difficult to trust.
 
-## Why ownership matters
-
-A group without ownership becomes hard to trust.
-
-If nobody owns the group, nobody is clearly responsible for:
+Clear ownership defines:
 
 - who should be a member
 - who can approve new members
-- when access should be reviewed
+- who reviews the membership
 - when access should be removed
 - what risk the group creates
 - whether the group still has a valid purpose
 
-This matters especially when groups give access to sensitive systems, privileged roles, finance data, HR data or application owner permissions.
-
-Without clear ownership, access can slowly become something that exists only because nobody knows who is allowed to remove it.
+This is especially important for groups that provide access to sensitive data, privileged roles, application owner permissions or business-critical systems.
 
 ## Access model
 
@@ -39,95 +33,118 @@ Without clear ownership, access can slowly become something that exists only bec
 | SG-Sales-Basic | Basic access for sales users | Sales Owner | Sales Manager | Low / Medium | Quarterly |
 | SG-App-CRM-Users | Standard access to the fictional CRM application | CRM Application Owner | User manager / CRM Owner | Medium | Quarterly |
 | SG-App-CRM-Owners | Owner-level access to the fictional CRM application | CRM Application Owner | Application Owner / Business Owner | High | Quarterly |
-| SG-Privileged-Role-Eligible | Example group for privileged role eligibility | Security Owner | Security Lead / IAM Owner | High | Monthly |
+| SG-Privileged-Role-Eligible | Planning example for privileged role eligibility | Security Owner | Security Lead / IAM Owner | High | Monthly |
+
+{IMAGE 01: Security groups overview showing the SG groups used in the access model, with object IDs and tenant details hidden}
 
 ## Risk levels
 
 | Risk level | Meaning |
 |---|---|
-| Low | Access has limited impact and does not expose sensitive data or privileged functions |
-| Medium | Access may expose business data or support operational work |
-| High | Access may expose sensitive data, privileged actions or higher business impact |
+| Low | Limited business impact and no sensitive or privileged access |
+| Medium | May expose business data or support operational work |
+| High | May expose sensitive data, privileged actions or higher business impact |
 
-Risk level is not only about the group name.
-
-It depends on what the group actually gives access to.
+Risk level depends on what the group actually grants access to.
 
 A normal-looking group can become high risk if it connects to sensitive data, admin functions or business-critical systems.
 
-For example, a group called `SG-App-CRM-Users` may sound basic, but the real risk depends on what CRM data the group can access.
+For example, `SG-App-CRM-Users` may sound basic, but the real risk depends on what CRM data the group can access.
 
-## Review need
+## Review requirements
 
-Review frequency should match the risk.
+Review frequency should match the risk level.
 
-Low-risk access may be reviewed less often.
+| Risk level | Example review approach |
+|---|---|
+| Low | Periodic review |
+| Medium | Regular review with business owner confirmation |
+| High | More frequent review with clear owner, reason and evidence |
 
-High-risk access should be reviewed more carefully.
+A review should confirm that each member still needs the access for their current role.
 
-Privileged or sensitive access should not sit untouched for a long time.
-
-The review should confirm whether the user still needs the access for their current work.
-
-A review is only useful if the reviewer understands what the group gives access to and who should belong to it.
+The reviewer must understand what the group gives access to and who should belong to it.
 
 If the group purpose is unclear, the review becomes weak.
 
-## Example: SG-Finance-Leadership
+## High-risk example: SG-Finance-Leadership
 
 `SG-Finance-Leadership` is high risk because it represents more than basic finance access.
 
-This group could include access to sensitive finance reports, approvals or leadership-level information.
+It may include access to sensitive finance reports, approvals or leadership-level information.
 
-That means membership should not be based on convenience or copied access.
+| Control area | Requirement |
+|---|---|
+| Owner | Head of Finance |
+| Approver | CFO / Finance Leadership |
+| Business reason | Required |
+| Review cycle | Monthly or quarterly |
+| Cleanup trigger | Role change, leaver event or expired business need |
 
-The access should have:
+Membership should not be based on convenience or copied access.
 
-- a clear owner
-- a clear approver
-- a clear business reason
-- a regular review cycle
-- cleanup when the user changes role
+If the wrong user is added to this group, the issue becomes a governance and business risk.
 
-If the wrong user is added to this group, the issue is not only technical.
+{IMAGE 02: SG-Finance-Leadership group overview or membership view, with UPNs, object IDs and tenant details blurred}
 
-It becomes a governance and business risk.
+## High-risk example: SG-Privileged-Role-Eligible
 
-## Example: SG-Privileged-Role-Eligible
+`SG-Privileged-Role-Eligible` is high risk because it represents potential elevated access.
 
-`SG-Privileged-Role-Eligible` is high risk because it represents privileged access thinking.
+Even if the access is only eligibility and not permanent admin access, it still needs stricter control.
 
-Even if the access is only eligibility and not permanent admin access, it should still be treated carefully.
+| Control area | Requirement |
+|---|---|
+| Owner | Security Owner |
+| Approver | Security Lead / IAM Owner |
+| Business reason | Required |
+| Review cycle | Monthly |
+| Cleanup trigger | Role change, task completion or expired access need |
 
-Privileged access should have stricter review and clearer ownership than normal business access.
+This group should not become a place where users are added “just in case”.
 
-This kind of group should not become a place where users are added “just in case”.
+Access that can lead to elevated permissions should have a clear reason, limited scope and regular review.
 
-Access that can lead to elevated permissions should always have a clear reason, limited scope and regular review.
+{IMAGE 03: SG-Privileged-Role-Eligible group overview or membership view, with UPNs, object IDs and tenant details blurred}
 
 ## Ownership questions
 
-Before a group is used for access, I should be able to answer:
+Before a group is used for access, the following questions should be answered:
 
-- what does this group give access to?
-- who owns the group?
-- who can approve membership?
-- who should review the membership?
-- how often should it be reviewed?
-- what is the risk if the wrong user is added?
-- what should happen when a user changes role?
-- who is responsible for removing access when it is no longer needed?
+| Question | Purpose |
+|---|---|
+| What does this group give access to? | Defines the access scope |
+| Who owns the group? | Defines responsibility |
+| Who can approve membership? | Defines approval authority |
+| Who reviews membership? | Defines review responsibility |
+| How often should it be reviewed? | Defines control frequency |
+| What is the risk if the wrong user is added? | Defines impact |
+| What happens when a user changes role? | Defines cleanup logic |
+| Who removes access when it is no longer needed? | Defines operational responsibility |
 
 If these questions cannot be answered, the group is not ready to be trusted as part of an access model.
 
-## Practical takeaway
+## Control view
 
-Good access management is not only about whether a group exists.
+| Control question | Answer in this lab |
+|---|---|
+| What risk is this addressing? | Groups may exist without clear ownership, approval or review responsibility |
+| What control is being practised? | Group ownership and access governance model |
+| What is being defined? | Owner, approver, risk level and review need |
+| Who owns the access decision? | Business owner, application owner or security owner depending on group |
+| What evidence supports the model? | Group list, ownership table, membership view and review decision |
+| What should happen when ownership is unclear? | Group purpose and approval responsibility should be reviewed before trusting the group |
 
-It is about whether the group has a clear purpose, owner, approver, risk level and review need.
+## Security note
 
-If nobody can explain why a group exists or who should be in it, the group is already becoming a risk.
+Published screenshots should not expose tenant identifiers, user principal names, group object IDs, role IDs or other technical identifiers.
 
-A clean access model needs more than groups.
+The documentation should show access ownership and governance logic, not tenant details.
 
-It needs ownership.
+## Summary
+
+This page defines ownership and review responsibility for the lab security groups.
+
+A group should have a clear purpose, owner, approver, risk level and review requirement before it is trusted as part of the access model.
+
+The next page focuses on manual access review and cleanup decisions.
