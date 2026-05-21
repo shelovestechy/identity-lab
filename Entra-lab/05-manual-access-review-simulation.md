@@ -1,70 +1,53 @@
 # 05 - Manual Access Review Simulation
 
-This page documents a manual access review simulation in my Ankkalinna Entra ID lab.
+This page documents a manual access review simulation in the Ankkalinna Entra ID lab.
+
+The review checks whether members of a high-risk finance group still need access for their current role.
 
 This is not an automated Microsoft Entra ID Governance access review.
 
-The purpose is to practise the review logic manually first:
-
-- what group is reviewed
-- who should review it
-- what members are checked
-- what decision is made
-- what evidence is captured
-- what cleanup is done after the review
-
-The focus is not the portal button.
-
-The focus is the access decision.
+The focus is the access decision, cleanup action and evidence.
 
 ## Review scope
-
-For this simulation, I reviewed the group:
 
 | Group | Purpose | Risk level | Reviewer |
 |---|---|---|---|
 | SG-Finance-Basic | Basic finance access | High | Head of Finance / Finance Owner |
 
-This group is a good review target because finance access can expose sensitive business data.
+`SG-Finance-Basic` is a useful review target because finance access may expose sensitive business data.
 
-Even basic finance access should not be treated like generic office access.
+Even basic finance access should have a clear business reason.
+
+{IMAGE 01: SG-Finance-Basic group overview or membership page before review. Blur UPNs, object IDs and tenant details.}
 
 ## Review question
 
-The review question is simple:
+The review question:
 
 > Does each member still need this access for their current role?
 
-This is the important part.
+The review should confirm whether the access still matches the user’s current role, project or business need.
 
-The review is not only checking whether the user is listed in the group.
+Access can be valid when granted and invalid later.
 
-The review should challenge whether the membership still makes sense.
-
-Access can be valid when it is granted and invalid later when the user’s role, project or business need changes.
-
-## Current members before review
+## Members before review
 
 Before the review, `SG-Finance-Basic` had the following members:
 
-| User | Current role | Review decision | Reason |
+| User | Current role | Initial review decision | Reason |
 |---|---|---|---|
 | Roope Ankka | Head of Finance | Keep | Current finance leadership role |
 | Hannu Hanhi | Sales Representative | Remove | Temporary finance project access is no longer needed |
 
 ## Finding
 
-The review found that Hannu Hanhi was still a member of `SG-Finance-Basic`.
+Hannu Hanhi was still a member of `SG-Finance-Basic`.
 
-Hannu works in Sales.
+Hannu currently works in Sales.
 
-He had Finance access because of a temporary reporting project, but that project is no longer active.
+The Finance access was originally granted for a temporary reporting project, but the project is no longer active.
 
-This means the access no longer matches his current role.
-
-The issue is not that Hannu did anything wrong.
-
-The issue is that the access stayed behind after the business need ended.
+The access no longer matches Hannu’s current role.
 
 ## Review decision
 
@@ -73,13 +56,13 @@ The issue is that the access stayed behind after the business need ended.
 | Roope Ankka | Keep access | No change |
 | Hannu Hanhi | Remove access | Remove from `SG-Finance-Basic` |
 
-The decision should be based on current need, not old history.
+The decision is based on current business need.
 
-If there is no current business reason, the access should not stay.
+Old history is not enough reason to keep access active.
 
 ## Cleanup action
 
-After the review, Hannu Hanhi was removed from `SG-Finance-Basic`.
+Hannu Hanhi was removed from `SG-Finance-Basic`.
 
 His normal Sales and CRM access remained unchanged.
 
@@ -88,101 +71,43 @@ His normal Sales and CRM access remained unchanged.
 | Hannu Hanhi | SG-Sales-Basic, SG-App-CRM-Users |
 | Roope Ankka | SG-Finance-Basic, SG-Finance-Leadership, SG-App-CRM-Users |
 
-Now the group membership better matches the current business need.
+{IMAGE 02: Hannu removed from SG-Finance-Basic or updated membership view. Blur UPNs, object IDs and tenant details.}
 
-Roope still has Finance access because it matches his current role.
+{IMAGE 03: SG-Finance-Basic membership after cleanup, showing Roope only or cleaned membership state. Blur UPNs, object IDs and tenant details.}
 
-Hannu no longer has Finance access because the temporary need has ended.
-
-## Evidence captured
-
-For this review, useful evidence would include:
+## Evidence
 
 | Evidence | Purpose |
 |---|---|
-| Group membership before review | Shows original group membership |
+| Group membership before review | Shows the original access state |
 | Review decision table | Shows who was reviewed and what decision was made |
-| Group membership after cleanup | Shows that unnecessary access was removed |
+| Cleanup action | Shows that unnecessary access was removed |
+| Group membership after cleanup | Shows the final access state |
 | Written reason | Explains why access was kept or removed |
 
-The evidence does not need to be huge.
+The evidence should show what was reviewed, what decision was made and what changed after the review.
 
-It needs to be clear enough that someone can understand the review later.
+## Control view
 
-Good evidence should show:
-
-- what was reviewed
-- who was included
-- what decision was made
-- what changed after the review
-- why the decision was made
+| Control question | Answer in this lab |
+|---|---|
+| What risk is this addressing? | Users may keep access that no longer matches their current role |
+| What control is being practised? | Manual access review and cleanup |
+| What access was reviewed? | `SG-Finance-Basic` membership |
+| Who owns the review decision? | Head of Finance / Finance Owner |
+| What evidence supports the control? | Before membership, review decision and after membership |
+| What should happen if access is no longer valid? | Remove the user from the group |
 
 ## Security note
 
-Screenshots are not included on this page yet.
+Published screenshots should not expose tenant identifiers, user principal names, group object IDs or other technical identifiers.
 
-Before adding screenshots to GitHub, I will review and blur tenant identifiers, user principal names, group object identifiers and any other technical details that should not be published.
+The evidence should show the review and cleanup logic, not tenant details.
 
-## Evidence to add later
+## Summary
 
-When screenshots are added, they should support the review without exposing unnecessary technical identifiers.
+This review identified Finance access that no longer matched Hannu Hanhi’s current Sales role.
 
-Planned evidence:
+The cleanup removed unnecessary access and restored the group membership to match current business need.
 
-- `SG-Finance-Basic` membership before review
-- Hannu Hanhi removed from `SG-Finance-Basic`
-- `SG-Finance-Basic` membership after review
-
-The evidence should prove the cleanup, not expose the tenant.
-
-## What this review shows
-
-This review shows why group membership should not be trusted forever.
-
-Access can be correct when it is granted and wrong later.
-
-That is why reviews matter.
-
-The real value of an access review is not that someone clicks “review complete”.
-
-The value is that old access is found, challenged and removed when it no longer makes sense.
-
-## Practical takeaway
-
-A manual access review is simple, but it still needs structure.
-
-A useful review should have:
-
-- clear scope
-- correct reviewer
-- current role context
-- keep or remove decision
-- cleanup action
-- evidence after the decision
-
-A review without cleanup is only a list.
-
-A review with a decision and action is control.
-
-## What I learned
-
-Access review is not only about confirming who is in a group.
-
-It is about checking whether the access still matches the user’s current role and business need.
-
-This simulation helped me practise access review as a control:
-
-- define the review scope
-- check membership against current role
-- make a keep or remove decision
-- remove unnecessary access
-- document the reason
-- keep evidence of the cleanup
-
-The most important part is not the review table.
-
-The most important part is whether the review leads to action when access no longer makes sense.
-
-## Next step
-
-The next page will focus on application access modelling and separating standard users, owners and sensitive application access.
+The next page focuses on application access modelling and separating standard users, owners and sensitive application access.
