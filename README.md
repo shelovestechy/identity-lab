@@ -34,12 +34,12 @@ Example users include Aku Ankka, Iines Ankka, Roope Ankka, Mikki Hiiri, Minni Hi
 
 | Folder | Purpose |
 | :--- | :--- |
-| ./entra-lab/ | Hands-on Entra ID lab scenarios and access models |
-| ./iam-projects/ | Larger IAM scenarios combining lifecycle, access control and governance into more complete implementations |
-| ./iam-thinking/ | Notes about IAM risks, ownership, lifecycle and access problems |
-| ./operational-notes/ | Practical technical notes and identity-related observations |
-| ./governance-compliance/ | Notes about regulation, audit evidence and risk thinking |
-| ./tools/ | Notes about IAM-related tools and platforms |
+| [`entra-lab/ | Hands-on Entra ID lab scenarios and access models |
+| [`./iam-projects/`](./iam-projects/) | **Larger IAM scenarios combining lifecycle, accessce into more complete, real-world style implementations** |
+| [`./iam-thinking/`](./iam-thinking/) | Notesership, lifecycle and access problems |
+| [`./operational-notes/`](./operational-notes/) | Practical technical notesrvations |
+| [`./governance-compliance/`](./governancegulation, audit evidence and risk thinking |
+| [`./tools/`](./tools/) IAM-related tools and platforms |
 
 
 ## Language Note
