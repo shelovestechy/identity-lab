@@ -91,8 +91,8 @@ The goal is clear thinking, not perfect academic English.
 
 ## Learning Resources
 
-- [SimplifyIAM community](https://www.skool.com/simplify-iam-6792/)  
-  Practical IAM homelab ideas, IAM concepts, portfolio building and career direction.
+- [IAM Roadmap](https://iamroadmap.com/)
+  A useful overview of IAM as a whole, from technologies to compliance and career paths.
 
 - [Microsoft Learn](https://learn.microsoft.com/)  
   Official Microsoft learning material for identity, security and cloud fundamentals.
@@ -106,10 +106,14 @@ The goal is clear thinking, not perfect academic English.
 - [Microsoft Graph PowerShell documentation](https://learn.microsoft.com/en-us/powershell/microsoftgraph/)  
   Used for practising identity management through PowerShell and Microsoft Graph commands.
 
+
 ## Current Direction
 
-My current direction is toward IAM Analyst work.
+My current direction is toward IAM / Identity Engineering work.
 
-Long term, I want to grow toward identity architecture.
+I am especially interested in designing and improving identity environments, where access is based on lifecycle, ownership and clear governance instead of manual support tasks.
+
+Long term, I want to grow into a strong IAM professional who works closer to architecture and solution design.
 
 Right now, I am building practical understanding through Microsoft Entra ID lab work, access scenarios, technical notes and written analysis.
+
