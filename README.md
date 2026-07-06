@@ -1,6 +1,8 @@
 # 🌱 Identity Lab
 
-This repository is my learning and portfolio space for Identity and Access Management.
+This repository is my learning and portfolio space for Identity and Access Management (IAM).
+
+It started from curiosity in Service Desk work, where access issues, permissions and user lifecycle kept repeating without fully understanding how they are designed behind the scenes.
 
 I use this space to practise how access works in real environments, where technical actions, business decisions, user lifecycle, ownership, audit evidence and support processes all meet.
 
