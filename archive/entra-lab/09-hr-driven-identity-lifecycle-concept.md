@@ -83,7 +83,6 @@ High-risk access, application owner access and privileged access should still re
 | endDate | Empty | No leaver action needed |
 | location | Finland | Conditional Access or regional access context |
 
-{IMAGE 01: Mock HR attribute table or example HR source view. Use fictional users only. No real employee data.}
 
 ## HR event to IAM action
 
@@ -150,7 +149,6 @@ HR data can trigger the review.
 
 Access ownership and approval still define the final decision.
 
-{IMAGE 02: Hannu HR data change example, such as Sales to Finance mapping table or diagram. No tenant details needed.}
 
 ## Mock HR source
 
@@ -171,7 +169,6 @@ This supports validation before automation.
 
 Later, the same data could be moved into a separate mock CSV file or PowerShell input file.
 
-{IMAGE 03: Mock HR source table or separate mock HR data file preview. Use fictional users only.}
 
 ## Attribute mapping
 
@@ -221,7 +218,6 @@ Microsoft Graph does not replace the access model.
 
 It helps validate whether the current Entra ID state matches the expected model.
 
-{IMAGE 04: Simple diagram showing HR source → IAM logic → Entra ID → Microsoft Graph validation. No tenant details needed.}
 
 ## HR data quality risks
 
@@ -298,7 +294,6 @@ It is also a process and control design.
 | Microsoft Graph validation output | Shows current Entra ID state |
 | Expected vs actual comparison | Shows whether identity data and access match the model |
 
-{IMAGE 05: Expected vs actual comparison example between mock HR data and Entra ID data. Blur all tenant identifiers and UPNs.}
 
 ## Security note
 

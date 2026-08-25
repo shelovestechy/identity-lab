@@ -16,7 +16,7 @@ The baseline focuses on:
 * Group and application governance
 * Monitoring and alerting
 
-This is a lab-based portfolio project. It is not a production implementation. Some parts are implemented or simulated in my lab environment and some parts are documented as future improvements.
+This is a lab-based design case study, not a production implementation. The repository documents the proposed baseline and related simulations; it does not currently include enough technical evidence to present every control below as implemented.
 
 ## Business Problem
 
@@ -48,25 +48,26 @@ The goal of this project is to create an IAM baseline that answers these questio
 
 ## Scope
 
-### Implemented or simulated in lab
+### Documented or simulated in this portfolio
 
-* Microsoft Entra ID tenant structure
-* User and group model
+* A fictional Microsoft Entra ID tenant structure
+* User and group access model
 * Conditional Access baseline design
-* Dynamic group logic
+* Dynamic group design considerations
 * Privileged Identity Management model
 * Admin role protection model
 * Guest access governance model
 * Application permission review concept
 * Monitoring and alerting scenarios
 
-### Designed as future improvements
+### Not yet evidenced as implemented
 
 * Full HR-driven lifecycle automation
 * Access reviews
 * Entitlement management and access packages
 * Microsoft Sentinel integration
 * Production-level reporting and alerting
+* Dynamic groups, PIM and Conditional Access results with sanitized configuration evidence
 
 ## Architecture
 
@@ -374,7 +375,7 @@ Next improvements:
 
 ## Conclusion
 
-This project demonstrates how a Microsoft Entra ID IAM baseline can improve security and reduce manual work.
+This project demonstrates my current design thinking about how a Microsoft Entra ID IAM baseline could improve security and reduce manual work.
 
 The solution focuses on strong authentication, Conditional Access, privileged access management, lifecycle governance and monitoring.
 
@@ -382,4 +383,4 @@ A good IAM baseline does not only protect user accounts. It creates structure, r
 
 Who has access, why do they have it and is it still needed?
 
-This baseline gives the organization a stronger identity foundation and a better starting point for future IAM maturity.
+The case study gives me a structured baseline for future hands-on validation and deeper IAM learning.

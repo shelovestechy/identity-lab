@@ -57,13 +57,9 @@ Hannu is useful for role creep examples because he can be used to show how acces
 | 7 | Started GitHub documentation | Public portfolio documentation |
 | 8 | Planned the lab path | Structure for practical IAM scenarios |
 
-{IMAGE 01: Azure budget alert with subscription identifiers blurred}
 
-{IMAGE 02: Microsoft Entra tenant overview with tenant ID and technical identifiers blurred}
 
-{IMAGE 03: Test user creation example with UPN, domain and password fields blurred}
 
-{IMAGE 04: Users overview showing fictional lab users, with user principal names blurred}
 
 ## Safe documentation boundaries
 

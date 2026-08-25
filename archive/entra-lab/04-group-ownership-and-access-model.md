@@ -35,7 +35,6 @@ This is especially important for groups that provide access to sensitive data, p
 | SG-App-CRM-Owners | Owner-level access to the fictional CRM application | CRM Application Owner | Application Owner / Business Owner | High | Quarterly |
 | SG-Privileged-Role-Eligible | Planning example for privileged role eligibility | Security Owner | Security Lead / IAM Owner | High | Monthly |
 
-{IMAGE 01: Security groups overview showing the SG groups used in the access model, with object IDs and tenant details hidden}
 
 ## Risk levels
 
@@ -85,7 +84,6 @@ Membership should not be based on convenience or copied access.
 
 If the wrong user is added to this group, the issue becomes a governance and business risk.
 
-{IMAGE 02: SG-Finance-Leadership group overview or membership view, with UPNs, object IDs and tenant details blurred}
 
 ## High-risk example: SG-Privileged-Role-Eligible
 
@@ -105,7 +103,6 @@ This group should not become a place where users are added “just in case”.
 
 Access that can lead to elevated permissions should have a clear reason, limited scope and regular review.
 
-{IMAGE 03: SG-Privileged-Role-Eligible group overview or membership view, with UPNs, object IDs and tenant details blurred}
 
 ## Ownership questions
 

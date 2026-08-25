@@ -52,7 +52,6 @@ An expected access model shows whether the current access is correct.
 | Get user memberships | Check what access a specific user has |
 | Export results | Save evidence for access review or cleanup |
 
-{IMAGE 01: Microsoft Graph PowerShell connection or module check. Blur tenant identifiers, account identifiers and technical details.}
 
 ## Example: Hannu Hanhi validation
 
@@ -74,7 +73,6 @@ Validation should check whether Hannu still has old Sales access or unnecessary 
 | SG-Finance-Leadership | Hannu should not be a member |
 | SG-Privileged-Role-Eligible | Hannu should not be a member |
 
-{IMAGE 02: PowerShell or Entra output showing Hannu’s current group memberships. Blur UPN, object IDs, group IDs and tenant details.}
 
 ## Expected output format
 
@@ -87,7 +85,6 @@ A useful validation output should connect technical data to an access decision.
 | Roope Ankka | Finance | Head of Finance | SG-Finance-Leadership | Yes | Keep |
 | Mikki Hiiri | Security | Security Specialist | SG-Privileged-Role-Eligible | Yes | Review monthly |
 
-{IMAGE 03: Expected vs actual validation table or exported result. Blur all UPNs, object IDs and tenant details.}
 
 ## HR data comparison
 
@@ -104,7 +101,6 @@ This comparison helps identify data quality issues before automation is trusted.
 
 If the HR source and Entra ID state do not match, access decisions may also become unreliable.
 
-{IMAGE 04: Mock HR data compared with Entra ID attribute output. Use fictional users only and blur technical identifiers.}
 
 ## Evidence
 

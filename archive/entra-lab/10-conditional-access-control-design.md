@@ -66,7 +66,6 @@ Each policy should define:
 
 This policy reduces the risk of password-only access to cloud applications.
 
-{IMAGE 01: Conditional Access policy configuration for standard user MFA. Blur tenant details, policy IDs and object IDs.}
 
 ## Policy 2: Require MFA for privileged access
 
@@ -84,7 +83,6 @@ Privileged users need stronger protection than standard users.
 
 Admin or elevated access can affect users, groups, applications, security settings and access rights.
 
-{IMAGE 02: Conditional Access policy configuration for privileged access MFA. Blur tenant details, policy IDs, role IDs and object IDs.}
 
 ## Policy 3: Block legacy authentication
 
@@ -103,7 +101,6 @@ Legacy authentication can be risky because it may not support modern security co
 
 Sign-in logs should be reviewed before enforcement to confirm whether any users or applications still depend on legacy authentication.
 
-{IMAGE 03: Conditional Access policy configuration blocking legacy authentication. Blur tenant details, policy IDs and object IDs.}
 
 ## Emergency access account
 
@@ -122,7 +119,6 @@ An emergency access account should be considered before enforcement.
 
 The emergency access account should not be used for daily administration.
 
-{IMAGE 04: Emergency access account exclusion example. Blur account identifiers, UPNs, object IDs and tenant details.}
 
 ## Testing before enforcement
 
@@ -140,7 +136,6 @@ Conditional Access policies should be tested before they are enforced.
 
 A policy should not be enforced until the expected impact is understood.
 
-{IMAGE 05: Report-only result or policy impact view. Blur user identifiers, tenant details and policy IDs.}
 
 ## User impact
 
@@ -191,7 +186,6 @@ After testing or enabling a policy, sign-in logs should be reviewed.
 
 A policy should be validated against real sign-in results.
 
-{IMAGE 06: Sign-in log validation showing Conditional Access result. Blur UPNs, IP addresses, tenant details and policy IDs.}
 
 ## Policy summary
 

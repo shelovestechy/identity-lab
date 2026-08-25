@@ -29,7 +29,6 @@ A standard CRM user should not automatically have owner-level access.
 
 Owner-level access is higher risk because it may allow wider visibility, configuration changes or access management inside the application.
 
-{IMAGE 01: CRM access groups overview showing SG-App-CRM-Users and SG-App-CRM-Owners. Blur object IDs, tenant details and technical identifiers.}
 
 ## Current access model
 
@@ -43,9 +42,7 @@ This model separates application users from application owners.
 
 Using an application and owning an application are different responsibilities.
 
-{IMAGE 02: CRM user group membership showing Hannu and Roope. Blur UPNs, object IDs and tenant details.}
 
-{IMAGE 03: CRM owner group membership showing Minni. Blur UPNs, object IDs and tenant details.}
 
 ## Access level difference
 

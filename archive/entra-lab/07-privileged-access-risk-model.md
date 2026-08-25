@@ -38,7 +38,6 @@ This does not mean Mikki should have permanent broad admin rights.
 
 The access should be limited to the task, justified and reviewed.
 
-{IMAGE 01: Mikki Hiiri group membership showing SG-Security-Basic and SG-Privileged-Role-Eligible. Blur UPN, object IDs and tenant details.}
 
 ## Standing privilege risk
 
@@ -89,7 +88,6 @@ Membership should have:
 
 This group should not become a storage place for users who might need admin access someday.
 
-{IMAGE 02: SG-Privileged-Role-Eligible group overview or membership view. Blur UPNs, object IDs and tenant details.}
 
 ## Eligibility vs active access
 

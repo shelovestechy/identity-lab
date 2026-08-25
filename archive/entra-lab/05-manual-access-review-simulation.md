@@ -18,7 +18,6 @@ The focus is the access decision, cleanup action and evidence.
 
 Even basic finance access should have a clear business reason.
 
-{IMAGE 01: SG-Finance-Basic group overview or membership page before review. Blur UPNs, object IDs and tenant details.}
 
 ## Review question
 
@@ -71,9 +70,7 @@ His normal Sales and CRM access remained unchanged.
 | Hannu Hanhi | SG-Sales-Basic, SG-App-CRM-Users |
 | Roope Ankka | SG-Finance-Basic, SG-Finance-Leadership, SG-App-CRM-Users |
 
-{IMAGE 02: Hannu removed from SG-Finance-Basic or updated membership view. Blur UPNs, object IDs and tenant details.}
 
-{IMAGE 03: SG-Finance-Basic membership after cleanup, showing Roope only or cleaned membership state. Blur UPNs, object IDs and tenant details.}
 
 ## Evidence
 

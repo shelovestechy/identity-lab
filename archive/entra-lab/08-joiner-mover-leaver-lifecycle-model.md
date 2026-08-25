@@ -26,7 +26,6 @@ The access state should match the user’s current role, status and business nee
 | Mover | User changes role or department | Add new access, remove old access and review application access | Role creep and unnecessary access |
 | Leaver | User leaves the organization | Block sign-in, remove access and check privileged/application access | Orphaned identity and leftover access |
 
-{IMAGE 01: Simple JML lifecycle diagram or table showing Joiner, Mover and Leaver flow. No tenant details needed.}
 
 ## Lab users
 
@@ -58,7 +57,6 @@ A joiner process should not copy access from another user without checking why t
 
 Copied access can bring old or excessive permissions into a new account.
 
-{IMAGE 02: Iines group membership showing SG-HR-Basic. Blur UPN, object IDs and tenant details.}
 
 ## Mover example: Hannu Hanhi
 
@@ -85,9 +83,7 @@ The mover event is a role creep risk point.
 
 If new access is added but old access is not removed, the user starts collecting access from previous roles.
 
-{IMAGE 03: Hannu group membership before mover change, showing Sales and CRM access. Blur UPN, object IDs and tenant details.}
 
-{IMAGE 04: Hannu group membership after mover change, showing Finance access and removed Sales access. Blur UPN, object IDs and tenant details.}
 
 ## Leaver example: Aku Ankka
 
@@ -115,9 +111,7 @@ A leaver process should be triggered by a clear HR or manager event.
 
 It should not depend on memory or manual guesswork.
 
-{IMAGE 05: Aku account status before leaver cleanup. Blur UPN, object IDs and tenant details.}
 
-{IMAGE 06: Aku account with sign-in blocked or final access state after cleanup. Blur UPN, object IDs and tenant details.}
 
 ## Common failure points
 

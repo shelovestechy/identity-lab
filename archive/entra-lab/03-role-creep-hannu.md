@@ -27,7 +27,6 @@ At this point, Hannu still has Finance access even though his current role is Sa
 
 That is role creep.
 
-{IMAGE 01: Hannu group membership before cleanup, showing Sales, CRM and Finance access. Blur UPN, object IDs and tenant details.}
 
 ## What role creep means
 
@@ -98,7 +97,6 @@ Cleanup action:
 | SG-Sales-Basic | Keep | Current Sales role |
 | SG-App-CRM-Users | Keep | Current CRM access for Sales work |
 
-{IMAGE 02: Removal of Hannu from SG-Finance-Basic or group membership update view. Blur UPN, object IDs and tenant details.}
 
 ## After cleanup
 
@@ -108,7 +106,6 @@ After cleanup, Hannu’s access matches his current Sales role.
 |---|---|---|
 | Hannu Hanhi | Sales Representative | SG-Sales-Basic, SG-App-CRM-Users |
 
-{IMAGE 03: Hannu group membership after cleanup, showing only Sales and CRM access. Blur UPN, object IDs and tenant details.}
 
 ## Better process
 

@@ -53,7 +53,6 @@ A useful group name should show:
 | SG-App-CRM-Owners | Owner-level access to the fictional CRM application | Minni Hiiri |
 | SG-Privileged-Role-Eligible | Planning example for privileged access eligibility | Mikki Hiiri |
 
-{IMAGE 01: Security groups overview showing created SG groups, with object IDs and tenant details hidden}
 
 ## Membership overview
 
@@ -66,7 +65,6 @@ A useful group name should show:
 | Minni Hiiri | Application Owner | SG-App-CRM-Owners | CRM application ownership |
 | Hannu Hanhi | Sales Representative | SG-Sales-Basic, SG-App-CRM-Users | Sales access and CRM user access |
 
-{IMAGE 02: User membership overview or example membership view, with UPNs and object identifiers blurred}
 
 ## Department-based access
 
@@ -97,7 +95,6 @@ This separates standard application users from application owners.
 
 A normal CRM user should not automatically have owner-level access.
 
-{IMAGE 03: CRM user and owner groups visible in group list, with object IDs hidden}
 
 ## Example: Roope Ankka
 
@@ -115,7 +112,6 @@ Finance leadership does not mean tenant administration.
 
 Business authority and technical admin access are separate concepts.
 
-{IMAGE 04: Roope group membership showing finance and CRM access, with UPN and object identifiers blurred}
 
 ## Example: Mikki Hiiri
 
@@ -130,7 +126,6 @@ This makes him useful for privileged access examples.
 
 Security-related work may require elevated access, but elevated access should still have a clear reason, limited scope and review process.
 
-{IMAGE 05: Mikki group membership showing security and privileged eligibility groups, with UPN and object identifiers blurred}
 
 ## Example: Hannu Hanhi
 
@@ -145,7 +140,6 @@ Hannu is later used in role creep and mover scenarios.
 
 If Hannu changes role or receives temporary access, his old access should be reviewed instead of left behind.
 
-{IMAGE 06: Hannu group membership showing Sales and CRM access, with UPN and object identifiers blurred}
 
 ## Control view
 

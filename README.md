@@ -1,78 +1,42 @@
-# 🌱 Identity Lab
+# Identity Lab
 
-This repository is my learning and portfolio space for Identity and Access Management (IAM).
+> A Service Desk professional's personal portfolio for IAM, identity security and security governance.
 
-It started from curiosity in Service Desk work, where access issues, permissions and user lifecycle questions kept repeating. I wanted to understand better how access is designed behind the scenes, not only how individual tickets are solved.
+I am deliberately building toward IAM and identity security roles. This repository documents the work I do outside working hours to understand what happens behind access tickets: who owns access, how identity risk is reduced, what evidence a control produces and how technical decisions connect with security governance.
 
-I use this space to practise how access works in realistic environments, where technical actions, business decisions, user lifecycle, ownership, audit evidence and support processes all meet.
+My Service Desk background gives me the operational starting point. These projects show how I am extending it toward identity architecture, access governance, Microsoft Entra ID security and risk-based information security.
 
-The focus is not only on tools or portal buttons. The goal is to understand why access exists, who owns the decision, how access should be reviewed and what happens when the process fails.
+## Featured projects
 
-## Focus Areas
+| Project | Focus | Current form |
+| :--- | :--- | :--- |
+| [Identity Security Baseline](./projects/identity-security-baseline/) | Conditional Access, strong authentication, privileged access, emergency access and monitoring | Design case study with a defined lab evidence plan |
+| [Access Governance and Audit](./projects/access-governance-and-audit/) | Ownership, role creep, access reviews, segregation of duties and review evidence | Simulated access governance case |
+| [Identity Continuity and Architecture](./projects/identity-continuity-and-architecture/) | Name changes, stable identifiers, source of authority and identity integration after an acquisition | Technical and architecture case study |
+| [Security Governance: ISO 27001 and NIS2](./projects/security-governance-iso27001-nis2/) | Translating security expectations into IAM controls, owners and evidence | Applied governance analysis |
 
-- Microsoft Entra ID / Azure AD
-- User and group management
-- Access requests
-- Joiner, Mover and Leaver processes
-- Role creep and access cleanup
-- Identity continuity
-- Access reviews
-- Privileged access thinking
-- Governance, risk and compliance
-- IAM tools and platforms
-- Practical Service Desk and IAM process thinking
+## What I am practising
 
-## Lab Company
+- connecting everyday support situations with identity lifecycle and security risk
+- designing access controls with a clear business owner and review path
+- separating standard and privileged access
+- thinking about evidence before calling a control complete
+- understanding Microsoft Entra ID as both an identity platform and a security control plane
+- connecting IAM work with risk management, ISO/IEC 27001 and NIS2
+- documenting what I designed, simulated or tested without presenting lab work as production experience
 
-The practical lab work is built around a fictional company called **Ankkalinna Identity Lab Oy**.
+## Evidence and scope
 
-Using fictional users and departments makes it possible to build realistic access scenarios without using real customer data, real users or production environments.
+The work uses the fictional company **Ankkalinna Identity Lab Oy** and fictional users. No employer, customer or production data is used.
 
-Example users include Aku Ankka, Iines Ankka, Roope Ankka, Mikki Hiiri, Minni Hiiri and Hannu Hanhi.
+Each featured project states its current form. The repository distinguishes design work, simulations and lab validation instead of treating them as the same level of evidence. Sanitized technical artifacts will be added as individual controls are tested.
 
-## Repository Structure
+## Learning archive
 
-| Folder | Purpose |
-| :--- | :--- |
-| [`./Entra-lab/`](./Entra-lab/) | Hands-on Microsoft Entra ID lab scenarios, users, groups and access models |
-| [`./iam-projects/`](./iam-projects/) | Larger IAM scenarios combining lifecycle, access control, governance and security into more complete real-world style implementations |
-| [`./iam-thinking/`](./iam-thinking/) | Notes and written analysis about ownership, lifecycle, identity risks and access problems |
-| [`./practical-notes/`](./practical-notes/) | Practical technical notes, observations and troubleshooting findings |
-| [`./governance-compliance/`](./governance-compliance/) | Governance, regulation, audit evidence and risk thinking |
-| [`./tools/`](./tools/) | Notes about IAM-related tools, platforms and technical practice |
+The earlier learning path, practical notes and longer topic explorations remain available in the [`archive/`](./archive/). They show how the current project themes developed over time, but they are no longer the recommended starting point for reviewing this portfolio.
 
+## Current direction
 
-## Language Note
+My goal is to move from Service Desk L1/L2 work toward IAM and identity security. I am particularly interested in roles where identity operations, technical controls, business ownership, auditability and security governance meet.
 
-The main language of this repository is English.
-
-Some early notes may still be written in Finnish because some ideas are easier to capture first in my native language.
-
-The goal is clear thinking, not perfect academic English.
-
-## Learning Resources
-
-- [IAM Roadmap](https://iamroadmap.com/)  
-  A useful overview of IAM as a whole, from technologies to compliance and career paths.
-
-- [Microsoft Learn](https://learn.microsoft.com/)  
-  Official Microsoft learning material for identity, security and cloud fundamentals.
-
-- [Microsoft Entra documentation](https://learn.microsoft.com/en-us/entra/)  
-  Reference material for Microsoft Entra ID, users, groups, roles, authentication and access management.
-
-- [Microsoft Graph documentation](https://learn.microsoft.com/en-us/graph/)  
-  Reference material for Microsoft Graph API.
-
-- [Microsoft Graph PowerShell documentation](https://learn.microsoft.com/en-us/powershell/microsoftgraph/overview)  
-  Used for practising identity management through PowerShell and Microsoft Graph commands.
-
-## Current Direction
-
-My current direction is toward IAM / Identity Engineering work.
-
-I am especially interested in designing and improving identity environments where access is based on lifecycle, ownership and clear governance instead of only manual support tasks.
-
-Long term, I want to grow into a strong IAM professional working closer to architecture and solution design.
-
-Right now, I am building practical understanding through Microsoft Entra ID lab work, access scenarios, technical notes and written analysis.
+This portfolio is evidence of that direction: active learning, structured thinking and progressively more practical work.
