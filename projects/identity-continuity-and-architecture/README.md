@@ -1,75 +1,92 @@
 # Identity Continuity and Architecture
 
-**Current form:** technical operations and architecture case study
+## What I wanted to understand
 
-## Central idea
+A person can change their name, email address, role, department or employer. The identity system still needs to understand that this is the same person.
 
-A person's name, email address, role, organization or source system can change. The identity must remain understandable and controllable through those changes.
+This sounds obvious until several applications use the email address as a permanent identifier.
 
-Identity continuity means preserving the relationship between the person, the account, access history and audit trail instead of accidentally creating a second identity or losing the first one.
+For me, identity continuity means keeping the person, account, access history and audit trail connected when visible information changes.
 
-## Case 1: Name change
+## The Ankkalinna name change
 
-A user changes their surname. What looks like a simple profile update can affect:
+Iines Ankka changes her surname and becomes Iines Hanhi.
+
+The visible request may sound simple: “Please change the name.” Behind that request there may be several different changes:
 
 - display name
-- primary email address and aliases
-- user principal name and sign-in instructions
-- cached client information
-- application matching and SSO
-- hybrid identity synchronization
-- audit searches and historical records
+- email address and old aliases
+- UPN and sign-in instructions
+- Microsoft 365 and Teams information
+- synchronized attributes
+- application user matching
+- historical audit searches
 
-### Design principles
+Creating a completely new account would make the screen look tidy, but it could break mailbox continuity, access history and the connection to the original identity.
 
-| Principle | Practical meaning |
+## What I would check first
+
+### Is the user cloud-only or synchronized?
+
+If the identity is synchronized, the change should normally start from the correct source system. Editing the cloud value directly may only create a short-lived improvement before synchronization changes it back.
+
+### Does the UPN really need to change?
+
+A surname change does not automatically mean the sign-in name must change. UPN changes can affect saved credentials, applications, SSO and user instructions.
+
+### What should stay stable?
+
+Applications should prefer stable identifiers instead of treating display name, email or UPN as an unchangeable person ID.
+
+Names change. The account should not become a new person because of it.
+
+## The larger Ankkalinna case: an acquisition
+
+An acquisition creates the same continuity problem on a much larger scale.
+
+Two companies may have different:
+
+- HR and identity source systems
+- domains and naming rules
+- MFA methods
+- user accounts and duplicate identities
+- application integrations
+- privileged access models
+- support processes
+
+The question is not only how to move accounts. It is how to keep access secure and the business running while the identity architecture changes.
+
+## Questions I would ask
+
+| Area | Question |
 | :--- | :--- |
-| Confirm the source of authority | Change cloud-only identities in the cloud and synchronized identities in the correct source system |
-| Prefer stable identifiers | Applications should not treat display name, email or UPN as an immutable person ID |
-| Preserve communication continuity | Keep the old email address as an alias when appropriate |
-| Assess UPN impact separately | A legal name change does not automatically require a sign-in name change |
-| Communicate user impact | Explain sign-in, application and propagation effects before the change |
-| Preserve the audit chain | The same account should remain traceable before and after the change |
+| Source of authority | Which system owns each identity attribute during the transition? |
+| Duplicate identities | How do we know that two accounts belong to the same person? |
+| Access | Which old permissions should move to the new environment? |
+| Authentication | How do users reach critical systems during the change? |
+| Privileged access | Where are the admin accounts and who still needs them? |
+| Applications | Do applications use stable IDs or changeable email addresses? |
+| Service Desk | Can support see what stage each user is in? |
+| Decommissioning | What evidence is needed before the old account or directory is removed? |
 
-## Case 2: Identity architecture after an acquisition
+## What surprised me
 
-An acquisition creates a larger version of the same continuity problem. Two organizations may have different directories, naming rules, MFA methods, applications, lifecycle processes and support models.
+The more I studied name changes, the less they looked like a small profile update. The same questions appear in integrations and acquisitions: source of truth, identity matching, continuity and ownership.
 
-The question is not only how to migrate accounts. It is how to maintain secure access and business continuity while identity sources and trust relationships change.
+Service Desk often sees the user-facing problems first. That practical view is one reason this topic interests me.
 
-### Architecture risk view
+## Where I am now
 
-| Risk area | Example question |
-| :--- | :--- |
-| Source of authority | Which HR or identity system owns each attribute during transition? |
-| Duplicate identities | How are existing accounts matched to the same person? |
-| Access inheritance | Which old entitlements remain valid in the new organization? |
-| Authentication continuity | How do users reach critical systems while domains or sign-in methods change? |
-| Privileged access | How are admin accounts discovered, separated and reviewed? |
-| Application integration | Do applications use stable IDs or changeable values such as email? |
-| Support readiness | Can Service Desk identify the correct identity and known transition state? |
-| Decommissioning | When can an old directory, account or trust relationship be safely removed? |
+I have documented the technical checks and architecture questions. I have not carried out an enterprise identity migration, and I do not present this project as one.
 
-## Recommended transition approach
+A useful next exercise would be fictional identity matching with two CSV files: which accounts are clear matches, which are duplicates and which need a human decision.
 
-1. discover identity sources, accounts, applications and ownership
-2. define target identity principles and matching rules
-3. identify critical access and continuity dependencies
-4. pilot with a controlled population
-5. communicate changes and prepare support
-6. validate authentication, access and audit history
-7. remove old identities and integrations only after evidence supports decommissioning
-
-## Evidence status
-
-This project currently documents technical decision points and architecture risks. It does not claim that I have executed an enterprise identity migration. A future practical extension could model fictional source data and demonstrate deterministic identity matching and exception handling.
-
-## Supporting learning material
+## Supporting notes
 
 - [Name change technical notes](../../archive/practical-notes/name-change-technical.md)
 - [Name change and identity continuity](../../archive/iam-thinking/name-change-identity-risks.md)
 - [Identity architecture after an acquisition](../../archive/iam-thinking/identity-architecture-after-acquisition.md)
 
-## What this project demonstrates
+## My takeaway
 
-This case demonstrates how I connect user-facing support impact with identity data, integration design, security risk and architecture-level continuity.
+Identity data is not only profile information. It affects authentication, application access, support, audit history and business continuity.

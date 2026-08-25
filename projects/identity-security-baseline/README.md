@@ -1,82 +1,76 @@
 # Identity Security Baseline
 
-**Current form:** design case study with lab validation planned
+## What I wanted to understand
 
-## Scenario
+Microsoft Entra ID has many security settings. I wanted to step back from the portal and think about the bigger question:
 
-An identity environment has grown through manual administration. Standard users, administrators, applications and external identities exist, but authentication strength, privileged access and monitoring are not managed as one security baseline.
+**What should an identity security baseline actually protect?**
 
-The central problem is not a single configuration setting. It is the possibility that a compromised or overprivileged identity can reach more systems than necessary without producing a clear signal for the security team.
+Creating a policy is not the same as proving that it works. A policy can look very professional and still block the wrong people. A Conditional Access policy that locks out every administrator is very secure, but not especially useful.
 
-## Goal
+## The Ankkalinna case
 
-Design a Microsoft Entra ID identity security baseline that:
+Mikki Hiiri works as a Security Specialist at Ankkalinna Identity Lab Oy. His normal account is used for email and daily work. Some security tasks may need elevated access.
 
-- reduces password-only sign-in risk
-- applies stronger controls to privileged identities
-- blocks weak legacy authentication
-- avoids administrative lockout
-- introduces controls safely through testing and rollback planning
-- produces evidence that someone can review later
+I do not think Mikki should have permanent broad admin rights just because the word “Security” appears in his job title. Normal work and privileged work should be separated.
 
-## Threat and control view
+The environment also has standard users, applications, guests and an emergency access account. They do not all have the same risk.
 
-| Identity risk | Proposed control | Validation evidence |
-| :--- | :--- | :--- |
-| Stolen password is enough to sign in | Require MFA for standard users | Report-only and sign-in log result |
-| Administrator account is compromised | Phishing-resistant MFA and time-limited privileged access | Authentication method and role activation evidence |
-| Old authentication method bypasses modern controls | Block legacy authentication | Sign-in log showing detected or blocked legacy authentication |
-| Conditional Access policy blocks legitimate administration | Pilot scope, report-only mode, exclusions and rollback plan | Test record and documented rollback decision |
-| Emergency access account is misused | Separate cloud-only account with monitoring | Alert test and regular review record |
-| Security-sensitive configuration changes go unnoticed | Monitor role, policy, consent and risky sign-in events | Alert or query result with response owner |
+## What looks risky to me
 
-## Design decisions
-
-### Standard and privileged identities need different protection
-
-MFA for all users is a baseline, not the final control. Privileged identities require stronger authentication, limited activation time, separate administration practices and closer monitoring because their compromise has a larger impact.
-
-### Conditional Access needs a safe rollout path
-
-A technically correct policy can still cause operational harm when scope, exclusions or dependencies are not understood. The design therefore includes report-only testing, a pilot population, one controlled change at a time, sign-in log validation and a named rollback owner.
-
-### Emergency access is part of resilience
-
-Emergency access accounts reduce lockout risk, but they also create powerful standing credentials. They need a narrow purpose, secure storage, monitoring and regular review rather than becoming normal admin accounts.
-
-### A configured control is not automatically a verified control
-
-The project treats configuration, test result and operational evidence as separate things. A policy is not considered demonstrated until its expected and unexpected effects have been checked.
-
-## Current evidence status
-
-| Item | Status |
+| Risk | What I would consider |
 | :--- | :--- |
-| Threat and control model | Documented |
-| Conditional Access policy design | Documented |
-| Privileged access risk model | Documented |
-| Test and rollback approach | Documented |
-| Sanitized report-only result | Not yet published |
-| Sanitized sign-in log validation | Not yet published |
-| PIM activation evidence | Not yet published; depends on lab licensing |
+| A stolen password is enough to sign in | MFA for normal users |
+| An admin account is compromised | Stronger authentication, separate admin account and limited role activation |
+| Old authentication methods are still accepted | Blocking legacy authentication after checking sign-in logs |
+| A new policy affects too many users | Report-only mode and a small pilot group |
+| Administrators are locked out | Emergency access accounts and a rollback plan |
+| Nobody notices a sensitive change | Monitoring role, policy and application consent changes |
 
-## Next practical milestone
+## How I would introduce Conditional Access
 
-Test one Conditional Access policy in report-only mode and publish a compact evidence record:
+I would not start by enabling five policies for everyone on Friday afternoon.
 
-1. expected behavior
-2. test user and scope using fictional data
-3. observed sign-in result
-4. unexpected impact check
-5. enforcement or revision decision
-6. rollback owner and action
+My safer order would be:
 
-## Supporting learning material
+1. define the risk and expected result
+2. check exclusions and emergency access
+3. use report-only mode
+4. test with fictional pilot users
+5. review sign-in logs
+6. check user and Service Desk impact
+7. decide whether to enforce, change or stop the policy
+8. keep a rollback action and owner ready
+
+## What surprised me
+
+At first, Conditional Access looked mainly like a technical configuration topic. The more I studied it, the more it looked like change management as well.
+
+The policy can affect authentication, old applications, administrators, users and Service Desk at the same time. The portal setting is only one part of the work.
+
+## Where I am now
+
+- I have documented the baseline and main risks.
+- I have designed Conditional Access, privileged access and emergency access scenarios.
+- I have not published a real report-only result or PIM activation result.
+- I still need a suitable lab and licensing for some of the hands-on evidence.
+
+## What I want to test next
+
+I want to test one Conditional Access policy properly and document:
+
+- what I expected
+- what happened in the sign-in log
+- whether the result matched the plan
+- what could have gone wrong
+- what I would decide before enforcement
+
+## Supporting notes
 
 - [Original Zero Trust baseline](../../archive/iam-projects/entra-zero-trust-baseline/)
 - [Conditional Access control design](../../archive/entra-lab/10-conditional-access-control-design.md)
 - [Privileged access risk model](../../archive/entra-lab/07-privileged-access-risk-model.md)
 
-## What this project demonstrates
+## My takeaway
 
-This case demonstrates how I currently reason about identity as a security boundary: protect authentication, reduce standing privilege, plan for failure, validate behavior and make control ownership visible.
+Identity security is not only about adding stronger controls. The controls also need a purpose, an owner, a safe rollout and evidence that they work as expected.

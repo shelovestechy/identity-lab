@@ -1,90 +1,101 @@
 # Security Governance: ISO 27001 and NIS2
 
-**Current form:** applied governance analysis through an IAM lens
+## Why this interests me
 
-## Purpose
+When I first started reading about ISO/IEC 27001, I expected mostly policies, formal documents and words that sound important in meetings.
 
-This project explores how information security expectations become practical identity controls.
+What interests me more is the evidence question:
 
-The goal is not to reproduce a standard, claim certification expertise or provide legal advice. The goal is to demonstrate my understanding of the chain:
+**If we say access is controlled and reviewed, how do we prove that it actually happens?**
 
-**risk → control → owner → implementation → evidence → review**
+I am not trying to turn this repository into a compliance consultancy. I want to understand what ISO/IEC 27001 and NIS2 mean for normal identity and access work.
 
-ISO/IEC 27001 provides a risk-based information security management system perspective. NIS2 sets cybersecurity risk-management expectations for organizations in scope and explicitly connects cybersecurity with areas such as access control, human resources security and identity and access management.
+## The Ankkalinna problem
 
-## Fictional scenario
+Ankkalinna Identity Lab Oy can create users and groups, but the company cannot always answer:
 
-Ankkalinna Identity Lab Oy needs to improve its identity security governance. The organization can configure users and groups, but it cannot consistently demonstrate:
+- Who owns sensitive access?
+- Does the access still match the person's work?
+- How are admin accounts protected?
+- Who reviews supplier and guest access?
+- What evidence proves that a control works?
 
-- who owns sensitive access
-- whether access still matches business need
-- how privileged identities are protected
-- how supplier and external access is reviewed
-- what evidence proves that identity controls operate as intended
+Having a policy that says “access is reviewed regularly” is a good start. Knowing who reviewed it, what they decided and what changed is better.
 
-## Applied control mapping
+## How I connect security governance with IAM
 
-This is my practical interpretation of selected security themes, not a formal compliance mapping.
+My current way of thinking is:
 
-| Identity risk | Security governance expectation | IAM control | Suggested owner | Reviewable evidence |
-| :--- | :--- | :--- | :--- | :--- |
-| Departed user remains active | Access must follow the identity lifecycle | Leaver trigger, account disablement, session revocation and entitlement removal | HR + IAM | Source event, completion time and final access state |
-| User retains old departmental access | Access should remain justified and risk-based | Mover review and periodic access review | Manager or business owner | Before/after membership and review decision |
-| Privileged account is compromised | High-impact access needs stronger protection | Separate admin identity, strong MFA, limited activation and monitoring | Security + IAM | Role assignment, activation and alert evidence |
-| Nobody owns a sensitive group | Accountability must be defined | Named owner, risk classification and review interval | System or data owner | Ownership record and completed review history |
-| Supplier access remains after a contract ends | Third-party access needs lifecycle control | Sponsor, expiry, restricted scope and external-user review | Contract owner + system owner | Sponsor, expiry date and review outcome |
-| Weak sign-in method bypasses modern controls | Authentication controls should match risk | MFA and legacy authentication blocking | Security | Conditional Access and sign-in log result |
-| Access change cannot be reconstructed | Controls need evidence and traceability | Request, approval, implementation and review records | Control owner | End-to-end audit trail |
-| Identity incident is detected but ownership is unclear | Incidents need response roles and usable logs | Identity monitoring, escalation path and retained logs | Security operations | Alert, investigation record and response timeline |
+**risk → control → owner → evidence → review**
 
-## ISO/IEC 27001 perspective
+| Identity risk | IAM control | Who should be involved? | Evidence I would expect |
+| :--- | :--- | :--- | :--- |
+| A leaver account stays active | Disable the account, revoke sessions and remove access | HR + IAM | Source event, completion time and final account state |
+| Hannu keeps old Finance access | Mover review and access review | Manager or Finance owner | Before/after membership and review decision |
+| Mikki's admin account is compromised | Separate admin identity, strong MFA and limited activation | Security + IAM | Role assignment, activation and sign-in evidence |
+| A sensitive group has no owner | Named owner and review interval | System or data owner | Ownership record and completed review |
+| Supplier access stays after the contract | Sponsor, expiry date and external-user review | Contract owner + system owner | Sponsor, expiry and review result |
+| Old authentication bypasses MFA | Block legacy authentication after checking dependencies | Security | Conditional Access and sign-in log result |
+| An access change cannot be explained later | Request, approval and implementation records | Control owner | A complete audit trail |
 
-The value of ISO/IEC 27001 for this portfolio is the management-system mindset:
+“Nobody owns it” is not a control, even if everybody agrees that somebody probably should.
 
-- identify information security risks in organizational context
-- select proportionate controls
-- define roles and responsibilities
-- retain evidence
-- review effectiveness
-- improve when controls or circumstances change
+## What ISO/IEC 27001 adds to my thinking
 
-For IAM, this means that buying or configuring an identity tool is not the same as managing identity risk. The process, owner, evidence and improvement cycle matter as much as the technical setting.
+I see ISO/IEC 27001 mainly as a risk and management-system view:
 
-## NIS2 perspective
+- understand the organization and its risks
+- choose controls that match those risks
+- define responsibilities
+- keep evidence
+- review whether the controls work
+- improve when something changes or fails
 
-NIS2 strengthens the connection between cybersecurity risk management and organizational responsibility. From an IAM perspective, relevant themes include:
+For IAM, this means that buying an identity tool does not automatically solve identity risk. The process, owner and evidence still matter.
 
-- access control policies
+## What NIS2 adds to my thinking
+
+The NIS2 topics that connect clearly with IAM include:
+
+- access control
 - identity and access management
 - human resources security
-- strong authentication where appropriate
-- supply-chain and service-provider risk
-- incident handling and business continuity
-- management accountability and security awareness
+- strong authentication
+- supplier and service-provider risk
+- incident handling
+- business continuity
+- management responsibility
 
-The practical question is not only whether a policy exists. It is whether an organization can show that access is controlled, monitored, reviewed and corrected.
+My practical question is not only “Do we have a policy?” It is also “Can we show what happens when the policy meets a real user account?”
 
-## Example evidence pack
+## A small evidence pack I would understand
 
-A single access-control test could contain:
+For one access control, I would document:
 
-1. defined risk and control objective
-2. named control owner
-3. expected identity state
-4. sanitized technical output
-5. reviewer decision
-6. remediation or accepted exception
-7. next review date
+1. the risk
+2. the expected result
+3. the control owner
+4. a sanitized technical result
+5. the review decision
+6. any correction or accepted exception
+7. the next review date
 
-This structure connects technical IAM work with the type of accountability and evidence that security governance needs.
+This is still a learning model, but it helps me connect formal security requirements with practical IAM work.
 
-## Sources used for the interpretation
+## What I am still learning
+
+- how organizations choose and document control owners in practice
+- how evidence is collected without creating unnecessary manual work
+- how ISO/IEC 27001 controls are scoped for different organizations
+- how NIS2 requirements are implemented and supervised in real environments
+
+## Sources
 
 - [ISO/IEC 27001:2022 overview](https://www.iso.org/standard/27001)
 - [NIS2 Directive (EU) 2022/2555](https://eur-lex.europa.eu/eli/dir/2022/2555/oj)
 - [ENISA NIS2 Technical Implementation Guidance](https://www.enisa.europa.eu/publications/nis2-technical-implementation-guidance)
 
-## Supporting learning material
+## Supporting notes
 
 - [ISO/IEC 27001 practical view](../../archive/governance-compliance/iso-27001.md)
 - [NIS2 practical view](../../archive/governance-compliance/nis2.md)
@@ -92,10 +103,6 @@ This structure connects technical IAM work with the type of accountability and e
 - [GDPR practical view](../../archive/governance-compliance/gdpr.md)
 - [Audit evidence](../../archive/governance-compliance/audit-evidence.md)
 
-## Next practical milestone
+## My takeaway
 
-Select one identity risk from the mapping and create a compact control test with fictional data, a sanitized result and a review decision. This would show not only understanding of security governance, but the ability to connect it with technical evidence.
-
-## What this project demonstrates
-
-This project demonstrates that I see IAM as part of information security governance: technical access must be risk-based, owned, reviewable and supported by evidence.
+IAM controls should not only exist. Somebody should own them, somebody should review them and the organization should be able to show what happened.
