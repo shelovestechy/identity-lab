@@ -4,7 +4,7 @@
 
 **My goal is to move from Service Desk L1/L2 work toward IAM and identity security.**
 
-I work with user accounts, access problems and Microsoft 365 questions in Service Desk. Many of these appear first as simple tickets, but I want to understand what happens behind the ticket.
+I work with user accounts, access problems and Microsoft 365 questions in Service Desk. Many of these appear first as simple tickets but I want to understand what happens behind the ticket.
 
 Who should approve the access? Who owns it? When should it be removed? What happens when nobody remembers the temporary access six months later?
 
@@ -12,7 +12,7 @@ I build these projects outside working hours because IAM and identity security g
 
 ## 🏰 Ankkalinna Identity Lab Oy
 
-The lab uses a fictional company called **Ankkalinna Identity Lab Oy**.
+The lab uses a fictional company called **Ankkalinna Identity Lab Oy**. (Yes, I’m a huge fan—no shame! 🦆)
 
 Aku Ankka, Iines Ankka, Roope Ankka, Mikki Hiiri, Minni Hiiri and Hannu Hanhi have different roles and access needs. The users are fictional. The identity problems are unfortunately quite realistic.
 
