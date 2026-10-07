@@ -1,8 +1,8 @@
 # 🔐 Identity Lab
 
-## Service Desk → IAM and identity security
+## Exploring identity, access and practical automation
 
-**My goal is to move from Service Desk L1/L2 work toward IAM and identity security.**
+**I am interested in IAM and identity security, alongside AI-assisted development, low-code and practical automation.**
 
 I work with user accounts, access problems and Microsoft 365 questions in Service Desk. Many of these appear first as simple tickets but I want to understand what happens behind the ticket.
 
@@ -50,6 +50,6 @@ I did not want the front page to become a warehouse, but I also did not want to 
 
 ## 🎯 Current direction
 
-My goal is to move from Service Desk L1/L2 work toward IAM and identity security.
+IAM and identity security are areas I want to understand better, rather than my primary career target. I am also exploring AI-assisted development, low-code solutions and practical automation.
 
-I am especially interested in the point where technical identity systems, security, business ownership and practical support work meet. This repository is my way of learning that work step by step outside my normal working hours.
+I am especially interested in the point where technical identity systems, security, business ownership and practical support work meet. This repository is a focused learning project within that broader direction, where I explore identity and access concepts through fictional examples and practical exercises.
