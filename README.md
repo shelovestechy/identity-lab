@@ -2,7 +2,7 @@
 
 ## Exploring identity, access and practical automation
 
-**I am interested in IAM and identity security, alongside AI-assisted development, low-code and practical automation.**
+**I am building my skills across AI, automation, identity and security, with Microsoft 365 and Entra ID as an important part of that path.**
 
 I work with user accounts, access problems and Microsoft 365 questions in Service Desk. Many of these appear first as simple tickets but I want to understand what happens behind the ticket.
 
@@ -50,6 +50,6 @@ I did not want the front page to become a warehouse, but I also did not want to 
 
 ## 🎯 Current direction
 
-IAM and identity security are areas I want to understand better, rather than my primary career target. I am also exploring AI-assisted development, low-code solutions and practical automation.
+My broader direction is **AI, automation, identity and security**. IAM and identity security are one important part of that path, alongside AI-assisted development, low-code solutions and practical automation.
 
-I am especially interested in the point where technical identity systems, security, business ownership and practical support work meet. This repository is a focused learning project within that broader direction, where I explore identity and access concepts through fictional examples and practical exercises.
+I am especially interested in the point where Microsoft cloud technologies, identity, security, automation and everyday support work meet. This repository is the identity-focused part of that broader portfolio, where I explore access and security concepts through fictional examples and practical exercises.
